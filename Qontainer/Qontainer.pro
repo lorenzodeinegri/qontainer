@@ -29,7 +29,9 @@ SOURCES += \
     View/mainwindow.cpp
 
 HEADERS += \
-    View/mainwindow.h
+    View/mainwindow.h \
+    Model/container.h \
+    Model/deeppointer.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
