@@ -9,6 +9,7 @@ private:
     unsigned int vector_capacity;
 
     static T * copy(T *, unsigned int, unsigned int);
+    static void destroy(T *);
 public:
     class iterator;
     class const_iterator;
@@ -71,7 +72,7 @@ public:
         bool operator >(const const_iterator &) const;
     };
 
-    Container(unsigned int = 0);
+    Container(unsigned int = 1);
     Container(unsigned int, const T &);
 
     Container(const Container &);
@@ -90,7 +91,6 @@ public:
 
     unsigned int size() const;
     unsigned int capacity() const;
-    unsigned int max_size() const;
 
     bool empty() const;
     void clear();
@@ -323,91 +323,102 @@ bool Container<T>::const_iterator::operator >(const const_iterator & c_it) const
 template <class T>
 T * Container<T>::copy(T * vector, unsigned int size, unsigned int copy_size) {
     T * new_vector = size ? new T[copy_size] : nullptr;
-    for (int index = 0; (index < size) && (index < copy_size); ++index) {
+    for (unsigned int index = 0; index < size && index < copy_size; ++index)
         new_vector[index] = vector[index];
-    }
     return new_vector;
 }
 
 template <class T>
-Container<T>::Container(unsigned int) {}
-
-template <class T>
-Container<T>::Container(unsigned int, const T &) {}
-
-template <class T>
-Container<T>::Container(const Container &)  {
-
+void Container<T>::destroy(T * vector) {
+    if (vector)
+        delete [] vector;
 }
 
 template <class T>
-Container<T> & Container<T>::operator =(const Container &) {
+Container<T>::Container(unsigned int capacity) : vector(new T[capacity]), vector_size(0), vector_capacity(capacity) {}
 
+template <class T>
+Container<T>::Container(unsigned int size, const T & copy_object) : vector(new T[size]), vector_size(size), vector_capacity(size) {
+    for (unsigned int index = 0; index < size; ++index)
+        vector[index] = copy_object;
+}
+
+template <class T>
+Container<T>::Container(const Container & container) : vector(copy(container.vector, container.vector_size, container.vector_capacity), vector_size(container.vector_size), vector_capacity(container.vector_capacity) {}
+
+template <class T>
+Container<T> & Container<T>::operator =(const Container & container) {
+    if (this != &container) {
+        destroy(vector);
+        vector = copy(container.vector, container.vector_size, container.vector_capacity);
+        vector_size = container.vector_size;
+        vector_capacity = container.vector_capacity;
+    }
+    return *this;
 }
 
 template <class T>
 Container<T>::~Container() {
+    destroy(vector);
+}
+
+template <class T>
+T & Container<T>::operator [](unsigned int index) {
+    return vector[index];
+}
+
+template <class T>
+const T & Container<T>::operator [](unsigned int index) const {
+    return vector[index];
+}
+
+template <class T>
+bool Container<T>::operator ==(const Container & container) const {
+    bool result = vector_size == container.vector_size ? true : false;
+    for (unsigned int index = 0; result && index < vector_size; ++index)
+        if (vector[index] != container.vector[index])
+            result = false;
+    return result;
+}
+
+template <class T>
+bool Container<T>::operator !=(const Container & container) const {
+    return !(*this == container);
+}
+
+template <class T>
+bool Container<T>::operator <=(const Container & container) const {
+    return *this < container || *this == container;
+}
+
+template <class T>
+bool Container<T>::operator >=(const Container & container) const {
+    return *this > container || *this == container;
+}
+
+template <class T>
+bool Container<T>::operator <(const Container & container) const {
 
 }
 
 template <class T>
-T & Container<T>::operator [](unsigned int) {
-
-}
-
-template <class T>
-const T & Container<T>::operator [](unsigned int) const {
-
-}
-
-template <class T>
-bool Container<T>::operator ==(const Container &) const {
-
-}
-
-template <class T>
-bool Container<T>::operator !=(const Container &) const {
-
-}
-
-template <class T>
-bool Container<T>::operator <=(const Container &) const {
-
-}
-
-template <class T>
-bool Container<T>::operator >=(const Container &) const {
-
-}
-
-template <class T>
-bool Container<T>::operator <(const Container &) const {
-
-}
-
-template <class T>
-bool Container<T>::operator >(const Container &) const {
+bool Container<T>::operator >(const Container & container) const {
 
 }
 
 template <class T>
 unsigned int Container<T>::size() const {
-
+    return vector_size;
 }
 
 template <class T>
 unsigned int Container<T>::capacity() const {
-
-}
-
-template <class T>
-unsigned int Container<T>::max_size() const {
-
+    return vector_capacity;
 }
 
 template <class T>
 bool Container<T>::empty() const {
-
+    return !size;
 }
 
 template <class T>
