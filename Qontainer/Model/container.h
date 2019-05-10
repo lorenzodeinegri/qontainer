@@ -338,13 +338,13 @@ template <class T>
 Container<T>::Container(unsigned int capacity) : vector(new T[capacity]), vector_size(0), vector_capacity(capacity) {}
 
 template <class T>
-Container<T>::Container(unsigned int size, const T & copy_object) : vector(new T[size]), vector_size(size), vector_capacity(size) {
+Container<T>::Container(unsigned int size, const T & object) : vector(new T[size]), vector_size(size), vector_capacity(size) {
     for (unsigned int index = 0; index < size; ++index)
-        vector[index] = copy_object;
+        vector[index] = object;
 }
 
 template <class T>
-Container<T>::Container(const Container & container) : vector(copy(container.vector, container.vector_size, container.vector_capacity), vector_size(container.vector_size), vector_capacity(container.vector_capacity) {}
+Container<T>::Container(const Container & container) : vector(copy(container.vector, container.vector_size, container.vector_capacity)), vector_size(container.vector_size), vector_capacity(container.vector_capacity) {}
 
 template <class T>
 Container<T> & Container<T>::operator =(const Container & container) {
@@ -434,100 +434,134 @@ unsigned int Container<T>::capacity() const {
 
 template <class T>
 bool Container<T>::empty() const {
-    return !size;
+    return !vector_size;
 }
 
 template <class T>
 void Container<T>::clear() {
-
+    erase(begin(), end());
 }
 
 template <class T>
-void Container<T>::push_back(const T &) {
-
+void Container<T>::push_back(const T & object) {
+    if (vector_size == vector_capacity) {
+        vector_capacity *= 2;
+        T * array = copy(vector, vector_size, vector_capacity);
+        destroy(vector);
+        vector = array;
+    }
+    vector[vector_size++] = object;
 }
 
 template <class T>
 void Container<T>::pop_back() {
-
+    if (vector_size)
+        --vector_size;
 }
 
 template <class T>
 T & Container<T>::front() {
-
+    return vector[0];
 }
 
 template <class T>
 T & Container<T>::back() {
-
+    return vector[vector_size - 1];
 }
 
 template <class T>
 const T & Container<T>::front() const {
-
+    return vector[0];
 }
 
 template <class T>
 const T & Container<T>::back() const {
+    return vector[vector_size - 1];
+}
+
+template <class T>
+typename Container<T>::iterator Container<T>::insert(iterator it, const T & object) {
 
 }
 
 template <class T>
-typename Container<T>::iterator Container<T>::insert(iterator, const T &) {
+void Container<T>::insert(iterator it, int number, const T & object) {
 
 }
 
 template <class T>
-void Container<T>::insert(iterator, int, const T &) {
-
+typename Container<T>::iterator Container<T>::erase(iterator it) {
+    return erase(it, it + 1);
 }
 
 template <class T>
-typename Container<T>::iterator Container<T>::erase(iterator) {
-
+typename Container<T>::iterator Container<T>::erase(iterator first_it, iterator last_it) {
+    // TODO correct erased_elements
+    iterator it(nullptr);
+    if (vector_size) {
+        if (first_it < begin())
+            return erase(begin(), last_it);
+        if (last_it > end())
+            return erase(first_it, end());
+        unsigned int erased_elements = 0;
+        it = first_it;
+        while (last_it != end()) {
+            *first_it = *last_it;
+            ++first_it;
+            ++last_it;
+            ++erased_elements;
+        }
+        vector_size -= erased_elements;
+    }
+    return it;
 }
 
 template <class T>
-typename Container<T>::iterator Container<T>::erase(iterator, iterator) {
-
+typename Container<T>::iterator Container<T>::search(const T & object) {
+    iterator it;
+    bool found = false;
+    for (it = begin(); !found && it != end(); ++it)
+        if (*it == object)
+            found = true;
+    return found ? it : iterator(nullptr);
 }
 
 template <class T>
-typename Container<T>::iterator Container<T>::search(const T &) {
-
-}
-
-template <class T>
-typename Container<T>::const_iterator Container<T>::search(const T &) const {
-
+typename Container<T>::const_iterator Container<T>::search(const T & object) const {
+    const_iterator c_it;
+    bool found = false;
+    for (c_it = begin(); !found && c_it != end(); ++c_it)
+        if (*c_it == object)
+            found = true;
+    return found ? c_it : const_iterator(nullptr);
 }
 
 template <class T>
 typename Container<T>::iterator Container<T>::begin() {
-
+    return iterator(vector);
 }
 
 template <class T>
 typename Container<T>::iterator Container<T>::end() {
-
+    return iterator(vector + vector_size);
 }
 
 template <class T>
 typename Container<T>::const_iterator Container<T>::begin() const {
-
+    return const_iterator(vector);
 }
 
 template <class T>
 typename Container<T>::const_iterator Container<T>::end() const {
-
+    return const_iterator(vector + vector_size);
 }
 
 template <class T>
 typename Container<T>::const_iterator Container<T>::cbegin() const {
-
+    return const_iterator(vector);
 }
 
 template <class T>
 typename Container<T>::const_iterator Container<T>::cend() const {
-
+    return const_iterator(vector + vector_size);
 }
