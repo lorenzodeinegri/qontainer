@@ -398,12 +398,28 @@ bool Container<T>::operator >=(const Container & container) const {
 
 template <class T>
 bool Container<T>::operator <(const Container & container) const {
-
+    unsigned int minimum_size = vector_size <= container.vector_size ? vector_size : container.vector_size;
+    bool stop = false;
+    bool result = true;
+    for (unsigned int index = 0; index < minimum_size && !stop; ++index)
+        if (vector[index] != container.vector[index]) {
+            stop = true;
+            result = vector[index] < container.vector[index] ? true : false;
+        }
+    return result && vector_size < container.vector_size ? true : false;
 }
 
 template <class T>
 bool Container<T>::operator >(const Container & container) const {
-
+    unsigned int minimum_size = vector_size <= container.vector_size ? vector_size : container.vector_size;
+    bool stop = false;
+    bool result = true;
+    for (unsigned int index = 0; index < minimum_size && !stop; ++index)
+        if (vector[index] != container.vector[index]) {
+            stop = true;
+            result = vector[index] > container.vector[index] ? true : false;
+        }
+    return result && vector_size > container.vector_size ? true : false;
 }
 
 template <class T>
