@@ -34,6 +34,8 @@ public:
         iterator operator +(int) const;
         iterator operator -(int) const;
 
+        int operator -(const const_iterator &) const;
+
         bool operator ==(const const_iterator &) const;
         bool operator !=(const const_iterator &) const;
         bool operator <=(const const_iterator &) const;
@@ -63,6 +65,8 @@ public:
         const_iterator & operator -=(int);
         const_iterator operator +(int) const;
         const_iterator operator -(int) const;
+
+        int operator -(const const_iterator &) const;
 
         bool operator ==(const const_iterator &) const;
         bool operator !=(const const_iterator &) const;
@@ -189,6 +193,11 @@ typename Container<T>::iterator Container<T>::iterator::operator -(int positions
     return iterator(pointer - positions);
 }
 
+template<class T>
+int Container<T>::iterator::operator -(const const_iterator & c_it) const {
+    return pointer - c_it.pointer;
+}
+
 template <class T>
 bool Container<T>::iterator::operator ==(const const_iterator & c_it) const {
     return pointer == c_it.pointer;
@@ -287,6 +296,11 @@ typename Container<T>::const_iterator Container<T>::const_iterator::operator +(i
 template <class T>
 typename Container<T>::const_iterator Container<T>::const_iterator::operator -(int positions) const {
     return const_iterator(pointer - positions);
+}
+
+template <class T>
+int Container<T>::const_iterator::operator -(const const_iterator & c_it) const {
+    return pointer - c_it.pointer;
 }
 
 template <class T>
@@ -481,12 +495,23 @@ const T & Container<T>::back() const {
 
 template <class T>
 typename Container<T>::iterator Container<T>::insert(iterator it, const T & object) {
-
+    return insert(it, 1, object);
 }
 
 template <class T>
-void Container<T>::insert(iterator it, int number, const T & object) {
-
+void Container<T>::insert(iterator it, int elements, const T & object) {
+    if (vector_size + elements > vector_capacity) {
+        while (vector_capacity < vector_size + elements)
+            vector_capacity *= 2;
+        T * array = copy(vector, vector_size, vector_capacity);
+        destroy(vector);
+        vector = array;
+    }
+    vector_size += elements;
+    for (iterator shift_it = end() - 1; shift_it >= it + elements; --shift_it)
+        *shift_it = *(shift_it - elements);
+    for (; it < it + elements; ++it)
+        *it = object;
 }
 
 template <class T>
@@ -496,20 +521,20 @@ typename Container<T>::iterator Container<T>::erase(iterator it) {
 
 template <class T>
 typename Container<T>::iterator Container<T>::erase(iterator first_it, iterator last_it) {
-    // TODO correct erased_elements
+    if (first_it > last_it)
+        return erase(last_it, first_it);
+    if (first_it < begin())
+        return erase(begin(), last_it);
+    if (last_it > end())
+        return erase(first_it, end());
     iterator it(nullptr);
     if (vector_size) {
-        if (first_it < begin())
-            return erase(begin(), last_it);
-        if (last_it > end())
-            return erase(first_it, end());
-        unsigned int erased_elements = 0;
+        unsigned int erased_elements = first_it - last_it;
         it = first_it;
         while (last_it != end()) {
             *first_it = *last_it;
             ++first_it;
             ++last_it;
-            ++erased_elements;
         }
         vector_size -= erased_elements;
     }
