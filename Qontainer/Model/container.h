@@ -108,7 +108,7 @@ public:
     const T & back() const;
 
     iterator insert(iterator, const T &);
-    void insert(iterator, int, const T &);
+    void insert(iterator, unsigned int, const T &);
 
     iterator erase(iterator);
     iterator erase(iterator, iterator);
@@ -499,7 +499,7 @@ typename Container<T>::iterator Container<T>::insert(iterator it, const T & obje
 }
 
 template <class T>
-void Container<T>::insert(iterator it, int elements, const T & object) {
+void Container<T>::insert(iterator it, unsigned int elements, const T & object) {
     if (vector_size + elements > vector_capacity) {
         while (vector_capacity < vector_size + elements)
             vector_capacity *= 2;
