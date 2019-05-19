@@ -53,6 +53,11 @@ HEADERS += \
     Model/Hierarchy/journal.h \
     Model/date.h
 
+INCLUDEPATH += \
+    Model/Hierarchy/ \
+    Model/ \
+    View/ \
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
