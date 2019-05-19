@@ -20,7 +20,7 @@ public:
 };
 
 template<class T>
-DeepPointer<T>::DeepPointer(T * ptr) : pointer(ptr != nullptr ? ptr->clone() : nullptr) {}
+DeepPointer<T>::DeepPointer(T * pointer) : pointer(pointer != nullptr ? pointer->clone() : nullptr) {}
 
 template<class T>
 DeepPointer<T>::DeepPointer(const DeepPointer & deepPointer) : pointer(deepPointer.pointer != nullptr ? (deepPointer.pointer)->clone() : nullptr) {}

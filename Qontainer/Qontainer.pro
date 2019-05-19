@@ -35,7 +35,8 @@ SOURCES += \
     Model/Hierarchy/picture.cpp \
     Model/Hierarchy/document.cpp \
     Model/Hierarchy/letter.cpp \
-    Model/Hierarchy/journal.cpp
+    Model/Hierarchy/journal.cpp \
+    Model/date.cpp
 
 HEADERS += \
     View/mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     Model/Hierarchy/picture.h \
     Model/Hierarchy/document.h \
     Model/Hierarchy/letter.h \
-    Model/Hierarchy/journal.h
+    Model/Hierarchy/journal.h \
+    Model/date.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
