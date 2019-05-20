@@ -1,15 +1,20 @@
 #include "date.h"
 
-Date::Date() : day(0), month(0), year(0) {}
+Date::Date() : day(1), month(1), year(0) {}
 
 Date::Date(unsigned int day, unsigned int month, unsigned int year) : day(day), month(month), year(year) {}
 
-Date::Date(std::string date) {
-
+Date::Date(const std::string & date) : day(1), month(1), year(0) {
+    try {
+        day = std::stoul(date.substr(0, 2));
+        month = std::stoul(date.substr(3, 2));
+        year = std::stoul(date.substr(6));
+    }
+    catch (...) {}
 }
 
 Date::operator std::string() const {
-    return (((std::to_string(day) += "/") += std::to_string(month)) += "/") += std::to_string(year);
+    return std::to_string(day).length() >= 2 ? std::to_string(day) : "0" + std::to_string(day) + "/" + std::to_string(month).length() >= 2 ? std::to_string(month) : "0" + std::to_string(month) + "/" + std::to_string(year);
 }
 
 unsigned int Date::getDay() const {
@@ -36,8 +41,19 @@ void Date::setYear(unsigned int year) {
     this->year = year;
 }
 
-bool Date::isValid() {
+bool Date::isLeapYear() {
+    return (year % 4 && !(year % 100)) || year % 400;
+}
 
+bool Date::isValid() {
+    switch (month) {
+        case 2:
+            return isLeapYear() ? 1 <= day && day <= 29 : 1 <= day && day <= 28;
+        case 4: case 6: case 9: case 11:
+            return 1 <= day && day <= 30;
+        default:
+            return 1 <= month && month <= 12 && 1 <= day && day <= 31;
+    }
 }
 
 bool Date::operator ==(const Date & date) const {
@@ -71,10 +87,7 @@ bool Date::operator <(const Date & date) const {
         else if (month > date.month)
             return false;
         else {
-            if (day < date.day)
-                return true;
-            else
-                return false;
+            return day < date.day;
         }
     }
 }

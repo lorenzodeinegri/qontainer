@@ -10,8 +10,8 @@ private:
     unsigned int year;
 public:
     Date();
-    Date(unsigned int day, unsigned int month, unsigned int year);
-    Date(std::string);
+    Date(unsigned int, unsigned int, unsigned int);
+    Date(const std::string &);
 
     operator std::string() const;
 
@@ -23,6 +23,7 @@ public:
     void setMonth(unsigned int);
     void setYear(unsigned int);
 
+    bool isLeapYear();
     bool isValid();
 
     bool operator ==(const Date &) const;
