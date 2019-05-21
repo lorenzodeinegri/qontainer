@@ -35,7 +35,6 @@ SOURCES += \
     Model/Hierarchy/picture.cpp \
     Model/Hierarchy/document.cpp \
     Model/Hierarchy/letter.cpp \
-    Model/Hierarchy/journal.cpp \
     Model/date.cpp
 
 HEADERS += \
@@ -50,7 +49,6 @@ HEADERS += \
     Model/Hierarchy/picture.h \
     Model/Hierarchy/document.h \
     Model/Hierarchy/letter.h \
-    Model/Hierarchy/journal.h \
     Model/date.h
 
 INCLUDEPATH += \

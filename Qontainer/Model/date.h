@@ -3,15 +3,15 @@
 
 #include <string>
 
-class Date {
+class date {
 private:
     unsigned int day;
     unsigned int month;
     unsigned int year;
 public:
-    Date();
-    Date(unsigned int, unsigned int, unsigned int);
-    Date(const std::string &);
+    date();
+    date(unsigned int, unsigned int, unsigned int);
+    date(const std::string &);
 
     operator std::string() const;
 
@@ -26,12 +26,12 @@ public:
     bool isLeapYear() const;
     bool isValid() const;
 
-    bool operator ==(const Date &) const;
-    bool operator !=(const Date &) const;
-    bool operator >=(const Date &) const;
-    bool operator <=(const Date &) const;
-    bool operator >(const Date &) const;
-    bool operator <(const Date &) const;
+    bool operator ==(const date &) const;
+    bool operator !=(const date &) const;
+    bool operator >=(const date &) const;
+    bool operator <=(const date &) const;
+    bool operator >(const date &) const;
+    bool operator <(const date &) const;
 };
 
 #endif // DATA_H
