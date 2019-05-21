@@ -23,8 +23,8 @@ public:
     void setMonth(unsigned int);
     void setYear(unsigned int);
 
-    bool isLeapYear();
-    bool isValid();
+    bool isLeapYear() const;
+    bool isValid() const;
 
     bool operator ==(const Date &) const;
     bool operator !=(const Date &) const;

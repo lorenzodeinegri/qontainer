@@ -41,11 +41,11 @@ void Date::setYear(unsigned int year) {
     this->year = year;
 }
 
-bool Date::isLeapYear() {
+bool Date::isLeapYear() const {
     return (year % 4 && !(year % 100)) || year % 400;
 }
 
-bool Date::isValid() {
+bool Date::isValid() const {
     switch (month) {
         case 2:
             return isLeapYear() ? 1 <= day && day <= 29 : 1 <= day && day <= 28;
