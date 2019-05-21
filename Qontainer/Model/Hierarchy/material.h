@@ -9,20 +9,25 @@ class Material {
 private:
     std::string author;
     std::string title;
+    std::string realization_place;
     date realization_date;
 
-    bool is_private;
+    unsigned int sector;
+
+    bool damaged;
+    bool proprietary;
+    bool available;
 
     unsigned int restorations;
     unsigned int loans;
 
-    float value;
-    float outgoings;
+    float outgoings; // TODO
 
-    static float restoration_cost;
-    static float loans_proceeds;
+    static float base_restoration_cost;
+    static float base_loans_proceeds;
 public:
     Material();
+    // virtual methods to calculate value and restoration_cost
 };
 
 #endif // MATERIAL_H
