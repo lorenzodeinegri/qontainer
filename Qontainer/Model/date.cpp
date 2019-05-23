@@ -1,6 +1,6 @@
 #include "date.h"
 
-date::date() : day(1), month(1), year(0) {}
+date::date() : day(0), month(0), year(0) {}
 
 date::date(unsigned int day, unsigned int month, unsigned int year) : day(day), month(month), year(year) {}
 
