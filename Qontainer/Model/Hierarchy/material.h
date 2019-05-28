@@ -28,6 +28,7 @@ private:
     static float base_restoration_cost;
     static float base_loans_proceeds;
 
+protected:
     virtual float calculateRestorationCost() const;
     virtual float calculateLoanProceed() const;
 
