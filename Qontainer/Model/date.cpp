@@ -14,7 +14,9 @@ date::date(const std::string & date) : day(1), month(1), year(0) {
 }
 
 date::operator std::string() const {
-    return ((std::to_string(day).length() >= 2 ? std::to_string(day) : "0" + std::to_string(day)) + "/") + ((std::to_string(month).length() >= 2 ? std::to_string(month) : "0" + std::to_string(month)) + "/") + std::to_string(year);
+    return  ((std::to_string(day).length() >= 2 ? std::to_string(day) : "0" + std::to_string(day)) + "/") +
+            ((std::to_string(month).length() >= 2 ? std::to_string(month) : "0" + std::to_string(month)) + "/") +
+            std::to_string(year);
 }
 
 unsigned int date::getDay() const {

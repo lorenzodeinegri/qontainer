@@ -1,3 +1,171 @@
 #include "material.h"
 
+float Material::base_restoration_cost = 10000.0f;
 
+float Material::base_loan_deposit = 5000.0f;
+
+float Material::calculateRestorationCost() const {
+    return base_restoration_cost;
+}
+
+float Material::calculateLoanProceed() const {
+    return base_loan_deposit;
+}
+
+Material::Material(unsigned int sector,
+                   float base_value,
+                   bool proprietary,
+                   bool damaged,
+                   bool available,
+                   const std::string & author,
+                   const std::string & title,
+                   const std::string & realization_place,
+                   const date & realization_date,
+                   const std::string & photo) :
+    sector(sector),
+    base_value(base_value),
+    proprietary(proprietary),
+    damaged(damaged),
+    available(available),
+    author(author),
+    title(title),
+    realization_place(realization_place),
+    realization_date(realization_date),
+    photo(photo) {}
+
+std::string Material::getAuthor() const {
+    return author;
+}
+
+std::string Material::getTitle() const {
+    return title;
+}
+
+std::string Material::getPlace() const {
+    return realization_place;
+}
+
+date Material::getDate() const {
+    return realization_date;
+}
+
+std::string Material::getPhoto() const {
+    return photo;
+}
+
+unsigned int Material::getSector() const {
+    return sector;
+}
+
+bool Material::isProprietary() const {
+    return proprietary;
+}
+
+bool Material::isDamaged() const {
+    return damaged;
+}
+
+bool Material::isAvailable() const {
+    return available;
+}
+
+unsigned int Material::getRestorations() const {
+    return restorations;
+}
+
+unsigned int Material::getLoans() const {
+    return loans;
+}
+
+float Material::getIncomeExpenses() const {
+    return income_expenses;
+}
+
+float Material::getBaseValue() const {
+    return base_value;
+}
+
+void Material::setAuthor(const std::string & author) {
+    this->author = author;
+}
+
+void Material::setTitle(const std::string & title) {
+    this->title = title;
+}
+
+void Material::setPlace(const std::string & realization_place) {
+    this->realization_place = realization_place;
+}
+
+void Material::setDate(const date & realization_date) {
+    this->realization_date = realization_date;
+}
+
+void Material::setPhoto(const std::string & photo) {
+    this->photo = photo;
+}
+
+void Material::setSector(unsigned int sector) {
+    this->sector = sector;
+}
+
+void Material::setProprietary(bool proprietary) {
+    this->proprietary = proprietary;
+}
+
+void Material::setDamaged(bool damaged) {
+    this->damaged = damaged;
+}
+
+void Material::setAvailable(bool available) {
+    this->available = available;
+}
+
+void Material::setRestorations(unsigned int restorations) {
+    this->restorations = restorations;
+}
+
+void Material::setLoans(unsigned int loans) {
+    this->loans = loans;
+}
+
+void Material::setIncomeExpenses(float income_expenses) {
+    this->income_expenses = income_expenses;
+}
+
+void Material::setBaseValue(float base_value) {
+    this->base_value = base_value;
+}
+
+std::string Material::getInfo() const {
+    std::string info("");
+    info += ("\nAutore: " + author);
+    info += ("\nTitolo: " + title);
+    info += ("\nData di realizzazione: " + std::string(realization_date));
+    info += ("\nLuogo di realizzazione: " + realization_place);
+    info += ("\nSettore: " + std::to_string(sector));
+    info += ("\nDisponibile:" + std::string(available ? "Si" : "No"));
+    info += ("\nPrivato: " + std::string(proprietary ? "Si" : "No"));
+    info += ("\nDanneggiato: " + std::string(damaged ? "Si" : "No"));
+    info += ("\nRestaurazioni: " + std::to_string(restorations));
+    info += ("\nPrestiti: " + std::to_string(loans));
+    info += ("\nValore di base: " + std::to_string(base_value));
+    info += ("\nRicavi - Spese: " + std::to_string(income_expenses));
+    return info;
+}
+
+float Material::calculateValue() const {
+    return !author.compare("Sconosciuto") ? base_value : base_value * 1.5f;
+}
+
+void Material::restore() {
+    available = false;
+    ++restorations;
+    income_expenses -= calculateRestorationCost();
+}
+
+void Material::lend() {
+    available = false;
+    ++loans;
+    income_expenses += calculateLoanProceed();
+}

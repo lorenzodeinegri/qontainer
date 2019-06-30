@@ -1,27 +1,27 @@
-#include "letter.h"
+#include "official_document.h"
 
-float Letter::letter_restoration_overcharge = 2500.0f;
+float OfficialDocument::document_restoration_overcharge = 2000.0f;
 
-float Letter::letter_loan_overcharge = 1000.0f;
+float OfficialDocument::document_loan_overcharge = 1500.0f;
 
-float Letter::calculateRestorationCost() const {
+float OfficialDocument::calculateRestorationCost() const {
     float multiplier = 1.0f;
-    multiplier += isDamaged() ? 0.4f : -0.1f;
-    return (letter_restoration_overcharge + LiteraryWork::calculateRestorationCost()) * multiplier;
+    multiplier += isDamaged() ? 0.5f : -0.2f;
+    return (document_restoration_overcharge + LiteraryWork::calculateRestorationCost()) * multiplier;
 }
 
-float Letter::calculateLoanProceed() const {
+float OfficialDocument::calculateLoanProceed() const {
     float multiplier = 1.0f;
-    multiplier += isProprietary() ? 0.5f : 0.0f;
-    return (letter_loan_overcharge + LiteraryWork::calculateLoanProceed()) * multiplier;
+    multiplier += isProprietary() ? 0.3f : -0.15f;
+    return (document_loan_overcharge + LiteraryWork::calculateLoanProceed()) * multiplier;
 }
 
-Letter::Letter(unsigned int sector,
+OfficialDocument::OfficialDocument(unsigned int sector,
                                    float base_value,
                                    bool proprietary,
                                    bool damaged,
                                    bool available,
-                                   const std::string & addressee,
+                                   const std::string & typology,
                                    bool complete,
                                    bool handwritten,
                                    const std::string & language,
@@ -45,34 +45,34 @@ Letter::Letter(unsigned int sector,
                  realization_place,
                  realization_date,
                  photo),
-    addressee(addressee) {}
+    typology(typology) {}
 
-std::string Letter::getAddressee() const {
-    return addressee;
+std::string OfficialDocument::getTypology() const {
+    return typology;
 }
 
-void Letter::setAddressee(const std::string & addressee) {
-    this->addressee = addressee;
+void OfficialDocument::setTypology(const std::string & typology) {
+    this->typology = typology;
 }
 
-Letter * Letter::clone() const {
-    return new Letter(*this);
+OfficialDocument * OfficialDocument::clone() const {
+    return new OfficialDocument(*this);
 }
 
-std::string Letter::getType() const {
-    return std::string("Lettera");
+std::string OfficialDocument::getType() const {
+    return std::string("Documento");
 }
 
-std::string Letter::getInfo() const {
-    std::string info("Lettera:");
-    info += ("\nDestinatario: " + addressee);
+std::string OfficialDocument::getInfo() const {
+    std::string info("Documento:");
+    info += ("\nTipologia: " + typology);
     info += LiteraryWork::getInfo();
     return info;
 }
 
-float Letter::calculateValue() const {
+float OfficialDocument::calculateValue() const {
     float multiplier = 1.0f;
-    multiplier += !addressee.compare("Sconosciuto") ? 0.25f : -0.35f;
-    multiplier += !isDamaged() ? 0.4f : -0.1f;
+    multiplier += !typology.compare("Sconosciuta") ? 0.1f : -0.5f;
+    multiplier += !isDamaged() ? 0.2f : -0.4f;
     return LiteraryWork::calculateValue() * multiplier;
 }

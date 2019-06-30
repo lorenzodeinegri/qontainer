@@ -33,7 +33,7 @@ SOURCES += \
     Model/Hierarchy/literarywork.cpp \
     Model/Hierarchy/sculpture.cpp \
     Model/Hierarchy/picture.cpp \
-    Model/Hierarchy/document.cpp \
+    Model/Hierarchy/official_document.cpp \
     Model/Hierarchy/letter.cpp \
     Model/date.cpp
 
@@ -47,7 +47,7 @@ HEADERS += \
     Model/Hierarchy/literarywork.h \
     Model/Hierarchy/sculpture.h \
     Model/Hierarchy/picture.h \
-    Model/Hierarchy/document.h \
+    Model/Hierarchy/official_document.h \
     Model/Hierarchy/letter.h \
     Model/date.h
 
