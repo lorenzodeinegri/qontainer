@@ -25,7 +25,8 @@ private:
     unsigned int restorations;
     unsigned int loans;
 
-    float income_expenses;
+    float income;
+    float expense;
 
     static float base_restoration_cost;
     static float base_loan_deposit;
@@ -44,7 +45,7 @@ public:
              const std::string & = "Sconosciuto",
              const std::string & = "Sconosciuto",
              const date & = std::string("00/00/0000"),
-             const std::string & = ":/Photos/Photos/photoNotAvailable.jpeg");
+             const std::string & = ":/Photos/photoNotAvailable.jpeg");
     virtual ~Material() = default;
 
     std::string getAuthor() const;
@@ -58,21 +59,23 @@ public:
     bool isAvailable() const;
     unsigned int getRestorations() const;
     unsigned int getLoans() const;
-    float getIncomeExpenses() const;
+    float getIncome() const;
+    float getExpense() const;
     float getBaseValue() const;
 
     void setAuthor(const std::string & = "Sconosciuto");
     void setTitle(const std::string & = "Sconosciuto");
     void setPlace(const std::string & = "Sconosciuto");
     void setDate(const date & = std::string("00/00/0000"));
-    void setPhoto(const std::string & = ":/Photos/Photos/photoNotAvailable.jpeg");
+    void setPhoto(const std::string & = ":/Photos/photoNotAvailable.jpeg");
     void setSector(unsigned int = 0);
     void setProprietary(bool = true);
     void setDamaged(bool = true);
     void setAvailable(bool = true);
     void setRestorations(unsigned int = 0);
     void setLoans(unsigned int = 0);
-    void setIncomeExpenses(float = 0.0f);
+    void setIncome(float = 0.0f);
+    void setExpense(float = 0.0f);
     void setBaseValue(float = 0.0f);
 
     virtual Material * clone() const = 0;
@@ -83,6 +86,7 @@ public:
 
     void restore();
     void lend();
+    float calculateProfit();
 };
 
 #endif // MATERIAL_H

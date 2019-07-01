@@ -3,7 +3,7 @@
 #include <QIcon>
 
 MainWindow::MainWindow(QWidget * parent) : QWidget(parent) {
-    setWindowIcon(QIcon(":/Icons/Icons/icon.png"));
+    setWindowIcon(QIcon(":/Icons/icon.png"));
 }
 
 MainWindow::~MainWindow() {}

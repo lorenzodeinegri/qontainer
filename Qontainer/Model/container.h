@@ -185,7 +185,7 @@ typename Container<T>::iterator & Container<T>::iterator::operator -=(int positi
 
 template <class T>
 typename Container<T>::iterator Container<T>::iterator::operator +(int positions) const {
-    return itarator(pointer + positions);
+    return iterator(pointer + positions);
 }
 
 template <class T>

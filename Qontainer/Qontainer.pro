@@ -27,34 +27,36 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     View/mainwindow.cpp \
-    Model/Hierarchy/material.cpp \
     Model/model.cpp \
+    Model/filehandler.cpp \
+    Model/date.cpp \
+    Model/Hierarchy/material.cpp \
     Model/Hierarchy/artwork.cpp \
     Model/Hierarchy/literarywork.cpp \
     Model/Hierarchy/sculpture.cpp \
     Model/Hierarchy/picture.cpp \
-    Model/Hierarchy/official_document.cpp \
-    Model/Hierarchy/letter.cpp \
-    Model/date.cpp
+    Model/Hierarchy/officialdocument.cpp \
+    Model/Hierarchy/letter.cpp
 
 HEADERS += \
     View/mainwindow.h \
     Model/container.h \
     Model/deeppointer.h \
-    Model/Hierarchy/material.h \
     Model/model.h \
+    Model/filehandler.h \
+    Model/date.h \
+    Model/Hierarchy/material.h \
     Model/Hierarchy/artwork.h \
     Model/Hierarchy/literarywork.h \
     Model/Hierarchy/sculpture.h \
     Model/Hierarchy/picture.h \
-    Model/Hierarchy/official_document.h \
-    Model/Hierarchy/letter.h \
-    Model/date.h
+    Model/Hierarchy/officialdocument.h \
+    Model/Hierarchy/letter.h
 
 INCLUDEPATH += \
     Model/Hierarchy/ \
     Model/ \
-    View/ \
+    View/
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

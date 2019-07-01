@@ -33,6 +33,7 @@ DeepPointer<T> & DeepPointer<T>::operator =(const DeepPointer & deepPointer)
             delete pointer;
         pointer = deepPointer.pointer != nullptr ? (deepPointer.pointer)->clone() : nullptr;
     }
+    return *this;
 }
 
 template<class T>

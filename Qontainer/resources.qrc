@@ -1,8 +1,7 @@
 <RCC>
-    <qresource prefix="/Photos">
-        <file>Photos/photoNotAvailable.jpeg</file>
-    </qresource>
-    <qresource prefix="/Icons">
+    <qresource prefix="/">
+        <file>Data/data.xml</file>
         <file>Icons/icon.png</file>
+        <file>Photos/photoNotAvailable.jpeg</file>
     </qresource>
 </RCC>

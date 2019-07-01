@@ -29,7 +29,7 @@ public:
            const std::string & = "Sconosciuto",
            const std::string & = "Sconosciuto",
            const date & = std::string("00/00/0000"),
-           const std::string & = ":/Photos/Photos/photoNotAvailable.jpeg");
+           const std::string & = ":/Photos/photoNotAvailable.jpeg");
 
     std::string getAddressee() const;
 

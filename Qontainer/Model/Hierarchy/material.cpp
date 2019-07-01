@@ -5,11 +5,14 @@ float Material::base_restoration_cost = 10000.0f;
 float Material::base_loan_deposit = 5000.0f;
 
 float Material::calculateRestorationCost() const {
-    return base_restoration_cost;
+    float multiplier = 1.0f;
+    multiplier += restorations == 0 ? 0.5f : 0.0f;
+    multiplier += restorations < 5 ? 0.0f : -0.3f;
+    return base_restoration_cost * multiplier;
 }
 
 float Material::calculateLoanProceed() const {
-    return base_loan_deposit;
+    return base_loan_deposit * (loans == 0 ? 1.25f : 1.0f);
 }
 
 Material::Material(unsigned int sector,
@@ -77,8 +80,12 @@ unsigned int Material::getLoans() const {
     return loans;
 }
 
-float Material::getIncomeExpenses() const {
-    return income_expenses;
+float Material::getIncome() const {
+    return income;
+}
+
+float Material::getExpense() const {
+    return expense;
 }
 
 float Material::getBaseValue() const {
@@ -129,8 +136,12 @@ void Material::setLoans(unsigned int loans) {
     this->loans = loans;
 }
 
-void Material::setIncomeExpenses(float income_expenses) {
-    this->income_expenses = income_expenses;
+void Material::setIncome(float income) {
+    this->income = income;
+}
+
+void Material::setExpense(float expense) {
+    this->expense = expense;
 }
 
 void Material::setBaseValue(float base_value) {
@@ -150,7 +161,8 @@ std::string Material::getInfo() const {
     info += ("\nRestaurazioni: " + std::to_string(restorations));
     info += ("\nPrestiti: " + std::to_string(loans));
     info += ("\nValore di base: " + std::to_string(base_value));
-    info += ("\nRicavi - Spese: " + std::to_string(income_expenses));
+    info += ("\nRicavi: " + std::to_string(income));
+    info += ("\nSpese: " + std::to_string(expense));
     return info;
 }
 
@@ -159,13 +171,21 @@ float Material::calculateValue() const {
 }
 
 void Material::restore() {
-    available = false;
-    ++restorations;
-    income_expenses -= calculateRestorationCost();
+    if (available) {
+        available = false;
+        ++restorations;
+        expense += calculateRestorationCost();
+    }
 }
 
 void Material::lend() {
-    available = false;
-    ++loans;
-    income_expenses += calculateLoanProceed();
+    if (available) {
+        available = false;
+        ++loans;
+        income += calculateLoanProceed();
+    }
+}
+
+float Material::calculateProfit() {
+    return income - expense;
 }
