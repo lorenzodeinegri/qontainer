@@ -26,7 +26,11 @@ Picture::Picture(unsigned int sector,
                  const std::string & title,
                  const std::string & realization_place,
                  const date & realization_date,
-                 const std::string & photo) :
+                 const std::string & photo,
+                 unsigned int restorations,
+                 unsigned int loans,
+                 float income,
+                 float expense) :
     ArtWork(sector,
             base_value,
             proprietary,
@@ -40,7 +44,11 @@ Picture::Picture(unsigned int sector,
             title,
             realization_place,
             realization_date,
-            photo),
+            photo,
+            restorations,
+            loans,
+            income,
+            expense),
     photography(photography) {}
 
 bool Picture::isPhotography() const {

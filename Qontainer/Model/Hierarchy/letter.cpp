@@ -26,7 +26,11 @@ Letter::Letter(unsigned int sector,
                const std::string & title,
                const std::string & realization_place,
                const date & realization_date,
-               const std::string & photo) :
+               const std::string & photo,
+               unsigned int restorations,
+               unsigned int loans,
+               float income,
+               float expense) :
     LiteraryWork(sector,
                  base_value,
                  proprietary,
@@ -40,7 +44,11 @@ Letter::Letter(unsigned int sector,
                  title,
                  realization_place,
                  realization_date,
-                 photo),
+                 photo,
+                 restorations,
+                 loans,
+                 income,
+                 expense),
     addressee(addressee) {}
 
 std::string Letter::getAddressee() const {
@@ -68,7 +76,7 @@ std::string Letter::getInfo() const {
 
 float Letter::calculateValue() const {
     float multiplier = 1.0f;
-    multiplier += !addressee.compare("Sconosciuto") ? 0.25f : -0.35f;
+    multiplier += addressee != "Sconosciuto" ? 0.25f : -0.35f;
     multiplier += !isDamaged() ? 0.4f : -0.1f;
     return LiteraryWork::calculateValue() * multiplier;
 }

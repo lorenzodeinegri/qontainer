@@ -124,8 +124,6 @@ public:
     const_iterator cend() const;
 };
 
-#endif // CONTAINER_H
-
 // class iterator
 template <class T>
 Container<T>::iterator::iterator(T * pointer) : pointer(pointer) {}
@@ -358,7 +356,10 @@ Container<T>::Container(unsigned int size, const T & object) : vector(new T[size
 }
 
 template <class T>
-Container<T>::Container(const Container & container) : vector(copy(container.vector, container.vector_size, container.vector_capacity)), vector_size(container.vector_size), vector_capacity(container.vector_capacity) {}
+Container<T>::Container(const Container & container) :
+    vector(copy(container.vector, container.vector_size, container.vector_capacity)),
+    vector_size(container.vector_size),
+    vector_capacity(container.vector_capacity) {}
 
 template <class T>
 Container<T> & Container<T>::operator =(const Container & container) {
@@ -590,3 +591,5 @@ template <class T>
 typename Container<T>::const_iterator Container<T>::cend() const {
     return const_iterator(vector + vector_size);
 }
+
+#endif // CONTAINER_H

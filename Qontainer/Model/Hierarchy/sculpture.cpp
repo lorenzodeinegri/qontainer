@@ -26,7 +26,11 @@ Sculpture::Sculpture(unsigned int sector,
                      const std::string & title,
                      const std::string & realization_place,
                      const date & realization_date,
-                     const std::string & photo) :
+                     const std::string & photo,
+                     unsigned int restorations,
+                     unsigned int loans,
+                     float income,
+                     float expense) :
     ArtWork(sector,
             base_value,
             proprietary,
@@ -40,7 +44,11 @@ Sculpture::Sculpture(unsigned int sector,
             title,
             realization_place,
             realization_date,
-            photo),
+            photo,
+            restorations,
+            loans,
+            income,
+            expense),
     shape(shape) {}
 
 std::string Sculpture::getShape() const {
@@ -68,7 +76,7 @@ std::string Sculpture::getInfo() const {
 
 float Sculpture::calculateValue() const {
     float multiplier = 1.0f;
-    multiplier += !shape.compare("Sconosciuta") ? -0.1f : 0.1f;
+    multiplier += shape != "Sconosciuta" ? 0.1f : -0.1f;
     multiplier += !isDamaged() ? 0.3f : -0.3f;
     return ArtWork::calculateValue() * multiplier;
 }

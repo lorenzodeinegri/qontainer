@@ -24,7 +24,11 @@ Material::Material(unsigned int sector,
                    const std::string & title,
                    const std::string & realization_place,
                    const date & realization_date,
-                   const std::string & photo) :
+                   const std::string & photo,
+                   unsigned int restorations,
+                   unsigned int loans,
+                   float income,
+                   float expense) :
     sector(sector),
     base_value(base_value),
     proprietary(proprietary),
@@ -34,7 +38,11 @@ Material::Material(unsigned int sector,
     title(title),
     realization_place(realization_place),
     realization_date(realization_date),
-    photo(photo) {}
+    photo(photo),
+    restorations(restorations),
+    loans(loans),
+    income(income),
+    expense(expense) {}
 
 std::string Material::getAuthor() const {
     return author;

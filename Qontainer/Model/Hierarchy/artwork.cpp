@@ -25,7 +25,11 @@ ArtWork::ArtWork(unsigned int sector,
                  const std::string & title,
                  const std::string & realization_place,
                  const date & realization_date,
-                 const std::string & photo) :
+                 const std::string & photo,
+                 unsigned int restorations,
+                 unsigned int loans,
+                 float income,
+                 float expense) :
     Material(sector,
              base_value,
              proprietary,
@@ -35,7 +39,11 @@ ArtWork::ArtWork(unsigned int sector,
              title,
              realization_place,
              realization_date,
-             photo),
+             photo,
+             restorations,
+             loans,
+             income,
+             expense),
     material(material),
     technique(technique),
     art_movement(art_movement),
@@ -89,7 +97,7 @@ std::string ArtWork::getInfo() const {
 
 float ArtWork::calculateValue() const {
     float multiplier = 1.0f;
-    multiplier += !subject.compare("Sconosciuto") ? -0.1f : 0.1f;
-    multiplier += !art_movement.compare("Sconosciuto") ? -0.1f : 0.1f;
+    multiplier += subject != "Sconosciuto" ? 0.1f : -0.1f;
+    multiplier += art_movement != "Sconosciuto" ? 0.1f : -0.1f;
     return Material::calculateValue() * multiplier;
 }

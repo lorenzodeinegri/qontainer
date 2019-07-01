@@ -26,7 +26,11 @@ OfficialDocument::OfficialDocument(unsigned int sector,
                                    const std::string & title,
                                    const std::string & realization_place,
                                    const date & realization_date,
-                                   const std::string & photo) :
+                                   const std::string & photo,
+                                   unsigned int restorations,
+                                   unsigned int loans,
+                                   float income,
+                                   float expense) :
     LiteraryWork(sector,
                  base_value,
                  proprietary,
@@ -40,7 +44,11 @@ OfficialDocument::OfficialDocument(unsigned int sector,
                  title,
                  realization_place,
                  realization_date,
-                 photo),
+                 photo,
+                 restorations,
+                 loans,
+                 income,
+                 expense),
     typology(typology) {}
 
 std::string OfficialDocument::getTypology() const {
@@ -68,7 +76,7 @@ std::string OfficialDocument::getInfo() const {
 
 float OfficialDocument::calculateValue() const {
     float multiplier = 1.0f;
-    multiplier += !typology.compare("Sconosciuta") ? 0.1f : -0.5f;
+    multiplier += typology != "Sconosciuta" ? 0.1f : -0.5f;
     multiplier += !isDamaged() ? 0.2f : -0.4f;
     return LiteraryWork::calculateValue() * multiplier;
 }
