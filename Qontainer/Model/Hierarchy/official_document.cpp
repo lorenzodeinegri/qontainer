@@ -5,15 +5,11 @@ float OfficialDocument::document_restoration_overcharge = 2000.0f;
 float OfficialDocument::document_loan_overcharge = 1500.0f;
 
 float OfficialDocument::calculateRestorationCost() const {
-    float multiplier = 1.0f;
-    multiplier += isDamaged() ? 0.5f : -0.2f;
-    return (document_restoration_overcharge + LiteraryWork::calculateRestorationCost()) * multiplier;
+    return (document_restoration_overcharge + LiteraryWork::calculateRestorationCost()) * (isDamaged() ? 1.5f : 0.8f);
 }
 
 float OfficialDocument::calculateLoanProceed() const {
-    float multiplier = 1.0f;
-    multiplier += isProprietary() ? 0.3f : -0.15f;
-    return (document_loan_overcharge + LiteraryWork::calculateLoanProceed()) * multiplier;
+    return (document_loan_overcharge + LiteraryWork::calculateLoanProceed()) * (isProprietary() ? 1.3f : 0.85f);
 }
 
 OfficialDocument::OfficialDocument(unsigned int sector,
@@ -60,11 +56,11 @@ OfficialDocument * OfficialDocument::clone() const {
 }
 
 std::string OfficialDocument::getType() const {
-    return std::string("Documento");
+    return std::string("Documento ufficiale");
 }
 
 std::string OfficialDocument::getInfo() const {
-    std::string info("Documento:");
+    std::string info("Documento ufficiale:");
     info += ("\nTipologia: " + typology);
     info += LiteraryWork::getInfo();
     return info;

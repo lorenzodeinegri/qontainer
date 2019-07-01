@@ -5,32 +5,28 @@ float Letter::letter_restoration_overcharge = 2500.0f;
 float Letter::letter_loan_overcharge = 1000.0f;
 
 float Letter::calculateRestorationCost() const {
-    float multiplier = 1.0f;
-    multiplier += isDamaged() ? 0.4f : -0.1f;
-    return (letter_restoration_overcharge + LiteraryWork::calculateRestorationCost()) * multiplier;
+    return (letter_restoration_overcharge + LiteraryWork::calculateRestorationCost()) * (isDamaged() ? 1.4f : 0.9f);
 }
 
 float Letter::calculateLoanProceed() const {
-    float multiplier = 1.0f;
-    multiplier += isProprietary() ? 0.5f : 0.0f;
-    return (letter_loan_overcharge + LiteraryWork::calculateLoanProceed()) * multiplier;
+    return (letter_loan_overcharge + LiteraryWork::calculateLoanProceed()) * (isProprietary() ? 1.5f : 1.0f);
 }
 
 Letter::Letter(unsigned int sector,
-                                   float base_value,
-                                   bool proprietary,
-                                   bool damaged,
-                                   bool available,
-                                   const std::string & addressee,
-                                   bool complete,
-                                   bool handwritten,
-                                   const std::string & language,
-                                   const std::string & style,
-                                   const std::string & author,
-                                   const std::string & title,
-                                   const std::string & realization_place,
-                                   const date & realization_date,
-                                   const std::string & photo) :
+               float base_value,
+               bool proprietary,
+               bool damaged,
+               bool available,
+               const std::string & addressee,
+               bool complete,
+               bool handwritten,
+               const std::string & language,
+               const std::string & style,
+               const std::string & author,
+               const std::string & title,
+               const std::string & realization_place,
+               const date & realization_date,
+               const std::string & photo) :
     LiteraryWork(sector,
                  base_value,
                  proprietary,

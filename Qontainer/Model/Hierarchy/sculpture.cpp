@@ -5,32 +5,28 @@ float Sculpture::sculpture_restoration_overcharge = 2500.0f;
 float Sculpture::sculpture_loan_overcharge = 3500.0f;
 
 float Sculpture::calculateRestorationCost() const {
-    float multiplier = 1.0f;
-    multiplier += isDamaged() ? 0.5f : -0.2f;
-    return (sculpture_restoration_overcharge + ArtWork::calculateRestorationCost()) * multiplier;
+    return (sculpture_restoration_overcharge + ArtWork::calculateRestorationCost()) * (isDamaged() ? 1.5f : 0.8f);
 }
 
 float Sculpture::calculateLoanProceed() const {
-    float multiplier = 1.0f;
-    multiplier += isProprietary() ? 0.4f : -0.1f;
-    return (sculpture_loan_overcharge + ArtWork::calculateLoanProceed()) * multiplier;
+    return (sculpture_loan_overcharge + ArtWork::calculateLoanProceed()) * (isProprietary() ? 1.4f : 0.9f);
 }
 
 Sculpture::Sculpture(unsigned int sector,
-                 float base_value,
-                 bool proprietary,
-                 bool damaged,
-                 bool available,
-                 const std::string & shape,
-                 const std::string & material,
-                 const std::string & technique,
-                 const std::string & art_movement,
-                 const std::string & subject,
-                 const std::string & author,
-                 const std::string & title,
-                 const std::string & realization_place,
-                 const date & realization_date,
-                 const std::string & photo) :
+                     float base_value,
+                     bool proprietary,
+                     bool damaged,
+                     bool available,
+                     const std::string & shape,
+                     const std::string & material,
+                     const std::string & technique,
+                     const std::string & art_movement,
+                     const std::string & subject,
+                     const std::string & author,
+                     const std::string & title,
+                     const std::string & realization_place,
+                     const date & realization_date,
+                     const std::string & photo) :
     ArtWork(sector,
             base_value,
             proprietary,

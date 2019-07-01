@@ -5,15 +5,11 @@ float Picture::picture_restoration_overcharge = 4500.0f;
 float Picture::picture_loan_overcharge = 2500.0f;
 
 float Picture::calculateRestorationCost() const {
-    float multiplier = 1.0f;
-    multiplier += isDamaged() ? 0.3f : -0.4f;
-    return (picture_restoration_overcharge + ArtWork::calculateRestorationCost()) * multiplier;
+    return (picture_restoration_overcharge + ArtWork::calculateRestorationCost()) * (isDamaged() ? 1.3f : 0.6f);
 }
 
 float Picture::calculateLoanProceed() const {
-    float multiplier = 1.0f;
-    multiplier += isProprietary() ? 0.2f : -0.2f;
-    return (picture_loan_overcharge + ArtWork::calculateLoanProceed()) * multiplier;
+    return (picture_loan_overcharge + ArtWork::calculateLoanProceed()) * (isProprietary() ? 1.2f : 0.8f);
 }
 
 Picture::Picture(unsigned int sector,
