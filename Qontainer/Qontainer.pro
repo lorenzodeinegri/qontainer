@@ -25,6 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    Model/listmodeladapter.cpp \
+    Model/sortfilterproxymodel.cpp \
     main.cpp \
     View/mainwindow.cpp \
     Model/model.cpp \
@@ -39,6 +41,8 @@ SOURCES += \
     Model/Hierarchy/letter.cpp
 
 HEADERS += \
+    Model/listmodeladapter.h \
+    Model/sortfilterproxymodel.h \
     View/mainwindow.h \
     Model/container.h \
     Model/deeppointer.h \
