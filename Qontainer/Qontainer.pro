@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    View/menu.cpp \
     main.cpp \
     View/mainwindow.cpp \
     Model/listmodeladapter.cpp \
@@ -55,7 +56,8 @@ HEADERS += \
     Model/Hierarchy/sculpture.h \
     Model/Hierarchy/picture.h \
     Model/Hierarchy/act.h \
-    Model/Hierarchy/letter.h
+    Model/Hierarchy/letter.h \
+    View/menu.h
 
 INCLUDEPATH += \
     Model/Hierarchy/ \
