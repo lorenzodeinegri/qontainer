@@ -25,10 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    Model/listmodeladapter.cpp \
-    Model/sortfilterproxymodel.cpp \
     main.cpp \
     View/mainwindow.cpp \
+    Model/listmodeladapter.cpp \
+    Model/sortfilterproxymodel.cpp \
     Model/model.cpp \
     Model/filehandler.cpp \
     Model/date.cpp \
@@ -37,13 +37,13 @@ SOURCES += \
     Model/Hierarchy/literarywork.cpp \
     Model/Hierarchy/sculpture.cpp \
     Model/Hierarchy/picture.cpp \
-    Model/Hierarchy/officialdocument.cpp \
+    Model/Hierarchy/act.cpp \
     Model/Hierarchy/letter.cpp
 
 HEADERS += \
+    View/mainwindow.h \
     Model/listmodeladapter.h \
     Model/sortfilterproxymodel.h \
-    View/mainwindow.h \
     Model/container.h \
     Model/deeppointer.h \
     Model/model.h \
@@ -54,7 +54,7 @@ HEADERS += \
     Model/Hierarchy/literarywork.h \
     Model/Hierarchy/sculpture.h \
     Model/Hierarchy/picture.h \
-    Model/Hierarchy/officialdocument.h \
+    Model/Hierarchy/act.h \
     Model/Hierarchy/letter.h
 
 INCLUDEPATH += \

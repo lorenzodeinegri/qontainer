@@ -9,7 +9,7 @@
 #include "literarywork.h"
 #include "sculpture.h"
 #include "picture.h"
-#include "officialdocument.h"
+#include "act.h"
 #include "letter.h"
 
 #include <QFile>

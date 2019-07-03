@@ -79,8 +79,8 @@ bool ListModelAdapter::findMatch(unsigned int index, const QRegExp & regularExpr
         return QString::fromStdString(static_cast<LiteraryWork *>(model->get(index))->getStyle()).contains(regularExpression);
     else if (filter == "Forma" && model->get(index)->getType() == "Scultura")
         return QString::fromStdString(static_cast<Sculpture *>(model->get(index))->getShape()).contains(regularExpression);
-    else if (filter == "Tipologia" && model->get(index)->getType() == "Documento ufficiale")
-        return QString::fromStdString(static_cast<OfficialDocument *>(model->get(index))->getTypology()).contains(regularExpression);
+    else if (filter == "Oggetto" && model->get(index)->getType() == "Atto")
+        return QString::fromStdString(static_cast<Act *>(model->get(index))->getObject()).contains(regularExpression);
     else if (filter == "Destinatario" && model->get(index)->getType() == "Lettera")
         return QString::fromStdString(static_cast<Letter *>(model->get(index))->getAddressee()).contains(regularExpression);
     else

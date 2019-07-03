@@ -130,31 +130,31 @@ Container<DeepPointer<Material>> fileHandler::read() const {
                         if (xmlReader.readNextStartElement() && xmlReader.name() == "stile")
                             style = xmlReader.readElementText().toStdString();
 
-                        if (type == "Documento ufficiale") {
-                            std::string typology = "Sconosciuta";
+                        if (type == "Atto") {
+                            std::string object = "Sconosciuto";
 
-                            if (xmlReader.readNextStartElement() && xmlReader.name() == "tipologia")
-                                typology = xmlReader.readElementText().toStdString();
+                            if (xmlReader.readNextStartElement() && xmlReader.name() == "oggetto")
+                                object = xmlReader.readElementText().toStdString();
 
-                            container.push_back(DeepPointer<Material>(new OfficialDocument(sector,
-                                                                                           base_value,
-                                                                                           proprietary,
-                                                                                           damaged,
-                                                                                           available,
-                                                                                           typology,
-                                                                                           complete,
-                                                                                           handwritten,
-                                                                                           language,
-                                                                                           style,
-                                                                                           author,
-                                                                                           title,
-                                                                                           realization_place,
-                                                                                           realization_date,
-                                                                                           photo,
-                                                                                           restorations,
-                                                                                           loans,
-                                                                                           income,
-                                                                                           expense)));
+                            container.push_back(DeepPointer<Material>(new Act(sector,
+                                                                              base_value,
+                                                                              proprietary,
+                                                                              damaged,
+                                                                              available,
+                                                                              object,
+                                                                              complete,
+                                                                              handwritten,
+                                                                              language,
+                                                                              style,
+                                                                              author,
+                                                                              title,
+                                                                              realization_place,
+                                                                              realization_date,
+                                                                              photo,
+                                                                              restorations,
+                                                                              loans,
+                                                                              income,
+                                                                              expense)));
                         }
                         else if (type == "Lettera") {
                             std::string addressee = "Sconosciuto";
@@ -305,9 +305,9 @@ void fileHandler::write(const Container<DeepPointer<Material>> & container) cons
                 xmlWriter.writeCharacters(QString::fromStdString(static_cast<Picture *>(c_it->operator->())->isPhotography() ? "Si" : "No"));
                 xmlWriter.writeEndElement();
             }
-            else if (c_it->operator*().getType() == "Documento ufficiale") {
-                xmlWriter.writeStartElement("tipologia");
-                xmlWriter.writeCharacters(QString::fromStdString(static_cast<OfficialDocument *>(c_it->operator->())->getTypology()));
+            else if (c_it->operator*().getType() == "Atto") {
+                xmlWriter.writeStartElement("oggetto");
+                xmlWriter.writeCharacters(QString::fromStdString(static_cast<Act *>(c_it->operator->())->getObject()));
                 xmlWriter.writeEndElement();
             }
             else if (c_it->operator*().getType() == "Lettera") {
