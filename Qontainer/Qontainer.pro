@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    View/detailsdisplay.cpp \
     View/menu.cpp \
     main.cpp \
     View/mainwindow.cpp \
@@ -42,6 +43,7 @@ SOURCES += \
     Model/Hierarchy/letter.cpp
 
 HEADERS += \
+    View/detailsdisplay.h \
     View/mainwindow.h \
     Model/listmodeladapter.h \
     Model/sortfilterproxymodel.h \

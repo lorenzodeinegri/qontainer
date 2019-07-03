@@ -63,13 +63,11 @@ void SortFilterProxyModel::setBoolValue(bool is_true) {
 }
 
 void SortFilterProxyModel::showDisplay(const QModelIndex & filterIndex) const {
-    QModelIndex adapterIndex = mapToSource(filterIndex);
-    // TODO after details window implementation
+    static_cast<ListModelAdapter *>(sourceModel())->showDisplay(mapToSource(filterIndex));
 }
 
 void SortFilterProxyModel::showModify(const QModelIndex & filterIndex) const {
-    QModelIndex adapterIndex = mapToSource(filterIndex);
-    // TODO after modify window implementation
+    static_cast<ListModelAdapter *>(sourceModel())->showModify(mapToSource(filterIndex));
 }
 
 bool SortFilterProxyModel::restore(const QModelIndex & filterIndex) const {

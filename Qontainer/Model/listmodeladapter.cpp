@@ -46,11 +46,17 @@ bool ListModelAdapter::removeRows(int begin, int count, const QModelIndex & pare
 }
 
 void ListModelAdapter::showDisplay(const QModelIndex & adapterIndex) const {
-    // TODO after details window implementation
+    if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
+        DetailsDisplay * detailsDisplay = new DetailsDisplay(model->get(static_cast<unsigned int>(adapterIndex.row())));
+        detailsDisplay->setAttribute(Qt::WA_DeleteOnClose);
+        detailsDisplay->show();
+    }
 }
 
 void ListModelAdapter::showModify(const QModelIndex & adapterIndex) const {
-    // TODO after modify window implementation
+    if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
+        // TODO after modify window implementation
+    }
 }
 
 bool ListModelAdapter::findMatch(unsigned int index, const QRegExp & regularExpression, const QString & filter) const {

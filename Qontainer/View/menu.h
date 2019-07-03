@@ -8,7 +8,7 @@ class Menu : public QMenuBar {
     Q_OBJECT
 
 public:
-    Menu(QWidget * = nullptr);
+    explicit Menu(QWidget * = nullptr);
 
 signals:
     void load();

@@ -3,6 +3,7 @@
 
 #include "model.h"
 #include "date.h"
+#include "detailsdisplay.h"
 
 #include <QAbstractListModel>
 
