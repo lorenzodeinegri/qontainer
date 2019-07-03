@@ -178,20 +178,26 @@ float Material::calculateValue() const {
     return !author.compare("Sconosciuto") ? base_value : base_value * 1.5f;
 }
 
-void Material::restore() {
+bool Material::restore() {
     if (available) {
         available = false;
         ++restorations;
         expense += calculateRestorationCost();
+        return true;
     }
+    else
+        return false;
 }
 
-void Material::lend() {
+bool Material::lend() {
     if (available) {
         available = false;
         ++loans;
         income += calculateLoanProceed();
+        return true;
     }
+    else
+        return false;
 }
 
 float Material::calculateProfit() {

@@ -36,20 +36,20 @@ protected:
     virtual float calculateLoanProceed() const;
 
 public:
-    Material(unsigned int = 0,
-             float = 0.0f,
-             bool = false,
-             bool = false,
-             bool = true,
-             const std::string & = "Sconosciuto",
-             const std::string & = "Sconosciuto",
-             const std::string & = "Sconosciuto",
-             const date & = std::string("00/00/0000"),
-             const std::string & = ":/Photos/photoNotAvailable.jpeg",
-             unsigned int = 0,
-             unsigned int = 0,
-             float = 0.0f,
-             float = 0.0f);
+    explicit Material(unsigned int = 0,
+                      float = 0.0f,
+                      bool = false,
+                      bool = false,
+                      bool = true,
+                      const std::string & = "Sconosciuto",
+                      const std::string & = "Sconosciuto",
+                      const std::string & = "Sconosciuto",
+                      const date & = std::string("00/00/0000"),
+                      const std::string & = ":/Photos/photoNotAvailable.jpeg",
+                      unsigned int = 0,
+                      unsigned int = 0,
+                      float = 0.0f,
+                      float = 0.0f);
     virtual ~Material() = default;
 
     std::string getAuthor() const;
@@ -88,8 +88,8 @@ public:
     virtual std::string getInfo() const;
     virtual float calculateValue() const;
 
-    void restore();
-    void lend();
+    bool restore();
+    bool lend();
     float calculateProfit();
 };
 

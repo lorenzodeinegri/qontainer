@@ -33,8 +33,8 @@ public:
     float calculateTotalIncome() const;
     float calculateTotalExpense() const;
 
-    void restore(unsigned int);
-    void lend(unsigned int);
+    bool restore(unsigned int);
+    bool lend(unsigned int);
 };
 
 #endif // MODEL_H

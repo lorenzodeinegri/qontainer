@@ -18,24 +18,24 @@ protected:
     virtual float calculateLoanProceed() const override;
 
 public:
-    ArtWork(unsigned int = 0,
-            float = 0.0f,
-            bool = false,
-            bool = false,
-            bool = true,
-            const std::string & = "Sconosciuto",
-            const std::string & = "Sconosciuta",
-            const std::string & = "Sconosciuto",
-            const std::string & = "Sconosciuto",
-            const std::string & = "Sconosciuto",
-            const std::string & = "Sconosciuto",
-            const std::string & = "Sconosciuto",
-            const date & = std::string("00/00/0000"),
-            const std::string & = ":/Photos/photoNotAvailable.jpeg",
-            unsigned int = 0,
-            unsigned int = 0,
-            float = 0.0f,
-            float = 0.0f);
+    explicit ArtWork(unsigned int = 0,
+                     float = 0.0f,
+                     bool = false,
+                     bool = false,
+                     bool = true,
+                     const std::string & = "Sconosciuto",
+                     const std::string & = "Sconosciuta",
+                     const std::string & = "Sconosciuto",
+                     const std::string & = "Sconosciuto",
+                     const std::string & = "Sconosciuto",
+                     const std::string & = "Sconosciuto",
+                     const std::string & = "Sconosciuto",
+                     const date & = std::string("00/00/0000"),
+                     const std::string & = ":/Photos/photoNotAvailable.jpeg",
+                     unsigned int = 0,
+                     unsigned int = 0,
+                     float = 0.0f,
+                     float = 0.0f);
 
     std::string getMaterial() const;
     std::string getTechnique() const;

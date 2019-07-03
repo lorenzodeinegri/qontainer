@@ -20,12 +20,14 @@ Material * Model::get(unsigned int index) const {
     return container[index].operator->();
 }
 
-void Model::loadFile(const std::string &) {
-    // TODO
+void Model::loadFile(const std::string & filePath) {
+    fileHandler handler(filePath);
+    container = handler.read();
 }
 
-void Model::saveFile(const std::string &) const {
-    // TODO
+void Model::saveFile(const std::string & filePath) const {
+    fileHandler handler(filePath);
+    handler.write(container);
 }
 
 float Model::calculateValue(unsigned int index) const {
@@ -64,10 +66,10 @@ float Model::calculateTotalExpense() const {
     return total;
 }
 
-void Model::restore(unsigned int index) {
-    container[index]->restore();
+bool Model::restore(unsigned int index) {
+    return container[index]->restore();
 }
 
-void Model::lend(unsigned int index) {
-    container[index]->lend();
+bool Model::lend(unsigned int index) {
+    return container[index]->lend();
 }
