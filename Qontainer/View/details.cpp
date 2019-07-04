@@ -1,6 +1,6 @@
-#include "detailsdisplay.h"
+#include "details.h"
 
-DetailsDisplay::DetailsDisplay(Material * material, QWidget * parent) : QWidget(parent) {
+Details::Details(Material * material, QWidget * parent) : QWidget(parent) {
     setWindowIcon(QIcon(":/Icons/icon.png"));
     setWindowTitle(QString::fromStdString("Dettagli " + material->getType() + " selezionato/a"));
 
@@ -151,5 +151,11 @@ DetailsDisplay::DetailsDisplay(Material * material, QWidget * parent) : QWidget(
         }
     }
 
+    QPushButton * exitButton = new QPushButton("Chiudi", this);
+
+    mainForm->addWidget(exitButton);
+
     setLayout(mainForm);
+
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 }

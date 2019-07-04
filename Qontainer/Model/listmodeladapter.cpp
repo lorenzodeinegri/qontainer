@@ -47,15 +47,18 @@ bool ListModelAdapter::removeRows(int begin, int count, const QModelIndex & pare
 
 void ListModelAdapter::showDisplay(const QModelIndex & adapterIndex) const {
     if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
-        DetailsDisplay * detailsDisplay = new DetailsDisplay(model->get(static_cast<unsigned int>(adapterIndex.row())));
-        detailsDisplay->setAttribute(Qt::WA_DeleteOnClose);
-        detailsDisplay->show();
+        Details * details = new Details(model->get(static_cast<unsigned int>(adapterIndex.row())));
+        details->setAttribute(Qt::WA_DeleteOnClose);
+        details->show();
     }
 }
 
 void ListModelAdapter::showModify(const QModelIndex & adapterIndex) const {
     if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
-        // TODO after modify window implementation
+        Modifies * modifies = new Modifies(model->get(static_cast<unsigned int>(adapterIndex.row())), adapterIndex, adapterIndex);
+        connect(modifies, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)));
+        modifies->setAttribute(Qt::WA_DeleteOnClose);
+        modifies->show();
     }
 }
 

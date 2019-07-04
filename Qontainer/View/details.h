@@ -15,12 +15,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPixmap>
+#include <QPushButton>
 
-class DetailsDisplay : public QWidget {
+class Details : public QWidget {
     Q_OBJECT
 
 public:
-    explicit DetailsDisplay(Material *, QWidget *parent = nullptr);
+    explicit Details(Material *, QWidget *parent = nullptr);
 };
 
 #endif // DETAILSDISPLAY_H
