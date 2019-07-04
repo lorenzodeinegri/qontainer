@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
     View/details.cpp \
+    View/list.cpp \
     View/menu.cpp \
     View/modifies.cpp \
     main.cpp \
@@ -45,6 +46,7 @@ SOURCES += \
 
 HEADERS += \
     View/details.h \
+    View/list.h \
     View/mainwindow.h \
     Model/listmodeladapter.h \
     Model/sortfilterproxymodel.h \
