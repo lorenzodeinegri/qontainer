@@ -25,10 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    View/arttypecombobox.cpp \
+    View/categorycombobox.cpp \
     View/details.cpp \
     View/list.cpp \
+    View/literarytypecombobox.cpp \
     View/menu.cpp \
     View/modifies.cpp \
+    View/searchcombobox.cpp \
     main.cpp \
     View/mainwindow.cpp \
     Model/listmodeladapter.cpp \
@@ -45,8 +49,11 @@ SOURCES += \
     Model/Hierarchy/letter.cpp
 
 HEADERS += \
+    View/arttypecombobox.h \
+    View/categorycombobox.h \
     View/details.h \
     View/list.h \
+    View/literarytypecombobox.h \
     View/mainwindow.h \
     Model/listmodeladapter.h \
     Model/sortfilterproxymodel.h \
@@ -63,7 +70,8 @@ HEADERS += \
     Model/Hierarchy/act.h \
     Model/Hierarchy/letter.h \
     View/menu.h \
-    View/modifies.h
+    View/modifies.h \
+    View/searchcombobox.h
 
 INCLUDEPATH += \
     Model/Hierarchy/ \

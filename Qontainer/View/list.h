@@ -5,6 +5,8 @@
 #include <QMouseEvent>
 
 class List : public QListView {
+    Q_OBJECT
+
 public:
     List(QWidget * = nullptr);
 
