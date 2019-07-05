@@ -28,6 +28,7 @@ SOURCES += \
     View/arttypecombobox.cpp \
     View/categorycombobox.cpp \
     View/details.cpp \
+    View/insert.cpp \
     View/list.cpp \
     View/literarytypecombobox.cpp \
     View/menu.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
     View/arttypecombobox.h \
     View/categorycombobox.h \
     View/details.h \
+    View/insert.h \
     View/list.h \
     View/literarytypecombobox.h \
     View/mainwindow.h \

@@ -192,8 +192,8 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     availabilityEdit->addButton(trueAvailability, 1);
     availabilityEdit->addButton(falseAvailability, 2);
 
-    proprietaryForm->addWidget(trueAvailability);
-    proprietaryForm->addWidget(falseAvailability);
+    availableForm->addWidget(trueAvailability);
+    availableForm->addWidget(falseAvailability);
 
     QHBoxLayout * authorForm = new QHBoxLayout(this);
     authorForm->addWidget(new QLabel("Autore:", this));
