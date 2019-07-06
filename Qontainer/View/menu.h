@@ -11,15 +11,15 @@ public:
     explicit Menu(QWidget * = nullptr);
 
 signals:
-    void load();
-    void save();
-    void saveName();
-    void exit();
+    void load() const;
+    void save() const;
+    void saveName() const;
+    void exit() const;
 
-    void insert();
-    void interact();
+    void insert() const;
+    void interact() const;
 
-    void about();
+    void about() const;
 };
 
 #endif // MENU_H

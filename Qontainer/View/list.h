@@ -8,7 +8,7 @@ class List : public QListView {
     Q_OBJECT
 
 public:
-    List(QWidget * = nullptr);
+    explicit List(QWidget * = nullptr);
 
     QSize sizeHint() const override;
     void mousePressEvent(QMouseEvent *) override;

@@ -15,7 +15,7 @@ void Modifies::changeImage() {
     }
 }
 
-void Modifies::save() {
+void Modifies::save() const {
     material->setSector(sectorEdit->text().toUInt());
     material->setBaseValue(valueEdit->text().toFloat());
     material->setProprietary(proprietaryEdit->checkedId() == 1 ? true : false);
@@ -128,6 +128,9 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     writingEdit(nullptr),
     formatEdit(nullptr)
 {
+    setWindowIcon(QIcon(":/Icons/icon.png"));
+    setWindowTitle(QString::fromStdString("Modifica " + material->getType() + " selezionato/a"));
+
     QVBoxLayout * mainForm = new QVBoxLayout(this);
 
     QHBoxLayout * middleForm = new QHBoxLayout(this);

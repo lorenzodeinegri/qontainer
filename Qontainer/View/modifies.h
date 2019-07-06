@@ -63,14 +63,14 @@ private:
 
 private slots:
     void changeImage();
-    void save();
+    void save() const;
     void cancel();
 
 public:
     explicit Modifies(Material *, const QModelIndex &, const QModelIndex &, QWidget * = nullptr);
 
 signals:
-    void dataChanged(const QModelIndex &, const QModelIndex &);
+    void dataChanged(const QModelIndex &, const QModelIndex &) const;
 };
 
 #endif // MODIFIES_H

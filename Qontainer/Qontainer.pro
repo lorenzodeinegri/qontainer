@@ -31,6 +31,7 @@ SOURCES += \
     View/details.cpp \
     View/imageexception.cpp \
     View/insert.cpp \
+    View/interact.cpp \
     View/list.cpp \
     View/literarytypecombobox.cpp \
     View/menu.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     View/details.h \
     View/imageexception.h \
     View/insert.h \
+    View/interact.h \
     View/list.h \
     View/literarytypecombobox.h \
     View/mainwindow.h \
