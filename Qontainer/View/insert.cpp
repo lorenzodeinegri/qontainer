@@ -143,10 +143,7 @@ void Insert::changeImage() {
             imagePath = newPath.toStdString();
         }
         else
-            QMessageBox messageBox(QMessageBox::Critical,
-                                   "Errore in modifica",
-                                   "Errore durante la modifica dell'immagine!\nVerificare che il file sia chiuso o provare a cambiare nome!",
-                                   QMessageBox::Ok);;
+            throw ImageException("Errore durante la modifica dell'immagine!\nVerificare che il file sia chiuso o provare a cambiare nome!");
     }
 }
 

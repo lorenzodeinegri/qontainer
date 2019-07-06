@@ -11,6 +11,7 @@
 #include "picture.h"
 #include "act.h"
 #include "letter.h"
+#include "imageexception.h"
 
 #include <QButtonGroup>
 #include <QDateEdit>
@@ -19,7 +20,6 @@
 #include <QWidget>
 #include <QFile>
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QHBoxLayout>

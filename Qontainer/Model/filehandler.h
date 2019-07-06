@@ -11,12 +11,13 @@
 #include "picture.h"
 #include "act.h"
 #include "letter.h"
+#include "fileexception.h"
 
 #include <QFile>
 #include <QSaveFile>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QMessageBox>
+
 
 class fileHandler {
 private:

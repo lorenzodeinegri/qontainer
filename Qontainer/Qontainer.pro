@@ -25,9 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    Model/fileexception.cpp \
     View/arttypecombobox.cpp \
     View/categorycombobox.cpp \
     View/details.cpp \
+    View/imageexception.cpp \
     View/insert.cpp \
     View/list.cpp \
     View/literarytypecombobox.cpp \
@@ -50,9 +52,11 @@ SOURCES += \
     Model/Hierarchy/letter.cpp
 
 HEADERS += \
+    Model/fileexception.h \
     View/arttypecombobox.h \
     View/categorycombobox.h \
     View/details.h \
+    View/imageexception.h \
     View/insert.h \
     View/list.h \
     View/literarytypecombobox.h \

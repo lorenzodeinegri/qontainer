@@ -188,18 +188,12 @@ Container<DeepPointer<Material>> fileHandler::read() const {
             }
         }
         else
-            QMessageBox messageBox(QMessageBox::Critical,
-                                   "Errore in lettura",
-                                   "Errore durante la lettura del file!\nLa formattazione del file non è quella richiesta!",
-                                   QMessageBox::Ok);
+            throw FileException("Errore durante la lettura del file!\nLa formattazione del file non è quella richiesta!");
 
         file.close();
     }
     else
-        QMessageBox messageBox(QMessageBox::Critical,
-                               "Errore in lettura",
-                               "Errore durante l'apertura del file!\nCaricamento non eseguito!",
-                               QMessageBox::Ok);
+        throw FileException("Errore durante l'apertura del file!\nCaricamento non eseguito!");
 
     return container;
 }
@@ -322,10 +316,7 @@ void fileHandler::write(const Container<DeepPointer<Material>> & container) cons
         }
 
         if (xmlWriter.hasError())
-            QMessageBox messageBox(QMessageBox::Critical,
-                                   "Errore in scrittura",
-                                   "Errore durante la scrittura del file!\nAlcuni dati non sono stati salvati correttamente!",
-                                   QMessageBox::Ok);
+            throw FileException("Errore durante la scrittura del file!\nAlcuni dati non sono stati salvati correttamente!");
 
         xmlWriter.writeEndElement();
         xmlWriter.writeEndDocument();
@@ -333,8 +324,5 @@ void fileHandler::write(const Container<DeepPointer<Material>> & container) cons
         saveFile.commit();
     }
     else
-        QMessageBox messageBox(QMessageBox::Critical,
-                               "Errore in scrittura",
-                               "Errore durante l'apertura del file!\nSalvataggio non eseguito!",
-                               QMessageBox::Ok);
+        throw FileException("Errore durante l'apertura del file!\nSalvataggio non eseguito!");
 }

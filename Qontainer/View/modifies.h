@@ -8,6 +8,7 @@
 #include "picture.h"
 #include "act.h"
 #include "letter.h"
+#include "imageexception.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -21,7 +22,6 @@
 #include <QIcon>
 #include <QPixmap>
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QModelIndex>
 
 class Modifies : public QWidget {
