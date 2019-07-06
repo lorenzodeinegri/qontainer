@@ -153,6 +153,9 @@ Details::Details(Material * material, QWidget * parent) : QWidget(parent) {
 
     QPushButton * exitButton = new QPushButton("Chiudi", this);
 
+    exitButton->setToolTip("Chiudi la finestra dei dettagli");
+    exitButton->setToolTipDuration(-1);
+
     mainForm->addWidget(exitButton);
 
     setLayout(mainForm);

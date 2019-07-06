@@ -9,9 +9,27 @@ Menu::Menu(QWidget * parent) : QMenuBar(parent) {
     QAction * save = new QAction("Salva", file);
     QAction * saveName = new QAction("Salva con Nome", file);
     QAction * exit = new QAction("Esci", file);
-    QAction * insert = new QAction("Inserisci", this);
-    QAction * interact = new QAction("Interagisci", this);
+    QAction * insert = new QAction("&Inserisci", this);
+    QAction * interact = new QAction("I&nteragisci", this);
     QAction * about = new QAction("About", help);
+
+    load->setStatusTip("Carica dati da file");
+    load->setShortcut(QKeySequence::Open);
+    save->setStatusTip("Salva i dati correnti su file");
+    save->setShortcut(QKeySequence::Save);
+    saveName->setStatusTip("Salva i dati correnti sul file specificato");
+    saveName->setShortcut(QKeySequence::SaveAs);
+    exit->setStatusTip("Chiudi l'applicazione");
+    exit->setShortcut(QKeySequence::Close);
+
+    insert->setStatusTip("Mostra la finestra di inserimento dati");
+    insert->setShortcut(QKeySequence("ctrl+i"));
+
+    interact->setStatusTip("Mostra la finestra di interazione con i dati inseriti");
+    interact->setShortcut(QKeySequence("ctrl+alt+i"));
+
+    about->setStatusTip("Mostra le informazione sull'applicazione");
+    about->setShortcut(QKeySequence::WhatsThis);
 
     // Assemblaggio del menu
     file->addAction(load);

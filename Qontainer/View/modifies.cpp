@@ -339,6 +339,14 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     QPushButton * cancelButton = new QPushButton("Cancella", this);
     QPushButton * exitButton = new QPushButton("Chiudi", this);
 
+    saveButton->setToolTip("Salva le modifiche effettuate");
+    cancelButton->setToolTip("Cancella tutti i dati inseriti");
+    exitButton->setToolTip("Chiudi la finestra e annulla le modifiche");
+
+    saveButton->setToolTipDuration(-1);
+    cancelButton->setToolTipDuration(-1);
+    exitButton->setToolTipDuration(-1);
+
     bottomForm->addWidget(saveButton);
     bottomForm->addWidget(cancelButton);
     bottomForm->addWidget(exitButton);

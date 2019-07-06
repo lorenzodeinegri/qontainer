@@ -100,9 +100,9 @@ private:
     void setLetterValuesVisibility(bool) const;
 
 private slots:
-    void changeCategory() const;
-    void changeArtType() const;
-    void changeLiteraryType() const;
+    void changeCategory(const QString &) const;
+    void changeArtType(const QString &) const;
+    void changeLiteraryType(const QString &) const;
 
     void changeImage();
 

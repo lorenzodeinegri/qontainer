@@ -89,42 +89,46 @@ void Insert::setLetterValuesVisibility(bool visibility) const {
     addresseeLabel->setVisible(visibility);
 }
 
-void Insert::changeCategory() const {
+void Insert::changeCategory(const QString & category) const {
     clearArtValues();
     clearLiteraryValues();
 
     setArtValuesVisibility(false);
     setLiteraryValuesVisibility(false);
 
-    if (categoryEdit->currentText() == "Opera d'arte")
+    if (category == "Opera d'arte") {
         setArtValuesVisibility(true);
-    else if (categoryEdit->currentText() == "Opera letteraria")
+        artTypeEdit->setCurrentIndex(0);
+    }
+    else if (category == "Opera letteraria") {
         setLiteraryValuesVisibility(true);
+        literaryTypeEdit->setCurrentIndex(0);
+    }
 }
 
-void Insert::changeArtType() const {
+void Insert::changeArtType(const QString & artType) const {
     clearSculptureValues();
     clearPictureValues();
 
     setSculptureValuesVisibility(false);
     setPictureValuesVisibility(false);
 
-    if (artTypeEdit->currentText() == "Scultura")
+    if (artType == "Scultura")
         setSculptureValuesVisibility(true);
-    else if (artTypeEdit->currentText() == "Dipinto")
+    else if (artType == "Dipinto")
         setPictureValuesVisibility(true);
 }
 
-void Insert::changeLiteraryType() const {
+void Insert::changeLiteraryType(const QString & literaryType) const {
     clearActValues();
     clearLetterValues();
 
     setActValuesVisibility(false);
     setLetterValuesVisibility(false);
 
-    if (literaryTypeEdit->currentText() == "Atto")
+    if (literaryType == "Atto")
         setActValuesVisibility(true);
-    else if (literaryTypeEdit->currentText() == "Lettera")
+    else if (literaryType == "Lettera")
         setLetterValuesVisibility(true);
 }
 
@@ -156,14 +160,14 @@ void Insert::insert() const {
                                      proprietaryTrue->isChecked(),
                                      stateTrue->isChecked(),
                                      availabilityTrue->isChecked(),
-                                     shapeEdit->text().toStdString(),
-                                     materialEdit->text().toStdString(),
-                                     techniqueEdit->text().toStdString(),
-                                     movementEdit->text().toStdString(),
-                                     subjectEdit->text().toStdString(),
-                                     authorEdit->text().toStdString(),
-                                     titleEdit->text().toStdString(),
-                                     placeEdit->text().toStdString(),
+                                     shapeEdit->text().isEmpty() ? "Sconosciuta" : shapeEdit->text().toStdString(),
+                                     materialEdit->text().isEmpty() ? "Sconosciuto" : materialEdit->text().toStdString(),
+                                     techniqueEdit->text().isEmpty() ? "Sconosciuta" : techniqueEdit->text().toStdString(),
+                                     movementEdit->text().isEmpty() ? "Sconosciuto" : movementEdit->text().toStdString(),
+                                     subjectEdit->text().isEmpty() ? "Sconosciuto" : subjectEdit->text().toStdString(),
+                                     authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
+                                     titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
+                                     placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
                                      dateEdit->date().toString().toStdString(),
                                      imagePath,
                                      0,
@@ -178,13 +182,13 @@ void Insert::insert() const {
                                    stateTrue->isChecked(),
                                    availabilityTrue->isChecked(),
                                    formatTrue->isChecked(),
-                                   materialEdit->text().toStdString(),
-                                   techniqueEdit->text().toStdString(),
-                                   movementEdit->text().toStdString(),
-                                   subjectEdit->text().toStdString(),
-                                   authorEdit->text().toStdString(),
-                                   titleEdit->text().toStdString(),
-                                   placeEdit->text().toStdString(),
+                                   materialEdit->text().isEmpty() ? "Sconosciuto" : materialEdit->text().toStdString(),
+                                   techniqueEdit->text().isEmpty() ? "Sconosciuta" : techniqueEdit->text().toStdString(),
+                                   movementEdit->text().isEmpty() ? "Sconosciuto" : movementEdit->text().toStdString(),
+                                   subjectEdit->text().isEmpty() ? "Sconosciuto" : subjectEdit->text().toStdString(),
+                                   authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
+                                   titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
+                                   placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
                                    dateEdit->date().toString().toStdString(),
                                    imagePath,
                                    0,
@@ -200,14 +204,14 @@ void Insert::insert() const {
                                proprietaryTrue->isChecked(),
                                stateTrue->isChecked(),
                                availabilityTrue->isChecked(),
-                               objectEdit->text().toStdString(),
+                               objectEdit->text().isEmpty() ? "Sconosciuto" : objectEdit->text().toStdString(),
                                textTrue->isChecked(),
                                writingTrue->isChecked(),
-                               languageEdit->text().toStdString(),
-                               styleEdit->text().toStdString(),
-                               authorEdit->text().toStdString(),
-                               titleEdit->text().toStdString(),
-                               placeEdit->text().toStdString(),
+                               languageEdit->text().isEmpty() ? "Sconosciuta" : languageEdit->text().toStdString(),
+                               styleEdit->text().isEmpty() ? "Sconosciuto" : styleEdit->text().toStdString(),
+                               authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
+                               titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
+                               placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
                                dateEdit->date().toString().toStdString(),
                                imagePath,
                                0,
@@ -221,14 +225,14 @@ void Insert::insert() const {
                                   proprietaryTrue->isChecked(),
                                   stateTrue->isChecked(),
                                   availabilityTrue->isChecked(),
-                                  addresseeEdit->text().toStdString(),
+                                  addresseeEdit->text().isEmpty() ? "Sconosciuto" : addresseeEdit->text().toStdString(),
                                   textTrue->isChecked(),
                                   writingTrue->isChecked(),
-                                  languageEdit->text().toStdString(),
-                                  styleEdit->text().toStdString(),
-                                  authorEdit->text().toStdString(),
-                                  titleEdit->text().toStdString(),
-                                  placeEdit->text().toStdString(),
+                                  languageEdit->text().isEmpty() ? "Sconosciuta" : languageEdit->text().toStdString(),
+                                  styleEdit->text().isEmpty() ? "Sconosciuto" : styleEdit->text().toStdString(),
+                                  authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
+                                  titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
+                                  placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
                                   dateEdit->date().toString().toStdString(),
                                   imagePath,
                                   0,
@@ -470,6 +474,12 @@ Insert::Insert(QWidget * parent) :
     QPushButton * insertButton = new QPushButton("Inserisci", this);
     QPushButton * cancelButton = new QPushButton("Cancella", this);
 
+    insertButton->setToolTip("Inserisci un nuovo materiale");
+    cancelButton->setToolTip("Cancella tutti i dati inseriti nel form");
+
+    insertButton->setToolTipDuration(-1);
+    cancelButton->setToolTipDuration(-1);
+
     bottomForm->addWidget(insertButton);
     bottomForm->addWidget(cancelButton);
 
@@ -479,11 +489,13 @@ Insert::Insert(QWidget * parent) :
 
     setLayout(mainForm);
 
-    connect(categoryEdit, SIGNAL(currentIndexChanged()), this, SLOT(changeCategory()));
-    connect(artTypeEdit, SIGNAL(currentIndexChanged()), this, SLOT(changeArtType()));
-    connect(literaryTypeEdit, SIGNAL(currentIndexChanged()), this, SLOT(changeLiteraryType()));
+    connect(categoryEdit, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(changeCategory(const QString &)));
+    connect(artTypeEdit, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(changeArtType(const QString &)));
+    connect(literaryTypeEdit, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(changeLiteraryType(const QString &)));
 
     connect(imageButton, SIGNAL(clicked()), this, SLOT(changeImage()));
     connect(insertButton, SIGNAL(clicked()), this, SLOT(insert()));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+
+    emit(categoryEdit->currentTextChanged((categoryEdit->currentText())));
 }
