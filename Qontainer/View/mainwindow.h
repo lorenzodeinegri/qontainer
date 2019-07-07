@@ -31,37 +31,36 @@ private:
     Interact * interact;
 
 
-    void load() const;
+    void load();
 
 private slots:
-    void loadFile() const;
-    void saveFile() const;
-    void saveFileName() const;
-    void exit() const;
+    void loadFile();
+    void saveFile();
+    void saveFileName();
     void insertShow() const;
     void interactShow() const;
     void about();
 
     void insertMaterial(Material *) const;
 
-    void searchRegularExpressions(const QString &, const QString &) const;
-    void searchDates(const QDate &, const QDate &, const QString &) const;
-    void searchFloats(float, float, const QString &) const;
-    void searchIntegers(unsigned int, unsigned int, const QString &) const;
-    void searchBools(bool, const QString &) const;
-    void details(const QModelIndex &) const;
-    void modifies(const QModelIndex &) const;
-    void restore(const QModelIndex &) const;
-    void lend(const QModelIndex &) const;
-    void calculateValue(const QModelIndex &) const;
-    void calculateProfit(const QModelIndex &) const;
-    void calculateIncome(const QModelIndex &) const;
-    void calculateExpense(const QModelIndex &) const;
-    void calculateTotalValue(const QModelIndexList &) const;
-    void calculateTotalProfit(const QModelIndexList &) const;
-    void calculateTotalIncome(const QModelIndexList &) const;
-    void calculateTotalExpense(const QModelIndexList &) const;
-    void deletes(const QModelIndex &) const;
+    void searchRegularExpressions(const QString &) const;
+    void searchDates(const QDate &, const QDate &) const;
+    void searchFloats(float, float) const;
+    void searchIntegers(unsigned int, unsigned int) const;
+    void searchBools(bool) const;
+    void details(const QModelIndexList &);
+    void modifies(const QModelIndexList &);
+    void restore(const QModelIndexList &);
+    void lend(const QModelIndexList &);
+    void calculateValue(const QModelIndexList &);
+    void calculateProfit(const QModelIndexList &);
+    void calculateIncome(const QModelIndexList &);
+    void calculateExpense(const QModelIndexList &);
+    void calculateTotalValue(const QModelIndexList &);
+    void calculateTotalProfit(const QModelIndexList &);
+    void calculateTotalIncome(const QModelIndexList &);
+    void calculateTotalExpense(const QModelIndexList &);
+    void deletes(const QModelIndexList &);
 
 protected:
     virtual void closeEvent(QCloseEvent *) override;

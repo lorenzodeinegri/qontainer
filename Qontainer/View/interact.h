@@ -54,7 +54,7 @@ private:
 
 private slots:
     void search(const QString &);
-    void searchRegularExpressions(const QString &) const;
+    void searchExpressions(const QString &) const;
     void searchDates() const;
     void searchFloats() const;
     void searchIntegers() const;
@@ -84,29 +84,29 @@ public:
     explicit Interact(List *, SearchComboBox *, QWidget * = nullptr);
 
 signals:
-    void searchRegularExpressions(const QString &, const QString &) const;
-    void searchDates(const QDate &, const QDate &, const QString &) const;
-    void searchFloats(float, float, const QString &) const;
-    void searchIntegers(unsigned int, unsigned int, const QString &) const;
-    void searchBools(bool, const QString &) const;
+    void searchRegularExpressions(const QString &) const;
+    void searchDates(const QDate &, const QDate &) const;
+    void searchFloats(float, float) const;
+    void searchIntegers(unsigned int, unsigned int) const;
+    void searchBools(bool) const;
 
-    void details(const QModelIndex &) const;
-    void modifies(const QModelIndex &) const;
+    void details(const QModelIndexList &) const;
+    void modifies(const QModelIndexList &) const;
 
-    void restore(const QModelIndex &) const;
-    void lend(const QModelIndex &) const;
+    void restore(const QModelIndexList &) const;
+    void lend(const QModelIndexList &) const;
 
-    void calculateValue(const QModelIndex &) const;
-    void calculateProfit(const QModelIndex &) const;
-    void calculateIncome(const QModelIndex &) const;
-    void calculateExpense(const QModelIndex &) const;
+    void calculateValue(const QModelIndexList &) const;
+    void calculateProfit(const QModelIndexList &) const;
+    void calculateIncome(const QModelIndexList &) const;
+    void calculateExpense(const QModelIndexList &) const;
 
     void calculateTotalValue(const QModelIndexList &) const;
     void calculateTotalProfit(const QModelIndexList &) const;
     void calculateTotalIncome(const QModelIndexList &) const;
     void calculateTotalExpense(const QModelIndexList &) const;
 
-    void deletes(const QModelIndex &) const;
+    void deletes(const QModelIndexList &) const;
 };
 
 #endif // INTERACT_H

@@ -2,7 +2,8 @@
 
 ListModelAdapter::ListModelAdapter(QObject * parent) :
     QAbstractListModel(parent),
-    model(new Model()) {}
+    model(new Model()),
+    nextInsert(DeepPointer<Material>()) {}
 
 ListModelAdapter::~ListModelAdapter() {
     if (model != nullptr)
@@ -16,21 +17,17 @@ int ListModelAdapter::rowCount(const QModelIndex &) const {
 QVariant ListModelAdapter::data(const QModelIndex & adapterIndex, int role) const {
     if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
         switch (role) {
-        case Qt::DisplayRole: {
+        case Qt::DisplayRole:
             return QString::fromStdString((model->get(static_cast<unsigned int>(adapterIndex.row())))->getInfo());
-        }
-        case Qt::DecorationRole: {
+        case Qt::DecorationRole:
             return QPixmap(QString::fromStdString((model->get(static_cast<unsigned int>(adapterIndex.row())))->getPhoto())).scaledToHeight(200);
-        }
-        case Qt::BackgroundRole: {
+        case Qt::BackgroundRole:
             if (adapterIndex.row() % 2)
                 return QBrush(QColor(230, 230, 230));
             else
                 return QBrush(QColor(250, 250, 250));
-        }
-        default: {
+        default:
             return QVariant();
-        }
         }
     }
     else
@@ -39,7 +36,7 @@ QVariant ListModelAdapter::data(const QModelIndex & adapterIndex, int role) cons
 
 bool ListModelAdapter::insertRows(int begin, int count, const QModelIndex & parent) {
     beginInsertRows(parent, begin, begin + count - 1);
-    // TODO after insertion window implementation
+    model->add(nextInsert.operator->());
     endInsertRows();
     return true;
 }
@@ -49,6 +46,13 @@ bool ListModelAdapter::removeRows(int begin, int count, const QModelIndex & pare
     model->remove(static_cast<unsigned int>(begin));
     endRemoveRows();
     return true;
+}
+
+void ListModelAdapter::setNextInsert(Material * material) {
+    if (material) {
+        nextInsert = material;
+        delete material;
+    }
 }
 
 void ListModelAdapter::showDisplay(const QModelIndex & adapterIndex) const {

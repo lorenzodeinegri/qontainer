@@ -86,25 +86,25 @@ void Interact::search(const QString & filter) {
         setLabelsVisibility(true);
         setDatesVisibility(true);
 
-        emit searchDates(firstDate->date(), lastDate->date(), filter);
+        emit searchDates(firstDate->date(), lastDate->date());
     }
     else if (filter == "Restauri" || filter == "Prestiti") {
         setLabelsVisibility(true);
         setFloatsVisibility(true);
 
-        emit searchFloats(firstFloat->text().toFloat(), lastFloat->text().toFloat(), filter);
+        emit searchFloats(firstFloat->text().toFloat(), lastFloat->text().toFloat());
     }
     else if (filter == "Valore Base" || filter == "Entrate" || filter == "Uscite") {
         setLabelsVisibility(true);
         setIntegersVisibility(true);
 
-        emit searchIntegers(firstFloat->text().toUInt(), lastFloat->text().toUInt(), filter);
+        emit searchIntegers(firstFloat->text().toUInt(), lastFloat->text().toUInt());
     }
     else if (filter == "Proprieta" || filter == "Stato" || filter == "Disponibilita" || filter == "Testo" || filter == "Scrittura" || filter == "Formato") {
         setBoolsLabels(filter);
         setBoolsVisibility(true);
 
-        emit searchBools(trueRadio->isChecked(), filter);
+        emit searchBools(trueRadio->isChecked());
     }
     else {
         searchEdit->setVisible(true);
@@ -114,60 +114,60 @@ void Interact::search(const QString & filter) {
         else
             searchEdit->setValidator(nullptr);
 
-        emit searchRegularExpressions(searchEdit->text(), filter);
+        emit searchRegularExpressions(searchEdit->text());
     }
 }
 
-void Interact::searchRegularExpressions(const QString & regularExpression) const {
-    emit searchRegularExpressions(regularExpression, searchComboBox->currentText());
+void Interact::searchExpressions(const QString & regularExpression) const {
+    emit searchRegularExpressions(regularExpression);
 }
 
 void Interact::searchDates() const {
-    emit searchDates(firstDate->date(), lastDate->date(), searchComboBox->currentText());
+    emit searchDates(firstDate->date(), lastDate->date());
 }
 
 void Interact::searchFloats() const {
-    emit searchFloats(firstFloat->text().toFloat(), lastFloat->text().toFloat(), searchComboBox->currentText());
+    emit searchFloats(firstFloat->text().toFloat(), lastFloat->text().toFloat());
 }
 
 void Interact::searchIntegers() const {
-    emit searchIntegers(firstInteger->text().toUInt(), lastInteger->text().toUInt(), searchComboBox->currentText());
+    emit searchIntegers(firstInteger->text().toUInt(), lastInteger->text().toUInt());
 }
 
 void Interact::searchBools() const {
-    emit searchBools(trueRadio->isChecked(), searchComboBox->currentText());
+    emit searchBools(trueRadio->isChecked());
 }
 
 void Interact::details() const {
-    emit details(list->selectionModel()->selectedIndexes().first());
+    emit details(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::modifies() const {
-    emit modifies(list->selectionModel()->selectedIndexes().first());
+    emit modifies(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::restore() const {
-    emit restore(list->selectionModel()->selectedIndexes().first());
+    emit restore(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::lend() const {
-    emit lend(list->selectionModel()->selectedIndexes().first());
+    emit lend(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::calculateValue() const {
-    emit calculateValue(list->selectionModel()->selectedIndexes().first());
+    emit calculateValue(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::calculateProfit() const {
-    emit calculateProfit(list->selectionModel()->selectedIndexes().first());
+    emit calculateProfit(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::calculateIncome() const {
-    emit calculateIncome(list->selectionModel()->selectedIndexes().first());
+    emit calculateIncome(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::calculateExpense() const {
-    emit calculateExpense(list->selectionModel()->selectedIndexes().first());
+    emit calculateExpense(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::calculateTotalValue() const {
@@ -199,7 +199,7 @@ void Interact::calculateTotalExpense() const {
 }
 
 void Interact::deletes() const {
-    emit deletes(list->selectionModel()->selectedIndexes().first());
+    emit deletes(list->selectionModel()->selectedIndexes());
 }
 
 void Interact::reset() const {
@@ -328,8 +328,8 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     calculateTotalMinus->addWidget(totalIncomeButton);
     calculateTotalMinus->addWidget(totalExpenseButton);
 
-    QPushButton * deleteButton = new QPushButton("Elimina", this);
-    deleteButton->setToolTip("Elimina il materiale selezionato");
+    QPushButton * deleteButton = new QPushButton("Rimuovi", this);
+    deleteButton->setToolTip("Rimuovi il materiale selezionato");
     deleteButton->setToolTipDuration(-1);
 
     buttonsForm->addLayout(shows);

@@ -13,6 +13,7 @@
 class ListModelAdapter : public QAbstractListModel {
 private:
     Model * model;
+    DeepPointer<Material> nextInsert;
 
 public:
     explicit ListModelAdapter(QObject * = nullptr);
@@ -23,6 +24,8 @@ public:
 
     bool insertRows(int, int = 1, const QModelIndex & = QModelIndex()) override;
     bool removeRows(int, int = 1, const QModelIndex & = QModelIndex()) override;
+
+    void setNextInsert(Material *);
 
     void showDisplay(const QModelIndex &) const;
     void showModify(const QModelIndex &) const;
