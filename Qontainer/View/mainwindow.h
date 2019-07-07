@@ -41,7 +41,7 @@ private slots:
     void interactShow() const;
     void about();
 
-    void insertMaterial(Material *) const;
+    void insertMaterial(Material *);
 
     void searchRegularExpressions(const QString &) const;
     void searchDates(const QDate &, const QDate &) const;
@@ -67,6 +67,8 @@ protected:
 
 public:
     explicit MainWindow(QWidget * = nullptr);
+
+    QSize sizeHint() const override;
 };
 
 #endif // MAINWINDOW_H

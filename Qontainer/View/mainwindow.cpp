@@ -21,8 +21,10 @@ void MainWindow::load() {
 }
 
 void MainWindow::loadFile() {
-    QString file = QFileDialog::getOpenFileName(this, "Selezionare il file da caricare", ":/Data", "XML (*.xml)");
+    QString file = QFileDialog::getOpenFileName(this, "Selezionare il file da caricare", ":/Data", "XML (*.xml);;All Files (*)");
     if (!file.isEmpty()) {
+        if (!file.contains(".xml"))
+            file.append(".xml");
         try {
             listModelAdapter->loadFile(file.toStdString());
             filePath = file;
@@ -39,21 +41,27 @@ void MainWindow::loadFile() {
 }
 
 void MainWindow::saveFile() {
-    try {
-        listModelAdapter->saveFile(filePath.toStdString());
-    } catch (FileException exception) {
-        QMessageBox::critical(this,
-                              "Salvataggio file: " + filePath,
-                              QString::fromStdString(exception.getException()),
-                              QMessageBox::Ok,
-                              QMessageBox::NoButton,
-                              QMessageBox::NoButton);
+    if (!filePath.isEmpty()) {
+        try {
+            listModelAdapter->saveFile(filePath.toStdString());
+        } catch (FileException exception) {
+            QMessageBox::critical(this,
+                                  "Salvataggio file: " + filePath,
+                                  QString::fromStdString(exception.getException()),
+                                  QMessageBox::Ok,
+                                  QMessageBox::NoButton,
+                                  QMessageBox::NoButton);
+        }
     }
+    else
+        saveFileName();
 }
 
 void MainWindow::saveFileName() {
     QString file = QFileDialog::getSaveFileName(this, "Selezionare il file in cui salvare", ":/Data", "XML (*.xml)");
     if (!file.isEmpty()) {
+        if (!file.contains(".xml"))
+            file.append(".xml");
         try {
             listModelAdapter->saveFile(file.toStdString());
             filePath = file;
@@ -85,12 +93,18 @@ void MainWindow::about() {
                        "Progetto per il corso di programmazione ad oggetti\nLorenzo Dei Negri - 1161729");
 }
 
-void MainWindow::insertMaterial(Material * material) const {
+void MainWindow::insertMaterial(Material * material) {
     listModelAdapter->setNextInsert(material);
     filterProxyModel->insertRows(filterProxyModel->rowCount(), 1);
     list->clearSelection();
     list->selectionModel()->clearCurrentIndex();
     list->selectionModel()->select(filterProxyModel->index(listModelAdapter->rowCount() - 1, 0), QItemSelectionModel::Select);
+    QMessageBox::information(this,
+                             "Inserisci materiale",
+                             "Materiale inserito!",
+                             QMessageBox::Ok,
+                             QMessageBox::NoButton,
+                             QMessageBox::NoButton);
 }
 
 void MainWindow::searchRegularExpressions(const QString & expression) const {
@@ -395,4 +409,9 @@ MainWindow::MainWindow(QWidget * parent) :
     connect(interact, SIGNAL(calculateTotalIncome(const QModelIndexList &)), this, SLOT(calculateTotalIncome(const QModelIndexList &)));
     connect(interact, SIGNAL(calculateTotalExpense(const QModelIndexList &)), this, SLOT(calculateTotalExpense(const QModelIndexList &)));
     connect(interact, SIGNAL(deletes(const QModelIndexList &)), this, SLOT(deletes(const QModelIndexList &)));
+}
+
+QSize MainWindow::sizeHint() const
+{
+    return QSize(900, 600);
 }
