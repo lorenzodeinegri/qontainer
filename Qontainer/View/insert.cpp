@@ -147,7 +147,7 @@ void Insert::changeImage() {
     }
 }
 
-void Insert::insert() const {
+void Insert::insert() {
     Material * material = nullptr;
 
     if (categoryEdit->currentText() == "Opera d'arte") {
@@ -239,8 +239,11 @@ void Insert::insert() const {
         }
     }
 
-    if (material)
+    if (material) {
         emit insertMaterial(material);
+        cancel();
+        categoryEdit->setCurrentIndex(0);
+    }
 }
 
 void Insert::cancel() {
@@ -335,12 +338,12 @@ Insert::Insert(QWidget * parent) :
 
     QHBoxLayout * sectorForm = new QHBoxLayout(this);
     sectorForm->addWidget(sectorLabel);
-    sectorEdit->setValidator(new QIntValidator(1, 100));
+    sectorEdit->setValidator(new QIntValidator(1, 100, this));
     sectorForm->addWidget(sectorEdit);
 
     QHBoxLayout * valueForm = new QHBoxLayout(this);
     valueForm->addWidget(valueLabel);
-    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2));
+    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2, this));
     valueForm->addWidget(valueEdit);
 
     QHBoxLayout * proprietaryForm = new QHBoxLayout(this);

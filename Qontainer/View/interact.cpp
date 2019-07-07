@@ -78,7 +78,7 @@ void Interact::setBoolsLabels(const QString & filter) const {
     }
 }
 
-void Interact::search(const QString & filter) const {
+void Interact::search(const QString & filter) {
     hideAll();
     resetAll();
 
@@ -110,7 +110,7 @@ void Interact::search(const QString & filter) const {
         searchEdit->setVisible(true);
 
         if (filter == "Settore")
-            searchEdit->setValidator(new QIntValidator(1, 100));
+            searchEdit->setValidator(new QIntValidator(1, 100, this));
         else
             searchEdit->setValidator(nullptr);
 
@@ -225,6 +225,18 @@ Interact::Interact(List * list, QWidget * parent) :
     trueRadio(new QRadioButton("", this)),
     falseRadio(new QRadioButton("", this))
 {
+    searchEdit->setPlaceholderText("Cerca...");
+
+    firstFloat->setPlaceholderText("Minimo...");
+    lastFloat->setPlaceholderText("Massimo...");
+
+    firstInteger->setPlaceholderText("Minimo...");
+    lastInteger->setPlaceholderText("Massimo...");
+
+    QButtonGroup * buttonGroup = new QButtonGroup(this);
+    buttonGroup->addButton(trueRadio, 1);
+    buttonGroup->addButton(falseRadio, 2);
+
     QHBoxLayout * mainForm = new QHBoxLayout(this);
 
     QVBoxLayout * listForm = new QVBoxLayout(this);

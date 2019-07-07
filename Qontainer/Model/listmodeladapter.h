@@ -7,6 +7,8 @@
 #include "modifies.h"
 
 #include <QAbstractListModel>
+#include <QBrush>
+#include <QColor>
 
 class ListModelAdapter : public QAbstractListModel {
 private:

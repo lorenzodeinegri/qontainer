@@ -22,6 +22,12 @@ QVariant ListModelAdapter::data(const QModelIndex & adapterIndex, int role) cons
         case Qt::DecorationRole: {
             return QPixmap(QString::fromStdString((model->get(static_cast<unsigned int>(adapterIndex.row())))->getPhoto())).scaledToHeight(200);
         }
+        case Qt::BackgroundRole: {
+            if (adapterIndex.row() % 2)
+                return QBrush(QColor(230, 230, 230));
+            else
+                return QBrush(QColor(250, 250, 250));
+        }
         default: {
             return QVariant();
         }

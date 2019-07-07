@@ -148,12 +148,12 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
 
     QHBoxLayout * sectorForm = new QHBoxLayout(this);
     sectorForm->addWidget(new QLabel("Settore:", this));
-    sectorEdit->setValidator(new QIntValidator(1, 100));
+    sectorEdit->setValidator(new QIntValidator(1, 100, this));
     sectorForm->addWidget(sectorEdit);
 
     QHBoxLayout * valueForm = new QHBoxLayout(this);
     valueForm->addWidget(new QLabel("Valore base:", this));
-    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2));
+    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2, this));
     valueForm->addWidget(valueEdit);
 
     QHBoxLayout * proprietaryForm = new QHBoxLayout(this);

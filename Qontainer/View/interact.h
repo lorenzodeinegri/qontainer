@@ -53,7 +53,7 @@ private:
     void setBoolsLabels(const QString &) const;
 
 private slots:
-    void search(const QString &) const;
+    void search(const QString &);
     void searchRegularExpressions(const QString &) const;
     void searchDates() const;
     void searchFloats() const;
