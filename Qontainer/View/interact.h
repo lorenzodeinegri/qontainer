@@ -12,6 +12,9 @@
 #include <QDateEdit>
 #include <QLabel>
 #include <QModelIndexList>
+#include <QValidator>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 class Interact : public QWidget {
     Q_OBJECT
@@ -37,13 +40,43 @@ private:
     QRadioButton * trueRadio;
     QRadioButton * falseRadio;
 
+
+    void setLabelsVisibility(bool visibility) const;
+    void setDatesVisibility(bool visibility) const;
+    void setFloatsVisibility(bool visibility) const;
+    void setIntegersVisibility(bool visibility) const;
+    void setBoolsVisibility(bool visibility) const;
+
+    void hideAll() const;
+    void resetAll() const;
+
+    void setBoolsLabels(const QString &) const;
+
 private slots:
     void search(const QString &) const;
     void searchRegularExpressions(const QString &) const;
-    void searchDates(const QDate &) const;
-    void searchFloats(float) const;
-    void searchIntegers(int) const;
-    void searchBools(bool) const;
+    void searchDates() const;
+    void searchFloats() const;
+    void searchIntegers() const;
+    void searchBools() const;
+
+    void details() const;
+    void modifies() const;
+
+    void restore() const;
+    void lend() const;
+
+    void calculateValue() const;
+    void calculateProfit() const;
+    void calculateIncome() const;
+    void calculateExpense() const;
+
+    void calculateTotalValue() const;
+    void calculateTotalProfit() const;
+    void calculateTotalIncome() const;
+    void calculateTotalExpense() const;
+
+    void deletes() const;
 
     void reset() const;
 
@@ -51,10 +84,11 @@ public:
     explicit Interact(List *, QWidget * = nullptr);
 
 signals:
-    void search(const QString &, const QString &) const;
+    void searchRegularExpressions(const QString &, const QString &) const;
     void searchDates(const QDate &, const QDate &, const QString &) const;
     void searchFloats(float, float, const QString &) const;
-    void searchIntegers(int, int, const QString &) const;
+    void searchIntegers(unsigned int, unsigned int, const QString &) const;
+    void searchBools(bool, const QString &) const;
 
     void details(const QModelIndex &) const;
     void modifies(const QModelIndex &) const;
@@ -71,6 +105,8 @@ signals:
     void calculateTotalProfit(const QModelIndexList &) const;
     void calculateTotalIncome(const QModelIndexList &) const;
     void calculateTotalExpense(const QModelIndexList &) const;
+
+    void deletes(const QModelIndex &) const;
 };
 
 #endif // INTERACT_H

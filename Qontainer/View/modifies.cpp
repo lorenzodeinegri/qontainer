@@ -69,7 +69,7 @@ void Modifies::cancel() {
     authorEdit->setText("Sconosciuto");
     titleEdit->setText("Sconosciuto");
     placeEdit->setText("Sconosciuto");
-    dateEdit->setDate(QDate(0, 0, 0));
+    dateEdit->setDate(QDate::fromString("00/00/0000", "dd/MM/yyyy"));
 
     if (material->getMaterialType() == "Opera d'arte") {
         materialEdit->setText("Sconosciuto");

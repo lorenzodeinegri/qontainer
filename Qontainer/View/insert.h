@@ -106,7 +106,7 @@ private slots:
 
     void changeImage();
 
-    void insert( ) const;
+    void insert() const;
     void cancel();
 
 public:

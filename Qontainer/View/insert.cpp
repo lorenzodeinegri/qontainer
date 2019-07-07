@@ -12,7 +12,7 @@ void Insert::clearCommonValues() {
     authorEdit->setText("");
     titleEdit->setText("");
     placeEdit->setText("");
-    dateEdit->setDate(QDate(0, 0, 0));
+    dateEdit->setDate(QDate::fromString("00/00/0000", "dd/MM/yyyy"));
 }
 
 void Insert::clearArtValues() const {
@@ -289,7 +289,7 @@ Insert::Insert(QWidget * parent) :
     addresseeLabel(new QLabel("Destinatario:", this)),
     addresseeEdit(new QLineEdit("", this)),
     dateLabel(new QLabel("Data:", this)),
-    dateEdit(new QDateEdit(QDate::fromString("00/00/0000", "dd.MM.yyyy"), this)),
+    dateEdit(new QDateEdit(QDate::fromString("00/00/0000", "dd/MM/yyyy"), this)),
     proprietaryTrue(new QRadioButton("Privato/a", this)),
     stateTrue(new QRadioButton("Danneggiato/a", this)),
     availabilityTrue(new QRadioButton("Disponibile", this)),
