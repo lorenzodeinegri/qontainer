@@ -1,15 +1,15 @@
 #ifndef SORTFILTERPROXYMODEL_H
 #define SORTFILTERPROXYMODEL_H
 
+#include "searchcombobox.h"
 #include "listmodeladapter.h"
 #include "date.h"
 
-#include <QComboBox>
 #include <QSortFilterProxyModel>
 
 class SortFilterProxyModel : public QSortFilterProxyModel {
 private:
-    const QComboBox * searchFilters;
+    const SearchComboBox * searchFilters;
 
     date begin_date;
     date end_date;
@@ -26,7 +26,7 @@ protected:
     bool filterAcceptsRow(int, const QModelIndex &) const override;
 
 public:
-    explicit SortFilterProxyModel(const QComboBox * = nullptr, QObject * = nullptr);
+    explicit SortFilterProxyModel(const SearchComboBox * = nullptr, QObject * = nullptr);
 
     bool insertRows(int, int = 1, const QModelIndex& = QModelIndex()) override;
 

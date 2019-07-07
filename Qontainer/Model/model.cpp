@@ -21,12 +21,12 @@ Material * Model::get(unsigned int index) const {
 }
 
 void Model::loadFile(const std::string & filePath) {
-    fileHandler handler(filePath);
+    FileHandler handler(filePath);
     container = handler.read();
 }
 
 void Model::saveFile(const std::string & filePath) const {
-    fileHandler handler(filePath);
+    FileHandler handler(filePath);
     handler.write(container);
 }
 

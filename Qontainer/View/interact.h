@@ -81,7 +81,7 @@ private slots:
     void reset() const;
 
 public:
-    explicit Interact(List *, QWidget * = nullptr);
+    explicit Interact(List *, SearchComboBox *, QWidget * = nullptr);
 
 signals:
     void searchRegularExpressions(const QString &, const QString &) const;

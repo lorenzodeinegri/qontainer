@@ -209,10 +209,10 @@ void Interact::reset() const {
     searchComboBox->setCurrentIndex(0);
 }
 
-Interact::Interact(List * list, QWidget * parent) :
+Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * parent) :
     QWidget(parent),
     list(list),
-    searchComboBox(new SearchComboBox(this)),
+    searchComboBox(searchComboBox),
     searchEdit(new QLineEdit("", this)),
     first(new QLabel("Primo:", this)),
     last(new QLabel("Ultimo:", this)),

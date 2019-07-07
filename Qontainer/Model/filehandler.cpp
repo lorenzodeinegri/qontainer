@@ -1,8 +1,8 @@
 #include "filehandler.h"
 
-fileHandler::fileHandler(const std::string & filePath) : filePath(filePath) {}
+FileHandler::FileHandler(const std::string & filePath) : filePath(filePath) {}
 
-Container<DeepPointer<Material>> fileHandler::read() const {
+Container<DeepPointer<Material>> FileHandler::read() const {
     Container<DeepPointer<Material>> container;
 
     QFile file(QString::fromStdString(filePath));
@@ -198,7 +198,7 @@ Container<DeepPointer<Material>> fileHandler::read() const {
     return container;
 }
 
-void fileHandler::write(const Container<DeepPointer<Material>> & container) const {
+void FileHandler::write(const Container<DeepPointer<Material>> & container) const {
     QSaveFile saveFile(QString::fromStdString(filePath));
 
     if (saveFile.open(QIODevice::WriteOnly)) {
@@ -325,4 +325,12 @@ void fileHandler::write(const Container<DeepPointer<Material>> & container) cons
     }
     else
         throw FileException("Errore durante l'apertura del file!\nSalvataggio non eseguito!");
+}
+
+std::string FileHandler::getFilePath() const {
+    return filePath;
+}
+
+void FileHandler::setFilePath(const std::string & filePath) {
+    this->filePath = filePath;
 }

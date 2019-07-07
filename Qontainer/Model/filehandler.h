@@ -19,14 +19,18 @@
 #include <QXmlStreamWriter>
 
 
-class fileHandler {
+class FileHandler {
 private:
     std::string filePath;
 
 public:
-    fileHandler(const std::string & = ":/Data/data.xml");
+    FileHandler(const std::string & = ":/Data/data.xml");
+
     Container<DeepPointer<Material>> read() const;
     void write(const Container<DeepPointer<Material>> &) const;
+
+    std::string getFilePath() const;
+    void setFilePath(const std::string &);
 };
 
 #endif // FILEHANDLER_H

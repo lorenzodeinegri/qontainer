@@ -29,7 +29,7 @@ bool SortFilterProxyModel::filterAcceptsRow(int row_index, const QModelIndex &) 
         return static_cast<ListModelAdapter *>(sourceModel())->findMatch(static_cast<unsigned int>(row_index), filterRegExp(), filter);
 }
 
-SortFilterProxyModel::SortFilterProxyModel(const QComboBox * searchFilters, QObject * parent) :
+SortFilterProxyModel::SortFilterProxyModel(const SearchComboBox * searchFilters, QObject * parent) :
     QSortFilterProxyModel(parent),
     searchFilters(searchFilters) {}
 
