@@ -23,6 +23,7 @@
 #include <QFileDialog>
 #include <QModelIndex>
 #include <QMessageBox>
+#include <QFormLayout>
 
 class Modifies : public QWidget {
     Q_OBJECT

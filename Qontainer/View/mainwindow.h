@@ -40,7 +40,7 @@ private slots:
     void exit() const;
     void insertShow() const;
     void interactShow() const;
-    void about() const;
+    void about();
 
     void insertMaterial(Material *) const;
 

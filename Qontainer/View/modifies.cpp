@@ -138,10 +138,10 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
 
     QVBoxLayout * mainForm = new QVBoxLayout(this);
 
-    QHBoxLayout * middleForm = new QHBoxLayout(this);
-    QHBoxLayout * bottomForm = new QHBoxLayout(this);
+    QHBoxLayout * middleForm = new QHBoxLayout();
+    QHBoxLayout * bottomForm = new QHBoxLayout();
 
-    QVBoxLayout * imageForm = new QVBoxLayout(this);
+    QVBoxLayout * imageForm = new QVBoxLayout();
 
     imageLabel->setPixmap(QPixmap(QString::fromStdString(material->getPhoto())));
     QPushButton * imageButton = new QPushButton("Modifica", this);
@@ -149,191 +149,103 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     imageForm->addWidget(imageLabel);
     imageForm->addWidget(imageButton);
 
-    QVBoxLayout * dataForm = new QVBoxLayout(this);
+    QFormLayout * dataForm = new QFormLayout();
 
-    QHBoxLayout * sectorForm = new QHBoxLayout(this);
-    sectorForm->addWidget(new QLabel("Settore:", this));
     sectorEdit->setValidator(new QIntValidator(1, 100, this));
-    sectorForm->addWidget(sectorEdit);
+    dataForm->addRow(new QLabel("Settore:", this), sectorEdit);
 
-    QHBoxLayout * valueForm = new QHBoxLayout(this);
-    valueForm->addWidget(new QLabel("Valore base:", this));
     valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2, this));
-    valueForm->addWidget(valueEdit);
-
-    QHBoxLayout * proprietaryForm = new QHBoxLayout(this);
+    dataForm->addRow(new QLabel("Valore base:", this), valueEdit);
 
     QRadioButton * trueProprietary = new QRadioButton("Privato/a", this);
     QRadioButton * falseProprietary = new QRadioButton("Pubblico/a", this);
-
     material->isProprietary() ? trueProprietary->setChecked(true) : falseProprietary->setChecked(true);
-
     proprietaryEdit->addButton(trueProprietary, 1);
     proprietaryEdit->addButton(falseProprietary, 2);
 
-    proprietaryForm->addWidget(trueProprietary);
-    proprietaryForm->addWidget(falseProprietary);
-
-    QHBoxLayout * damagedForm = new QHBoxLayout(this);
+    dataForm->addRow(trueProprietary, falseProprietary);
 
     QRadioButton * trueState = new QRadioButton("Danneggiato/a", this);
     QRadioButton * falseState = new QRadioButton("Integro/a", this);
-
     material->isDamaged() ? trueState->setChecked(true) : falseState->setChecked(true);
-
     stateEdit->addButton(trueState, 1);
     stateEdit->addButton(falseState, 2);
 
-    damagedForm->addWidget(trueState);
-    damagedForm->addWidget(falseState);
-
-    QHBoxLayout * availableForm = new QHBoxLayout(this);
+    dataForm->addRow(trueState, falseState);
 
     QRadioButton * trueAvailability = new QRadioButton("Disponibile", this);
     QRadioButton * falseAvailability = new QRadioButton("Inservibile", this);
-
     material->isAvailable() ? trueAvailability->setChecked(true) : falseAvailability->setChecked(true);
-
     availabilityEdit->addButton(trueAvailability, 1);
     availabilityEdit->addButton(falseAvailability, 2);
 
-    availableForm->addWidget(trueAvailability);
-    availableForm->addWidget(falseAvailability);
+    dataForm->addRow(trueAvailability, falseAvailability);
 
-    QHBoxLayout * authorForm = new QHBoxLayout(this);
-    authorForm->addWidget(new QLabel("Autore:", this));
-    authorForm->addWidget(authorEdit);
+    dataForm->addRow(new QLabel("Autore:", this), authorEdit);
 
-    QHBoxLayout * titleForm = new QHBoxLayout(this);
-    titleForm->addWidget(new QLabel("Titolo:", this));
-    titleForm->addWidget(titleEdit);
+    dataForm->addRow(new QLabel("Titolo:", this), titleEdit);
 
-    QHBoxLayout * placeForm = new QHBoxLayout(this);
-    placeForm->addWidget(new QLabel("Luogo:", this));
-    placeForm->addWidget(placeEdit);
+    dataForm->addRow(new QLabel("Luogo:", this), placeEdit);
 
-    QHBoxLayout * dateForm = new QHBoxLayout(this);
-    dateForm->addWidget(new QLabel("Data:", this));
-    dateForm->addWidget(dateEdit);
-
-    dataForm->addLayout(sectorForm);
-    dataForm->addLayout(valueForm);
-    dataForm->addLayout(proprietaryForm);
-    dataForm->addLayout(damagedForm);
-    dataForm->addLayout(availableForm);
-    dataForm->addLayout(authorForm);
-    dataForm->addLayout(titleForm);
-    dataForm->addLayout(placeForm);
-    dataForm->addLayout(dateForm);
+    dataForm->addRow(new QLabel("Data:", this), dateEdit);
 
     if (material->getMaterialType() == "Opera d'arte") {
-        QHBoxLayout * materialForm = new QHBoxLayout(this);
-        materialForm->addWidget(new QLabel("Materiale:", this));
         materialEdit = new QLineEdit(QString::fromStdString(static_cast<ArtWork *>(material)->getMaterial()), this);
-        materialForm->addWidget(materialEdit);
+        dataForm->addRow(new QLabel("Materiale:", this), materialEdit);
 
-        QHBoxLayout * techniqueForm = new QHBoxLayout(this);
-        techniqueForm->addWidget(new QLabel("Tecnica:", this));
         techniqueEdit = new QLineEdit(QString::fromStdString(static_cast<ArtWork *>(material)->getTechnique()), this);
-        techniqueForm->addWidget(techniqueEdit);
+        dataForm->addRow(new QLabel("Tecnica:", this), techniqueEdit);
 
-        QHBoxLayout * movementForm = new QHBoxLayout(this);
-        movementForm->addWidget(new QLabel("Movimento:", this));
         movementEdit = new QLineEdit(QString::fromStdString(static_cast<ArtWork *>(material)->getArtMovement()), this);
-        movementForm->addWidget(movementEdit);
+        dataForm->addRow(new QLabel("Movimento:", this), movementEdit);
 
-        QHBoxLayout * subjectForm = new QHBoxLayout(this);
-        subjectForm->addWidget(new QLabel("Soggetto:", this));
         subjectEdit = new QLineEdit(QString::fromStdString(static_cast<ArtWork *>(material)->getSubject()), this);
-        subjectForm->addWidget(subjectEdit);
-
-        dataForm->addLayout(materialForm);
-        dataForm->addLayout(techniqueForm);
-        dataForm->addLayout(movementForm);
-        dataForm->addLayout(subjectForm);
+        dataForm->addRow(new QLabel("Soggetto:", this), subjectEdit);
 
         if (material->getType() == "Scultura") {
-            QHBoxLayout * shapeForm = new QHBoxLayout(this);
-            shapeForm->addWidget(new QLabel("Forma:", this));
             shapeEdit = new QLineEdit(QString::fromStdString((static_cast<Sculpture *>(material))->getShape()), this);
-            shapeForm->addWidget(shapeEdit);
-
-            dataForm->addLayout(shapeForm);
+            dataForm->addRow(new QLabel("Forma:", this), shapeEdit);
         }
         else if (material->getType() == "Dipinto") {
-            QHBoxLayout * photographyForm = new QHBoxLayout(this);
-
             QRadioButton * truePhotography = new QRadioButton("Fotografia", this);
             QRadioButton * falsePhotography = new QRadioButton("Rappresentazione", this);
-
             static_cast<Picture *>(material)->isPhotography() ? truePhotography->setChecked(true) : falsePhotography->setChecked(true);
-
             formatEdit->addButton(truePhotography, 1);
             formatEdit->addButton(falsePhotography, 2);
 
-            photographyForm->addWidget(truePhotography);
-            photographyForm->addWidget(falsePhotography);
-
-            dataForm->addLayout(photographyForm);
+            dataForm->addRow(truePhotography, falsePhotography);
         }
     }
     else if (material->getMaterialType() == "Opera letteraria") {
-        QHBoxLayout * completeForm = new QHBoxLayout(this);
-
         QRadioButton * trueComplete = new QRadioButton("Completo/a", this);
         QRadioButton * falseComplete = new QRadioButton("Incompleto/a", this);
-
         static_cast<LiteraryWork *>(material)->isComplete() ? trueComplete->setChecked(true) : falseComplete->setChecked(true);
-
         textEdit->addButton(trueComplete, 1);
         textEdit->addButton(falseComplete, 2);
 
-        completeForm->addWidget(trueComplete);
-        completeForm->addWidget(falseComplete);
-
-        QHBoxLayout * handwrittenForm = new QHBoxLayout(this);
+        dataForm->addRow(trueComplete, falseComplete);
 
         QRadioButton * trueHandwritten = new QRadioButton("Manoscritto", this);
         QRadioButton * falseHandwritten = new QRadioButton("Dattiloscritto", this);
-
         static_cast<LiteraryWork *>(material)->isComplete() ? trueHandwritten->setChecked(true) : falseHandwritten->setChecked(true);
-
         formatEdit->addButton(trueHandwritten, 1);
         formatEdit->addButton(falseHandwritten, 2);
 
-        handwrittenForm->addWidget(trueHandwritten);
-        handwrittenForm->addWidget(falseHandwritten);
+        dataForm->addRow(trueHandwritten, falseHandwritten);
 
-        QHBoxLayout * languageForm = new QHBoxLayout(this);
-        languageForm->addWidget(new QLabel("Lingua:", this));
         languageEdit = new QLineEdit(QString::fromStdString((static_cast<LiteraryWork *>(material))->getLanguage()), this);
-        languageForm->addWidget(languageEdit);
+        dataForm->addRow(new QLabel("Lingua:", this), languageEdit);
 
-        QHBoxLayout * styleForm = new QHBoxLayout(this);
-        styleForm->addWidget(new QLabel("Stile:", this));
         styleEdit = new QLineEdit(QString::fromStdString((static_cast<LiteraryWork *>(material))->getStyle()), this);
-        styleForm->addWidget(styleEdit);
-
-        dataForm->addLayout(completeForm);
-        dataForm->addLayout(handwrittenForm);
-        dataForm->addLayout(languageForm);
-        dataForm->addLayout(styleForm);
+        dataForm->addRow(new QLabel("Stile:", this), styleEdit);
 
         if (material->getType() == "Atto") {
-            QHBoxLayout * objectForm = new QHBoxLayout(this);
-            objectForm->addWidget(new QLabel("Oggetto:", this));
             objectEdit = new QLineEdit(QString::fromStdString((static_cast<Act *>(material))->getObject()), this);
-            objectForm->addWidget(objectEdit);
-
-            dataForm->addLayout(objectForm);
+            dataForm->addRow(new QLabel("Oggetto:", this), objectEdit);
         }
         else if (material->getType() == "Lettera") {
-            QHBoxLayout * addresseeForm = new QHBoxLayout(this);
-            addresseeForm->addWidget(new QLabel("Destinatario:", this));
             addresseeEdit = new QLineEdit(QString::fromStdString((static_cast<Letter *>(material))->getAddressee()), this);
-            addresseeForm->addWidget(addresseeEdit);
-
-            dataForm->addLayout(addresseeForm);
+            dataForm->addRow(new QLabel("Destinatario:", this), addresseeEdit);
         }
     }
 

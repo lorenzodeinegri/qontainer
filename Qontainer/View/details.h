@@ -16,6 +16,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QPushButton>
+#include <QFormLayout>
 
 class Details : public QWidget {
     Q_OBJECT

@@ -12,7 +12,7 @@ void Insert::clearCommonValues() {
     authorEdit->setText("");
     titleEdit->setText("");
     placeEdit->setText("");
-    dateEdit->setDate(QDate::fromString("00/00/0000", "dd/MM/yyyy"));
+    dateEdit->setDate(QDate::fromString("01/01/1970", "dd/MM/yyyy"));
 }
 
 void Insert::clearArtValues() const {
@@ -98,10 +98,20 @@ void Insert::changeCategory(const QString & category) const {
 
     if (category == "Opera d'arte") {
         setArtValuesVisibility(true);
+
+        setActValuesVisibility(false);
+        setLetterValuesVisibility(false);
+
+        artTypeEdit->setCurrentIndex(1);
         artTypeEdit->setCurrentIndex(0);
     }
     else if (category == "Opera letteraria") {
         setLiteraryValuesVisibility(true);
+
+        setSculptureValuesVisibility(false);
+        setPictureValuesVisibility(false);
+
+        literaryTypeEdit->setCurrentIndex(1);
         literaryTypeEdit->setCurrentIndex(0);
     }
 }
@@ -297,7 +307,7 @@ Insert::Insert(QWidget * parent) :
     addresseeLabel(new QLabel("Destinatario:", this)),
     addresseeEdit(new QLineEdit("", this)),
     dateLabel(new QLabel("Data:", this)),
-    dateEdit(new QDateEdit(QDate::fromString("00/00/0000", "dd/MM/yyyy"), this)),
+    dateEdit(new QDateEdit(QDate::fromString("01/01/1970", "dd/MM/yyyy"), this)),
     proprietaryTrue(new QRadioButton("Privato/a", this)),
     stateTrue(new QRadioButton("Danneggiato/a", this)),
     availabilityTrue(new QRadioButton("Disponibile", this)),
@@ -320,9 +330,9 @@ Insert::Insert(QWidget * parent) :
 
     QVBoxLayout * mainForm = new QVBoxLayout(this);
 
-    QHBoxLayout * topForm = new QHBoxLayout(this);
-    QHBoxLayout * middleForm = new QHBoxLayout(this);
-    QHBoxLayout * bottomForm = new QHBoxLayout(this);
+    QHBoxLayout * topForm = new QHBoxLayout();
+    QHBoxLayout * middleForm = new QHBoxLayout();
+    QHBoxLayout * bottomForm = new QHBoxLayout();
 
     QLabel * category = new QLabel("Categoria:", this);
     QLabel * typology = new QLabel("Tipologia:", this);
@@ -333,145 +343,75 @@ Insert::Insert(QWidget * parent) :
     topForm->addWidget(artTypeEdit);
     topForm->addWidget(literaryTypeEdit);
 
-    QVBoxLayout * imageForm = new QVBoxLayout(this);
+    QVBoxLayout * imageForm = new QVBoxLayout();
     imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)));
     QPushButton * imageButton = new QPushButton("Modifica", this);
     imageForm->addWidget(imageLabel);
     imageForm->addWidget(imageButton);
 
-    QVBoxLayout * dataForm = new QVBoxLayout(this);
+    QFormLayout * dataForm = new QFormLayout();
 
-    QHBoxLayout * sectorForm = new QHBoxLayout(this);
-    sectorForm->addWidget(sectorLabel);
     sectorEdit->setValidator(new QIntValidator(1, 100, this));
-    sectorForm->addWidget(sectorEdit);
+    dataForm->addRow(sectorLabel, sectorEdit);
 
-    QHBoxLayout * valueForm = new QHBoxLayout(this);
-    valueForm->addWidget(valueLabel);
     valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2, this));
-    valueForm->addWidget(valueEdit);
+    dataForm->addRow(valueLabel, valueEdit);
 
-    QHBoxLayout * proprietaryForm = new QHBoxLayout(this);
     proprietaryEdit->addButton(proprietaryTrue, 1);
     proprietaryEdit->addButton(proprietaryFalse, 2);
     proprietaryFalse->setChecked(true);
-    proprietaryForm->addWidget(proprietaryTrue);
-    proprietaryForm->addWidget(proprietaryFalse);
+    dataForm->addRow(proprietaryTrue, proprietaryFalse);
 
-    QHBoxLayout * damagedForm = new QHBoxLayout(this);
     stateEdit->addButton(stateTrue, 1);
     stateEdit->addButton(stateFalse, 2);
     stateFalse->setChecked(true);
-    damagedForm->addWidget(stateTrue);
-    damagedForm->addWidget(stateFalse);
+    dataForm->addRow(stateTrue, stateFalse);
 
-    QHBoxLayout * availableForm = new QHBoxLayout(this);
     availabilityEdit->addButton(availabilityTrue, 1);
     availabilityEdit->addButton(availabilityFalse, 2);
     availabilityTrue->setChecked(true);
-    availableForm->addWidget(availabilityTrue);
-    availableForm->addWidget(availabilityFalse);
+    dataForm->addRow(availabilityTrue, availabilityFalse);
 
-    QHBoxLayout * authorForm = new QHBoxLayout(this);
-    authorForm->addWidget(authorLabel);
-    authorForm->addWidget(authorEdit);
+    dataForm->addRow(authorLabel, authorEdit);
 
-    QHBoxLayout * titleForm = new QHBoxLayout(this);
-    titleForm->addWidget(titleLabel);
-    titleForm->addWidget(titleEdit);
+    dataForm->addRow(titleLabel, titleEdit);
 
-    QHBoxLayout * placeForm = new QHBoxLayout(this);
-    placeForm->addWidget(placeLabel);
-    placeForm->addWidget(placeEdit);
+    dataForm->addRow(placeLabel, placeEdit);
 
-    QHBoxLayout * dateForm = new QHBoxLayout(this);
-    dateForm->addWidget(dateLabel);
-    dateForm->addWidget(dateEdit);
+    dataForm->addRow(dateLabel, dateEdit);
 
-    dataForm->addLayout(sectorForm);
-    dataForm->addLayout(valueForm);
-    dataForm->addLayout(proprietaryForm);
-    dataForm->addLayout(damagedForm);
-    dataForm->addLayout(availableForm);
-    dataForm->addLayout(authorForm);
-    dataForm->addLayout(titleForm);
-    dataForm->addLayout(placeForm);
-    dataForm->addLayout(dateForm);
+    dataForm->addRow(materialLabel, materialEdit);
 
-    QHBoxLayout * materialForm = new QHBoxLayout(this);
-    materialForm->addWidget(materialLabel);
-    materialForm->addWidget(materialEdit);
+    dataForm->addRow(techniqueLabel, techniqueEdit);
 
-    QHBoxLayout * techniqueForm = new QHBoxLayout(this);
-    techniqueForm->addWidget(techniqueLabel);
-    techniqueForm->addWidget(techniqueEdit);
+    dataForm->addRow(movementLabel, movementEdit);
 
-    QHBoxLayout * movementForm = new QHBoxLayout(this);
-    movementForm->addWidget(movementLabel);
-    movementForm->addWidget(movementEdit);
+    dataForm->addRow(subjectLabel, subjectEdit);
 
-    QHBoxLayout * subjectForm = new QHBoxLayout(this);
-    subjectForm->addWidget(subjectLabel);
-    subjectForm->addWidget(subjectEdit);
-
-    dataForm->addLayout(materialForm);
-    dataForm->addLayout(techniqueForm);
-    dataForm->addLayout(movementForm);
-    dataForm->addLayout(subjectForm);
-
-    QHBoxLayout * completeForm = new QHBoxLayout(this);
     textEdit->addButton(textTrue, 1);
     textEdit->addButton(textFalse, 2);
     textTrue->setChecked(true);
-    completeForm->addWidget(textTrue);
-    completeForm->addWidget(textFalse);
+    dataForm->addRow(textTrue, textFalse);
 
-    QHBoxLayout * handwrittenForm = new QHBoxLayout(this);
     writingEdit->addButton(writingTrue, 1);
     writingEdit->addButton(writingFalse, 2);
     writingTrue->setChecked(true);
-    handwrittenForm->addWidget(writingTrue);
-    handwrittenForm->addWidget(writingFalse);
+    dataForm->addRow(writingTrue, writingFalse);
 
-    QHBoxLayout * languageForm = new QHBoxLayout(this);
-    languageForm->addWidget(languageLabel);
-    languageForm->addWidget(languageEdit);
+    dataForm->addRow(languageLabel, languageEdit);
 
-    QHBoxLayout * styleForm = new QHBoxLayout(this);
-    styleForm->addWidget(styleLabel);
-    styleForm->addWidget(styleEdit);
+    dataForm->addRow(styleLabel, styleEdit);
 
-    dataForm->addLayout(completeForm);
-    dataForm->addLayout(handwrittenForm);
-    dataForm->addLayout(languageForm);
-    dataForm->addLayout(styleForm);
+    dataForm->addRow(shapeLabel, shapeEdit);
 
-    QHBoxLayout * shapeForm = new QHBoxLayout(this);
-    shapeForm->addWidget(shapeLabel);
-    shapeForm->addWidget(shapeEdit);
-
-    dataForm->addLayout(shapeForm);
-
-    QHBoxLayout * photographyForm = new QHBoxLayout(this);
     formatEdit->addButton(formatTrue, 1);
     formatEdit->addButton(formatFalse, 2);
     formatFalse->setChecked(true);
-    photographyForm->addWidget(formatTrue);
-    photographyForm->addWidget(formatFalse);
+    dataForm->addRow(formatTrue, formatFalse);
 
-    dataForm->addLayout(photographyForm);
+    dataForm->addRow(objectLabel, objectEdit);
 
-    QHBoxLayout * objectForm = new QHBoxLayout(this);
-    objectForm->addWidget(objectLabel);
-    objectForm->addWidget(objectEdit);
-
-    dataForm->addLayout(objectForm);
-
-    QHBoxLayout * addresseeForm = new QHBoxLayout(this);
-    addresseeForm->addWidget(addresseeLabel);
-    addresseeForm->addWidget(addresseeEdit);
-
-    dataForm->addLayout(addresseeForm);
+    dataForm->addRow(addresseeLabel, addresseeEdit);
 
     middleForm->addLayout(dataForm);
     middleForm->addLayout(imageForm);
@@ -502,5 +442,6 @@ Insert::Insert(QWidget * parent) :
     connect(insertButton, SIGNAL(clicked()), this, SLOT(insert()));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 
-    emit(categoryEdit->currentTextChanged((categoryEdit->currentText())));
+    categoryEdit->setCurrentIndex(1);
+    categoryEdit->setCurrentIndex(0);
 }

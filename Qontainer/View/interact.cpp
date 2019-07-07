@@ -38,8 +38,8 @@ void Interact::resetAll() const {
     searchEdit->setValidator(nullptr);
     searchEdit->setText("");
 
-    firstDate->setDate(QDate::fromString("00/00/0000", "dd/MM/yyyy"));
-    lastDate->setDate(QDate::fromString("00/00/0000", "dd/MM/yyyy"));
+    firstDate->setDate(QDate::fromString("01/01/1970", "dd/MM/yyyy"));
+    lastDate->setDate(QDate::currentDate());
 
     firstFloat->setText("0.0");
     lastFloat->setText("0.0");
@@ -206,6 +206,7 @@ void Interact::reset() const {
     hideAll();
     resetAll();
 
+    searchComboBox->setCurrentIndex(1);
     searchComboBox->setCurrentIndex(0);
 }
 
@@ -216,8 +217,8 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     searchEdit(new QLineEdit("", this)),
     first(new QLabel("Primo:", this)),
     last(new QLabel("Ultimo:", this)),
-    firstDate(new QDateEdit(QDate::fromString("00/00/0000", "dd/MM/yyyy"), this)),
-    lastDate(new QDateEdit(QDate::fromString("00/00/0000", "dd/MM/yyyy"), this)),
+    firstDate(new QDateEdit(QDate::fromString("01/01/1970", "dd/MM/yyyy"), this)),
+    lastDate(new QDateEdit(QDate::currentDate(), this)),
     firstFloat(new QLineEdit("0.0", this)),
     lastFloat(new QLineEdit("0.0", this)),
     firstInteger(new QLineEdit("0", this)),
@@ -237,12 +238,15 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     buttonGroup->addButton(trueRadio, 1);
     buttonGroup->addButton(falseRadio, 2);
 
-    QHBoxLayout * mainForm = new QHBoxLayout(this);
+    QVBoxLayout * mainForm = new QVBoxLayout(this);
 
-    QVBoxLayout * listForm = new QVBoxLayout(this);
-    QVBoxLayout * buttonsForm = new QVBoxLayout(this);
+    QHBoxLayout * topForm = new QHBoxLayout();
+    QHBoxLayout * middleForm = new QHBoxLayout();
 
-    QHBoxLayout * searchForm = new QHBoxLayout(this);
+    QVBoxLayout * listForm = new QVBoxLayout();
+    QVBoxLayout * buttonsForm = new QVBoxLayout();
+
+    QHBoxLayout * searchForm = new QHBoxLayout();
     searchForm->addWidget(searchEdit);
     searchForm->addWidget(first);
     searchForm->addWidget(firstDate);
@@ -255,17 +259,16 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     searchForm->addWidget(trueRadio);
     searchForm->addWidget(falseRadio);
 
-    listForm->addLayout(searchForm);
     listForm->addWidget(list);
 
-    QHBoxLayout * search = new QHBoxLayout(this);
+    QHBoxLayout * search = new QHBoxLayout();
     QPushButton * resetButton = new QPushButton("Cancella", this);
     resetButton->setToolTip("Resetta i filtri di ricerca");
     resetButton->setToolTipDuration(-1);
     search->addWidget(searchComboBox);
     search->addWidget(resetButton);
 
-    QHBoxLayout * shows = new QHBoxLayout(this);
+    QHBoxLayout * shows = new QHBoxLayout();
     QPushButton * modifiesButton = new QPushButton("Modifica", this);
     modifiesButton->setToolTip("Mostra la finestra di modifica per il materiale selezionato");
     modifiesButton->setToolTipDuration(-1);
@@ -275,61 +278,60 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     shows->addWidget(modifiesButton);
     shows->addWidget(detailsButton);
 
-    QHBoxLayout * operations = new QHBoxLayout(this);
+    QHBoxLayout * operations = new QHBoxLayout();
     QPushButton * restoreButton = new QPushButton("Restaura", this);
     restoreButton->setToolTip("Manda in restauro il materiale selezionato");
     restoreButton->setToolTipDuration(-1);
     QPushButton * lendButton = new QPushButton("Presta", this);
     lendButton->setToolTip("Manda in prestito il materiale selezionato");
     lendButton->setToolTipDuration(-1);
-    shows->addWidget(restoreButton);
-    shows->addWidget(lendButton);
+    operations->addWidget(restoreButton);
+    operations->addWidget(lendButton);
 
-    QHBoxLayout * calculatePlus = new QHBoxLayout(this);
-    QPushButton * valueButton = new QPushButton("Calcola Valore", this);
+    QHBoxLayout * calculatePlus = new QHBoxLayout();
+    QPushButton * valueButton = new QPushButton("Valore", this);
     valueButton->setToolTip("Calcola il valore del materiale selezionato");
     valueButton->setToolTipDuration(-1);
-    QPushButton * profitButton = new QPushButton("Calcola Profitto", this);
+    QPushButton * profitButton = new QPushButton("Profitto", this);
     profitButton->setToolTip("Calcola il profitto per materiale selezionato");
     profitButton->setToolTipDuration(-1);
-    shows->addWidget(valueButton);
-    shows->addWidget(profitButton);
+    calculatePlus->addWidget(valueButton);
+    calculatePlus->addWidget(profitButton);
 
-    QHBoxLayout * calculateMinus = new QHBoxLayout(this);
-    QPushButton * incomeButton = new QPushButton("Calcola Entrate", this);
+    QHBoxLayout * calculateMinus = new QHBoxLayout();
+    QPushButton * incomeButton = new QPushButton("Entrate", this);
     incomeButton->setToolTip("Calcola le entrate per materiale selezionato");
     incomeButton->setToolTipDuration(-1);
-    QPushButton * expenseButton = new QPushButton("Calcola Uscite", this);
+    QPushButton * expenseButton = new QPushButton("Uscite", this);
     expenseButton->setToolTip("Calcola le uscite per materiale selezionato");
     expenseButton->setToolTipDuration(-1);
-    shows->addWidget(incomeButton);
-    shows->addWidget(expenseButton);
+    calculateMinus->addWidget(incomeButton);
+    calculateMinus->addWidget(expenseButton);
 
-    QHBoxLayout * calculateTotalPlus = new QHBoxLayout(this);
-    QPushButton * totalValueButton = new QPushButton("Calcola Valore Totale", this);
+    QHBoxLayout * calculateTotalPlus = new QHBoxLayout();
+    QPushButton * totalValueButton = new QPushButton("Valore Totale", this);
     totalValueButton->setToolTip("Calcola il valore totale dei materiali visualizzati");
     totalValueButton->setToolTipDuration(-1);
-    QPushButton * totalProfitButton = new QPushButton("Calcola Profitto Totale", this);
+    QPushButton * totalProfitButton = new QPushButton("Profitto Totale", this);
     totalProfitButton->setToolTip("Calcola il profitto totale per i materiali visualizzati");
     totalProfitButton->setToolTipDuration(-1);
-    shows->addWidget(totalValueButton);
-    shows->addWidget(totalProfitButton);
+    calculateTotalPlus->addWidget(totalValueButton);
+    calculateTotalPlus->addWidget(totalProfitButton);
 
-    QHBoxLayout * calculateTotalMinus = new QHBoxLayout(this);
-    QPushButton * totalIncomeButton = new QPushButton("Calcola Entrate Totali", this);
+    QHBoxLayout * calculateTotalMinus = new QHBoxLayout();
+    QPushButton * totalIncomeButton = new QPushButton("Entrate Totali", this);
     totalIncomeButton->setToolTip("Calcola le entrate totali per i materiali visualizzati");
     totalIncomeButton->setToolTipDuration(-1);
-    QPushButton * totalExpenseButton = new QPushButton("Calcola Uscite Totali", this);
+    QPushButton * totalExpenseButton = new QPushButton("Uscite Totali", this);
     totalExpenseButton->setToolTip("Calcola le uscite totali per i materiali visualizzati");
     totalExpenseButton->setToolTipDuration(-1);
-    shows->addWidget(totalIncomeButton);
-    shows->addWidget(totalExpenseButton);
+    calculateTotalMinus->addWidget(totalIncomeButton);
+    calculateTotalMinus->addWidget(totalExpenseButton);
 
     QPushButton * deleteButton = new QPushButton("Elimina", this);
     deleteButton->setToolTip("Elimina il materiale selezionato");
     deleteButton->setToolTipDuration(-1);
 
-    buttonsForm->addLayout(search);
     buttonsForm->addLayout(shows);
     buttonsForm->addLayout(operations);
     buttonsForm->addLayout(calculatePlus);
@@ -338,8 +340,14 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     buttonsForm->addLayout(calculateTotalMinus);
     buttonsForm->addWidget(deleteButton);
 
-    mainForm->addLayout(listForm);
-    mainForm->addLayout(buttonsForm);
+    middleForm->addLayout(listForm);
+    middleForm->addLayout(buttonsForm);
+
+    topForm->addLayout(searchForm);
+    topForm->addLayout(search);
+
+    mainForm->addLayout(topForm);
+    mainForm->addLayout(middleForm);
 
     setLayout(mainForm);
 

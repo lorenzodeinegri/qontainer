@@ -24,6 +24,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QMessageBox>
+#include <QFormLayout>
 
 class Insert : public QWidget {
     Q_OBJECT
