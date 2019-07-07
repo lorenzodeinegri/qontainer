@@ -13,7 +13,6 @@
 #include "searchcombobox.h"
 
 #include <QWidget>
-#include <QMessageBox>
 
 class MainWindow : public QWidget {
     Q_OBJECT

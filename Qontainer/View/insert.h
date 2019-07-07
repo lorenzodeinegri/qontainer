@@ -11,7 +11,6 @@
 #include "picture.h"
 #include "act.h"
 #include "letter.h"
-#include "imageexception.h"
 
 #include <QButtonGroup>
 #include <QDateEdit>
@@ -24,6 +23,7 @@
 #include <QRadioButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 class Insert : public QWidget {
     Q_OBJECT
