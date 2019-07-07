@@ -352,7 +352,7 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     setLayout(mainForm);
 
     connect(searchComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(search(const QString &)));
-    connect(searchEdit, SIGNAL(textChanged(const QString &)), this, SLOT(searchRegularExpressions(const QString &)));
+    connect(searchEdit, SIGNAL(textChanged(const QString &)), this, SLOT(searchExpressions(const QString &)));
     connect(firstDate, SIGNAL(dateChanged(const QDate &)), this, SLOT(searchDates()));
     connect(lastDate, SIGNAL(dateChanged(const QDate &)), this, SLOT(searchDates()));
     connect(firstFloat, SIGNAL(textChanged(const QString &)), this, SLOT(searchFloats()));

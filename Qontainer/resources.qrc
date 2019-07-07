@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>Data/data.xml</file>
         <file>Icons/icon.png</file>
         <file>Photos/photoNotAvailable.jpeg</file>
+        <file>Data/data.xml</file>
     </qresource>
 </RCC>
