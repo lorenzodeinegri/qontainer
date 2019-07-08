@@ -22,7 +22,6 @@ class Interact : public QWidget {
 private:
     List * list;
 
-    SearchComboBox * searchComboBox;
     QLineEdit * searchEdit;
 
     QLabel * first;
@@ -39,6 +38,8 @@ private:
 
     QRadioButton * trueRadio;
     QRadioButton * falseRadio;
+
+    SearchComboBox * searchComboBox;
 
 
     void setLabelsVisibility(bool visibility) const;

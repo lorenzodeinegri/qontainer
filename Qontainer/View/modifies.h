@@ -41,6 +41,9 @@ private:
 
     QLineEdit * sectorEdit;
     QLineEdit * valueEdit;
+    QButtonGroup * proprietaryEdit;
+    QButtonGroup * stateEdit;
+    QButtonGroup * availabilityEdit;
     QLineEdit * authorEdit;
     QLineEdit * titleEdit;
     QLineEdit * placeEdit;
@@ -49,18 +52,15 @@ private:
     QLineEdit * techniqueEdit;
     QLineEdit * movementEdit;
     QLineEdit * subjectEdit;
+    QButtonGroup * textEdit;
+    QButtonGroup * writingEdit;
     QLineEdit * languageEdit;
     QLineEdit * styleEdit;
     QLineEdit * shapeEdit;
+    QButtonGroup * formatEdit;
     QLineEdit * objectEdit;
     QLineEdit * addresseeEdit;
 
-    QButtonGroup * proprietaryEdit;
-    QButtonGroup * stateEdit;
-    QButtonGroup * availabilityEdit;
-    QButtonGroup * textEdit;
-    QButtonGroup * writingEdit;
-    QButtonGroup * formatEdit;
 
 private slots:
     void changeImage();

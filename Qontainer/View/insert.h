@@ -46,6 +46,12 @@ private:
     QLineEdit * sectorEdit;
     QLabel * valueLabel;
     QLineEdit * valueEdit;
+    QRadioButton * proprietaryTrue;
+    QRadioButton * proprietaryFalse;
+    QRadioButton * stateTrue;
+    QRadioButton * stateFalse;
+    QRadioButton * availabilityTrue;
+    QRadioButton * availabilityFalse;
     QLabel * authorLabel;
     QLineEdit * authorEdit;
     QLabel * titleLabel;
@@ -62,29 +68,22 @@ private:
     QLineEdit * movementEdit;
     QLabel * subjectLabel;
     QLineEdit * subjectEdit;
+    QRadioButton * textTrue;
+    QRadioButton * textFalse;
+    QRadioButton * writingTrue;
+    QRadioButton * writingFalse;
     QLabel * languageLabel;
     QLineEdit * languageEdit;
     QLabel * styleLabel;
     QLineEdit * styleEdit;
     QLabel * shapeLabel;
     QLineEdit * shapeEdit;
+    QRadioButton * formatTrue;
+    QRadioButton * formatFalse;
     QLabel * objectLabel;
     QLineEdit * objectEdit;
     QLabel * addresseeLabel;
     QLineEdit * addresseeEdit;
-
-    QRadioButton * proprietaryTrue;
-    QRadioButton * stateTrue;
-    QRadioButton * availabilityTrue;
-    QRadioButton * textTrue;
-    QRadioButton * writingTrue;
-    QRadioButton * formatTrue;
-    QRadioButton * proprietaryFalse;
-    QRadioButton * stateFalse;
-    QRadioButton * availabilityFalse;
-    QRadioButton * textFalse;
-    QRadioButton * writingFalse;
-    QRadioButton * formatFalse;
 
 
     void clearCommonValues();

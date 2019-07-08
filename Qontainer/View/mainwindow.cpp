@@ -365,9 +365,12 @@ void MainWindow::closeEvent(QCloseEvent * event) {
     if (choice == QMessageBox::Yes) {
         saveFile();
         event->accept();
+        QCoreApplication::quit();
     }
-    else if (choice == QMessageBox::No)
+    else if (choice == QMessageBox::No) {
         event->accept();
+        QCoreApplication::quit();
+    }
     else
         event->ignore();
 }
@@ -433,5 +436,5 @@ MainWindow::MainWindow(QWidget * parent) :
 
 QSize MainWindow::sizeHint() const
 {
-    return QSize(1050, 600);
+    return QSize(1200, 600);
 }

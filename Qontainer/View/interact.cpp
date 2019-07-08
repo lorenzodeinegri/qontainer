@@ -55,32 +55,32 @@ void Interact::setBoolsLabels(const QString & filter) const {
     if (filter == "Proprieta") {
         trueRadio->setText("Privato/a");
         falseRadio->setText("Pubblico/a");
-        falseRadio->setCheckable(true);
+        falseRadio->setChecked(true);
     }
     else if (filter == "Stato") {
         trueRadio->setText("Danneggiato/a");
         falseRadio->setText("Integro/a");
-        falseRadio->setCheckable(true);
+        falseRadio->setChecked(true);
     }
     else if (filter == "Disponibilita") {
         trueRadio->setText("Disponibile");
         falseRadio->setText("Inservibile");
-        trueRadio->setCheckable(true);
+        trueRadio->setChecked(true);
     }
     else if (filter == "Testo") {
         trueRadio->setText("Completo/a");
         falseRadio->setText("Incompleto/a");
-        trueRadio->setCheckable(true);
+        trueRadio->setChecked(true);
     }
     else if (filter == "Scrittura") {
         trueRadio->setText("Manoscritto");
         falseRadio->setText("Dattiloscritto");
-        trueRadio->setCheckable(true);
+        trueRadio->setChecked(true);
     }
     else if (filter == "Formato") {
         trueRadio->setText("Fotografia");
         falseRadio->setText("Rappresentazione");
-        falseRadio->setCheckable(true);
+        falseRadio->setChecked(true);
     }
 }
 
@@ -191,7 +191,6 @@ void Interact::reset() const {
 Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * parent) :
     QWidget(parent),
     list(list),
-    searchComboBox(searchComboBox),
     searchEdit(new QLineEdit("", this)),
     first(new QLabel("Primo:", this)),
     last(new QLabel("Ultimo:", this)),
@@ -202,7 +201,8 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     firstInteger(new QLineEdit("1", this)),
     lastInteger(new QLineEdit("100", this)),
     trueRadio(new QRadioButton("", this)),
-    falseRadio(new QRadioButton("", this))
+    falseRadio(new QRadioButton("", this)),
+    searchComboBox(searchComboBox)
 {
     searchEdit->setPlaceholderText("Cerca...");
 

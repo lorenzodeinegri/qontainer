@@ -132,6 +132,9 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     imageLabel(new QLabel(this)),
     sectorEdit(new QLineEdit(QString::fromStdString(std::to_string(material->getSector())), this)),
     valueEdit(new QLineEdit(QString::fromStdString(Material::float_to_string(material->getBaseValue())), this)),
+    proprietaryEdit(new QButtonGroup(this)),
+    stateEdit(new QButtonGroup(this)),
+    availabilityEdit(new QButtonGroup(this)),
     authorEdit(new QLineEdit(QString::fromStdString(material->getAuthor()), this)),
     titleEdit(new QLineEdit(QString::fromStdString(material->getTitle()), this)),
     placeEdit(new QLineEdit(QString::fromStdString(material->getPlace()), this)),
@@ -140,17 +143,14 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     techniqueEdit(nullptr),
     movementEdit(nullptr),
     subjectEdit(nullptr),
+    textEdit(nullptr),
+    writingEdit(nullptr),
     languageEdit(nullptr),
     styleEdit(nullptr),
     shapeEdit(nullptr),
+    formatEdit(nullptr),
     objectEdit(nullptr),
-    addresseeEdit(nullptr),
-    proprietaryEdit(new QButtonGroup(this)),
-    stateEdit(new QButtonGroup(this)),
-    availabilityEdit(new QButtonGroup(this)),
-    textEdit(nullptr),
-    writingEdit(nullptr),
-    formatEdit(nullptr)
+    addresseeEdit(nullptr)
 {
     setWindowIcon(QIcon(":/Icons/icon.png"));
     setWindowTitle(QString::fromStdString("Modifica " + material->getType() + " selezionato/a"));
