@@ -71,17 +71,14 @@ private slots:
     void calculateIncome() const;
     void calculateExpense() const;
 
-    void calculateTotalValue() const;
-    void calculateTotalProfit() const;
-    void calculateTotalIncome() const;
-    void calculateTotalExpense() const;
-
     void deletes() const;
 
     void reset() const;
 
 public:
     explicit Interact(List *, SearchComboBox *, QWidget * = nullptr);
+
+    virtual QSize sizeHint() const override;
 
 signals:
     void searchRegularExpressions(const QString &) const;
@@ -101,10 +98,10 @@ signals:
     void calculateIncome(const QModelIndexList &) const;
     void calculateExpense(const QModelIndexList &) const;
 
-    void calculateTotalValue(const QModelIndexList &) const;
-    void calculateTotalProfit(const QModelIndexList &) const;
-    void calculateTotalIncome(const QModelIndexList &) const;
-    void calculateTotalExpense(const QModelIndexList &) const;
+    void calculateTotalValue() const;
+    void calculateTotalProfit() const;
+    void calculateTotalIncome() const;
+    void calculateTotalExpense() const;
 
     void deletes(const QModelIndexList &) const;
 };

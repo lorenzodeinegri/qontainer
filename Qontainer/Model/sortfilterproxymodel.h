@@ -46,10 +46,10 @@ public:
     float calculateIncome(const QModelIndex &) const;
     float calculateExpense(const QModelIndex &) const;
 
-    float calculateTotalValue(const QModelIndexList &) const;
-    float calculateTotalProfit(const QModelIndexList &) const;
-    float calculateTotalIncome(const QModelIndexList &) const;
-    float calculateTotalExpense(const QModelIndexList &) const;
+    float calculateTotalValue() const;
+    float calculateTotalProfit() const;
+    float calculateTotalIncome() const;
+    float calculateTotalExpense() const;
 };
 
 #endif // SORTFILTERPROXYMODEL_H

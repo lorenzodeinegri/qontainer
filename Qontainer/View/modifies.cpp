@@ -10,24 +10,31 @@ void Modifies::changeImage() {
         }
 
         QString newPath(applicationDir + "/Photos/" + photoPath.section("/", -1, -1));
-        unsigned int number = 1;
-        if (QFile::exists(newPath)) {
-            newPath = applicationDir + "/Photos/" + QString::fromStdString(std::to_string(number)) + photoPath.section("/", -1, -1);
-            ++number;
-        }
 
-        if (QFile::copy(photoPath, newPath)) {
-            imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(300, 300)));
-            imagePath = newPath.toStdString();
+        if (photoPath != newPath) {
+            unsigned int number = 1;
+            if (QFile::exists(newPath)) {
+                newPath = applicationDir + "/Photos/" + QString::fromStdString(std::to_string(number)) + photoPath.section("/", -1, -1);
+                ++number;
+            }
+
+            if (QFile::copy(photoPath, newPath)) {
+                imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(300, 300)));
+                imagePath = newPath.toStdString();
+            }
+            else {
+                QMessageBox::critical(this,
+                                      "Seleziona nuova immagine",
+                                      "Errore durante la modifica dell'immagine!\nVerificare che il file sia accessibile dal programma!",
+                                      QMessageBox::Ok,
+                                      QMessageBox::NoButton,
+                                      QMessageBox::NoButton);
+
+            }
         }
         else {
-            QMessageBox::critical(this,
-                                  "Seleziona nuova immagine",
-                                  "Errore durante la modifica dell'immagine!\nVerificare che il file sia accessibile dal programma!",
-                                  QMessageBox::Ok,
-                                  QMessageBox::NoButton,
-                                  QMessageBox::NoButton);
-
+            imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(300, 300)));
+            imagePath = newPath.toStdString();
         }
     }
 }

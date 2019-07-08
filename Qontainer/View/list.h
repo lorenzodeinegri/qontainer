@@ -10,7 +10,7 @@ class List : public QListView {
 public:
     explicit List(QWidget * = nullptr);
 
-    QSize sizeHint() const override;
+    virtual QSize sizeHint() const override;
     void mousePressEvent(QMouseEvent *) override;
 };
 

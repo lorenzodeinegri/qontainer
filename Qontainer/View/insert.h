@@ -116,6 +116,8 @@ private slots:
 public:
     explicit Insert(QWidget * = nullptr);
 
+    virtual QSize sizeHint() const override;
+
 signals:
     void insertMaterial(Material *) const;
 };

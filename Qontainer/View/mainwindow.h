@@ -57,10 +57,10 @@ private slots:
     void calculateProfit(const QModelIndexList &);
     void calculateIncome(const QModelIndexList &);
     void calculateExpense(const QModelIndexList &);
-    void calculateTotalValue(const QModelIndexList &);
-    void calculateTotalProfit(const QModelIndexList &);
-    void calculateTotalIncome(const QModelIndexList &);
-    void calculateTotalExpense(const QModelIndexList &);
+    void calculateTotalValue();
+    void calculateTotalProfit();
+    void calculateTotalIncome();
+    void calculateTotalExpense();
     void deletes(const QModelIndexList &);
 
 protected:
@@ -68,9 +68,8 @@ protected:
 
 public:
     explicit MainWindow(QWidget * = nullptr);
-    virtual ~MainWindow() override = default;
 
-    QSize sizeHint() const override;
+    virtual QSize sizeHint() const override;
 };
 
 #endif // MAINWINDOW_H

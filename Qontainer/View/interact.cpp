@@ -176,34 +176,6 @@ void Interact::calculateExpense() const {
     emit calculateExpense(list->selectionModel()->selectedIndexes());
 }
 
-void Interact::calculateTotalValue() const {
-    list->selectAll();
-    QModelIndexList indexes = list->selectionModel()->selectedIndexes();
-    list->clearSelection();
-    emit calculateTotalValue(indexes);
-}
-
-void Interact::calculateTotalProfit() const {
-    list->selectAll();
-    QModelIndexList indexes = list->selectionModel()->selectedIndexes();
-    list->clearSelection();
-    emit calculateTotalProfit(indexes);
-}
-
-void Interact::calculateTotalIncome() const {
-    list->selectAll();
-    QModelIndexList indexes = list->selectionModel()->selectedIndexes();
-    list->clearSelection();
-    emit calculateTotalIncome(indexes);
-}
-
-void Interact::calculateTotalExpense() const {
-    list->selectAll();
-    QModelIndexList indexes = list->selectionModel()->selectedIndexes();
-    list->clearSelection();
-    emit calculateTotalExpense(indexes);
-}
-
 void Interact::deletes() const {
     emit deletes(list->selectionModel()->selectedIndexes());
 }
@@ -391,14 +363,18 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     connect(incomeButton, SIGNAL(clicked()), this, SLOT(calculateIncome()));
     connect(expenseButton, SIGNAL(clicked()), this, SLOT(calculateExpense()));
 
-    connect(totalValueButton, SIGNAL(clicked()), this, SLOT(calculateTotalValue()));
-    connect(totalProfitButton, SIGNAL(clicked()), this, SLOT(calculateTotalProfit()));
-    connect(totalIncomeButton, SIGNAL(clicked()), this, SLOT(calculateTotalIncome()));
-    connect(totalExpenseButton, SIGNAL(clicked()), this, SLOT(calculateTotalExpense()));
+    connect(totalValueButton, SIGNAL(clicked()), this, SIGNAL(calculateTotalValue()));
+    connect(totalProfitButton, SIGNAL(clicked()), this, SIGNAL(calculateTotalProfit()));
+    connect(totalIncomeButton, SIGNAL(clicked()), this, SIGNAL(calculateTotalIncome()));
+    connect(totalExpenseButton, SIGNAL(clicked()), this, SIGNAL(calculateTotalExpense()));
 
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deletes()));
 
     connect(resetButton, SIGNAL(clicked()), this, SLOT(reset()));
 
     reset();
+}
+
+QSize Interact::sizeHint() const {
+    return QSize(1050, 500);
 }

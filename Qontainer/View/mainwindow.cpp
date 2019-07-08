@@ -301,8 +301,8 @@ void MainWindow::calculateExpense(const QModelIndexList & modelIndexList) {
                              QMessageBox::NoButton);
 }
 
-void MainWindow::calculateTotalValue(const QModelIndexList & modelIndexList) {
-    QString value = QString().setNum(filterProxyModel->calculateTotalValue(modelIndexList), 'f', 2);
+void MainWindow::calculateTotalValue() {
+    QString value = QString().setNum(filterProxyModel->calculateTotalValue(), 'f', 2);
     QMessageBox::information(this,
                              "Valore totale",
                              "Valore: " + value,
@@ -311,8 +311,8 @@ void MainWindow::calculateTotalValue(const QModelIndexList & modelIndexList) {
                              QMessageBox::NoButton);
 }
 
-void MainWindow::calculateTotalProfit(const QModelIndexList & modelIndexList) {
-    QString value = QString().setNum(filterProxyModel->calculateTotalProfit(modelIndexList), 'f', 2);
+void MainWindow::calculateTotalProfit() {
+    QString value = QString().setNum(filterProxyModel->calculateTotalProfit(), 'f', 2);
     QMessageBox::information(this,
                              "Profitto totale",
                              "Profitto: " + value,
@@ -321,8 +321,8 @@ void MainWindow::calculateTotalProfit(const QModelIndexList & modelIndexList) {
                              QMessageBox::NoButton);
 }
 
-void MainWindow::calculateTotalIncome(const QModelIndexList & modelIndexList) {
-    QString value = QString().setNum(filterProxyModel->calculateTotalIncome(modelIndexList), 'f', 2);
+void MainWindow::calculateTotalIncome() {
+    QString value = QString().setNum(filterProxyModel->calculateTotalIncome(), 'f', 2);
     QMessageBox::information(this,
                              "Entrate totali",
                              "Entrate: " + value,
@@ -331,8 +331,8 @@ void MainWindow::calculateTotalIncome(const QModelIndexList & modelIndexList) {
                              QMessageBox::NoButton);
 }
 
-void MainWindow::calculateTotalExpense(const QModelIndexList & modelIndexList) {
-    QString value = QString().setNum(filterProxyModel->calculateTotalExpense(modelIndexList), 'f', 2);
+void MainWindow::calculateTotalExpense() {
+    QString value = QString().setNum(filterProxyModel->calculateTotalExpense(), 'f', 2);
     QMessageBox::information(this,
                              "Uscite totali",
                              "Uscite: " + value,
@@ -424,14 +424,14 @@ MainWindow::MainWindow(QWidget * parent) :
     connect(interact, SIGNAL(calculateProfit(const QModelIndexList &)), this, SLOT(calculateProfit(const QModelIndexList &)));
     connect(interact, SIGNAL(calculateIncome(const QModelIndexList &)), this, SLOT(calculateIncome(const QModelIndexList &)));
     connect(interact, SIGNAL(calculateExpense(const QModelIndexList &)), this, SLOT(calculateExpense(const QModelIndexList &)));
-    connect(interact, SIGNAL(calculateTotalValue(const QModelIndexList &)), this, SLOT(calculateTotalValue(const QModelIndexList &)));
-    connect(interact, SIGNAL(calculateTotalProfit(const QModelIndexList &)), this, SLOT(calculateTotalProfit(const QModelIndexList &)));
-    connect(interact, SIGNAL(calculateTotalIncome(const QModelIndexList &)), this, SLOT(calculateTotalIncome(const QModelIndexList &)));
-    connect(interact, SIGNAL(calculateTotalExpense(const QModelIndexList &)), this, SLOT(calculateTotalExpense(const QModelIndexList &)));
+    connect(interact, SIGNAL(calculateTotalValue()), this, SLOT(calculateTotalValue()));
+    connect(interact, SIGNAL(calculateTotalProfit()), this, SLOT(calculateTotalProfit()));
+    connect(interact, SIGNAL(calculateTotalIncome()), this, SLOT(calculateTotalIncome()));
+    connect(interact, SIGNAL(calculateTotalExpense()), this, SLOT(calculateTotalExpense()));
     connect(interact, SIGNAL(deletes(const QModelIndexList &)), this, SLOT(deletes(const QModelIndexList &)));
 }
 
 QSize MainWindow::sizeHint() const
 {
-    return QSize(900, 600);
+    return QSize(1050, 600);
 }

@@ -94,50 +94,50 @@ float SortFilterProxyModel::calculateExpense(const QModelIndex & filterIndex) co
     return static_cast<ListModelAdapter *>(sourceModel())->calculateExpense(mapToSource(filterIndex));
 }
 
-float SortFilterProxyModel::calculateTotalValue(const QModelIndexList & filterIndexList) const {
-    if (rowCount() == filterIndexList.size()) {
+float SortFilterProxyModel::calculateTotalValue() const {
+    if (rowCount() == static_cast<ListModelAdapter *>(sourceModel())->rowCount()) {
         return static_cast<ListModelAdapter *>(sourceModel())->calculateTotalValue();
     }
     else {
         float value = 0.0f;
-        for (int i = 0 ; i < filterIndexList.size() ; ++i)
-            value += calculateValue(filterIndexList.at(i));
+        for (int i = 0 ; i < rowCount() ; ++i)
+            value += calculateValue(index(i, 0));
         return value;
     }
 }
 
-float SortFilterProxyModel::calculateTotalProfit(const QModelIndexList & filterIndexList) const {
-    if (rowCount() == filterIndexList.size()) {
+float SortFilterProxyModel::calculateTotalProfit() const {
+    if (rowCount() == static_cast<ListModelAdapter *>(sourceModel())->rowCount()) {
         return static_cast<ListModelAdapter *>(sourceModel())->calculateTotalProfit();
     }
     else {
         float value = 0.0f;
-        for (int i = 0 ; i < filterIndexList.size() ; ++i)
-            value += calculateProfit(filterIndexList.at(i));
+        for (int i = 0 ; i < rowCount() ; ++i)
+            value += calculateProfit(index(i, 0));
         return value;
     }
 }
 
-float SortFilterProxyModel::calculateTotalIncome(const QModelIndexList & filterIndexList) const {
-    if (rowCount() == filterIndexList.size()) {
+float SortFilterProxyModel::calculateTotalIncome() const {
+    if (rowCount() == static_cast<ListModelAdapter *>(sourceModel())->rowCount()) {
         return static_cast<ListModelAdapter *>(sourceModel())->calculateTotalIncome();
     }
     else {
         float value = 0.0f;
-        for (int i = 0 ; i < filterIndexList.size() ; ++i)
-            value += calculateIncome(filterIndexList.at(i));
+        for (int i = 0 ; i < rowCount() ; ++i)
+            value += calculateIncome(index(i, 0));
         return value;
     }
 }
 
-float SortFilterProxyModel::calculateTotalExpense(const QModelIndexList & filterIndexList) const {
-    if (rowCount() == filterIndexList.size()) {
+float SortFilterProxyModel::calculateTotalExpense() const {
+    if (rowCount() == static_cast<ListModelAdapter *>(sourceModel())->rowCount()) {
         return static_cast<ListModelAdapter *>(sourceModel())->calculateTotalExpense();
     }
     else {
         float value = 0.0f;
-        for (int i = 0 ; i < filterIndexList.size() ; ++i)
-            value += calculateExpense(filterIndexList.at(i));
+        for (int i = 0 ; i < rowCount() ; ++i)
+            value += calculateExpense(index(i, 0));
         return value;
     }
 }
