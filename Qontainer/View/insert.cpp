@@ -2,7 +2,7 @@
 
 void Insert::clearCommonValues() {
     imagePath = ":/Photos/photoNotAvailable.jpeg";
-    imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)));
+    imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)).scaled(QSize(500, 500)));
 
     sectorEdit->setText("");
     valueEdit->setText("");
@@ -12,7 +12,7 @@ void Insert::clearCommonValues() {
     authorEdit->setText("");
     titleEdit->setText("");
     placeEdit->setText("");
-    dateEdit->setDate(QDate::fromString("01/01/1970", "dd/MM/yyyy"));
+    dateEdit->setDate(QDate::fromString("01/01/0100", "dd/MM/yyyy"));
 }
 
 void Insert::clearArtValues() const {
@@ -28,6 +28,7 @@ void Insert::setArtValuesVisibility(bool visibility) const {
     techniqueEdit->setVisible(visibility);
     movementEdit->setVisible(visibility);
     subjectEdit->setVisible(visibility);
+    artTypology->setVisible(visibility);
     materialLabel->setVisible(visibility);
     techniqueLabel->setVisible(visibility);
     movementLabel->setVisible(visibility);
@@ -49,6 +50,7 @@ void Insert::setLiteraryValuesVisibility(bool visibility) const {
     writingFalse->setVisible(visibility);
     languageEdit->setVisible(visibility);
     styleEdit->setVisible(visibility);
+    literaryTypology->setVisible(visibility);
     languageLabel->setVisible(visibility);
     styleLabel->setVisible(visibility);
 }
@@ -143,19 +145,29 @@ void Insert::changeLiteraryType(const QString & literaryType) const {
 }
 
 void Insert::changeImage() {
-    QString photoPath(QFileDialog::getOpenFileName(this, "Selezionare la nuova foto", ":/Photos", "Images (*.png *.jpg *.jpeg)"));
+    QString applicationDir = QCoreApplication::applicationDirPath();
+    QString photoPath(QFileDialog::getOpenFileName(this, "Selezionare la nuova foto", applicationDir + "/Photos", "Immagini (*.png *.jpg *.jpeg)"));
     if (!photoPath.isNull()) {
-        QString newPath(":/Photos/" + photoPath.section("/", -1, -1));
+        QDir photoDirectory(applicationDir+ "/Photos");
+        if (!photoDirectory.exists()) {
+            photoDirectory.mkdir(applicationDir + "/Photos");
+        }
 
-        QFile photo(photoPath);
-        if (photo.copy(newPath)) {
-            imageLabel->setPixmap(QPixmap(newPath));
+        QString newPath(applicationDir + "/Photos/" + photoPath.section("/", -1, -1));
+        unsigned int number = 1;
+        if (QFile::exists(newPath)) {
+            newPath = applicationDir + "/Photos/" + QString::fromStdString(std::to_string(number)) + photoPath.section("/", -1, -1);
+            ++number;
+        }
+
+        if (QFile::copy(photoPath, newPath)) {
+            imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(500, 500)));
             imagePath = newPath.toStdString();
         }
         else {
             QMessageBox::critical(this,
                                   "Seleziona nuova immagine",
-                                  "Errore durante la modifica dell'immagine!\nVerificare che il file sia chiuso o provare a cambiare nome!",
+                                  "Errore durante la modifica dell'immagine!\nVerificare che il file sia accessibile dal programma!",
                                   QMessageBox::Ok,
                                   QMessageBox::NoButton,
                                   QMessageBox::NoButton);
@@ -182,7 +194,7 @@ void Insert::insert() {
                                      authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
                                      titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
                                      placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
-                                     dateEdit->date().toString().toStdString(),
+                                     dateEdit->date().toString("dd/MM/yyyy").toStdString(),
                                      imagePath,
                                      0,
                                      0,
@@ -203,7 +215,7 @@ void Insert::insert() {
                                    authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
                                    titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
                                    placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
-                                   dateEdit->date().toString().toStdString(),
+                                   dateEdit->date().toString("dd/MM/yyyy").toStdString(),
                                    imagePath,
                                    0,
                                    0,
@@ -226,7 +238,7 @@ void Insert::insert() {
                                authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
                                titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
                                placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
-                               dateEdit->date().toString().toStdString(),
+                               dateEdit->date().toString("dd/MM/yyyy").toStdString(),
                                imagePath,
                                0,
                                0,
@@ -247,7 +259,7 @@ void Insert::insert() {
                                   authorEdit->text().isEmpty() ? "Sconosciuto" : authorEdit->text().toStdString(),
                                   titleEdit->text().isEmpty() ? "Sconosciuto" : titleEdit->text().toStdString(),
                                   placeEdit->text().isEmpty() ? "Sconosciuto" : placeEdit->text().toStdString(),
-                                  dateEdit->date().toString().toStdString(),
+                                  dateEdit->date().toString("dd/MM/yyyy").toStdString(),
                                   imagePath,
                                   0,
                                   0,
@@ -278,6 +290,8 @@ Insert::Insert(QWidget * parent) :
     categoryEdit(new CategoryComboBox(this)),
     artTypeEdit(new ArtTypeComboBox(this)),
     literaryTypeEdit(new LiteraryTypeComboBox(this)),
+    artTypology(new QLabel("Tipologia:", this)),
+    literaryTypology(new QLabel("Tipologia:", this)),
     imagePath(":/Photos/photoNotAvailable.jpeg"),
     imageLabel(new QLabel(this)),
     sectorLabel(new QLabel("Settore:", this)),
@@ -290,6 +304,8 @@ Insert::Insert(QWidget * parent) :
     titleEdit(new QLineEdit("", this)),
     placeLabel(new QLabel("Luogo:", this)),
     placeEdit(new QLineEdit("", this)),
+    dateLabel(new QLabel("Data:", this)),
+    dateEdit(new QDateEdit(QDate(), this)),
     materialLabel(new QLabel("Materiale:", this)),
     materialEdit(new QLineEdit("", this)),
     techniqueLabel(new QLabel("Tecnica:", this)),
@@ -308,8 +324,6 @@ Insert::Insert(QWidget * parent) :
     objectEdit(new QLineEdit("", this)),
     addresseeLabel(new QLabel("Destinatario:", this)),
     addresseeEdit(new QLineEdit("", this)),
-    dateLabel(new QLabel("Data:", this)),
-    dateEdit(new QDateEdit(QDate::fromString("01/01/1970", "dd/MM/yyyy"), this)),
     proprietaryTrue(new QRadioButton("Privato/a", this)),
     stateTrue(new QRadioButton("Danneggiato/a", this)),
     availabilityTrue(new QRadioButton("Disponibile", this)),
@@ -332,31 +346,27 @@ Insert::Insert(QWidget * parent) :
 
     QVBoxLayout * mainForm = new QVBoxLayout(this);
 
-    QHBoxLayout * topForm = new QHBoxLayout();
     QHBoxLayout * middleForm = new QHBoxLayout();
     QHBoxLayout * bottomForm = new QHBoxLayout();
 
     QLabel * category = new QLabel("Categoria:", this);
-    QLabel * typology = new QLabel("Tipologia:", this);
-
-    topForm->addWidget(category);
-    topForm->addWidget(categoryEdit);
-    topForm->addWidget(typology);
-    topForm->addWidget(artTypeEdit);
-    topForm->addWidget(literaryTypeEdit);
 
     QVBoxLayout * imageForm = new QVBoxLayout();
-    imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)));
+    imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)).scaled(QSize(500, 500)));
     QPushButton * imageButton = new QPushButton("Modifica", this);
     imageForm->addWidget(imageLabel);
     imageForm->addWidget(imageButton);
 
     QFormLayout * dataForm = new QFormLayout();
 
+    dataForm->addRow(category, categoryEdit);
+    dataForm->addRow(artTypology, artTypeEdit);
+    dataForm->addRow(literaryTypology, literaryTypeEdit);
+
     sectorEdit->setValidator(new QIntValidator(1, 100, this));
     dataForm->addRow(sectorLabel, sectorEdit);
 
-    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2, this));
+    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000000.0, 2, this));
     dataForm->addRow(valueLabel, valueEdit);
 
     proprietaryEdit->addButton(proprietaryTrue, 1);
@@ -379,6 +389,12 @@ Insert::Insert(QWidget * parent) :
     dataForm->addRow(titleLabel, titleEdit);
 
     dataForm->addRow(placeLabel, placeEdit);
+
+    dateEdit->setMinimumDate(QDate(100, 1, 1));
+    dateEdit->setMaximumDate(QDate::currentDate());
+
+    dateEdit->setDisplayFormat("dd/MM/yyyy");
+    dateEdit->setDate(QDate(100, 1, 1));
 
     dataForm->addRow(dateLabel, dateEdit);
 
@@ -430,7 +446,6 @@ Insert::Insert(QWidget * parent) :
     bottomForm->addWidget(insertButton);
     bottomForm->addWidget(cancelButton);
 
-    mainForm->addLayout(topForm);
     mainForm->addLayout(middleForm);
     mainForm->addLayout(bottomForm);
 

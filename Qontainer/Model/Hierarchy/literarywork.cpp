@@ -87,11 +87,11 @@ std::string LiteraryWork::getMaterialType() const {
 
 std::string LiteraryWork::getInfo() const {
     std::string info("");
-    info += ("\nLingua: " + language);
-    info += ("\nTecnica: " + style);
-    info += ("\nScritto a mano: " + std::string(handwritten ? "Si" : "No"));
-    info += ("\nCompleto: " + std::string(complete ? "Si" : "No"));
     info += Material::getInfo();
+    info += ("\nCompleto: " + std::string(complete ? "Si" : "No"));
+    info += ("\nScritto a mano: " + std::string(handwritten ? "Si" : "No"));
+    info += ("\nLingua: " + language);
+    info += ("\nStile: " + style);
     return info;
 }
 

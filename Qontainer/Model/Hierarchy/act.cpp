@@ -69,8 +69,8 @@ std::string Act::getType() const {
 
 std::string Act::getInfo() const {
     std::string info("Atto:");
-    info += ("\nOggetto: " + object);
     info += LiteraryWork::getInfo();
+    info += ("\nOggetto: " + object);
     return info;
 }
 

@@ -20,10 +20,10 @@ QVariant ListModelAdapter::data(const QModelIndex & adapterIndex, int role) cons
         case Qt::DisplayRole:
             return QString::fromStdString((model->get(static_cast<unsigned int>(adapterIndex.row())))->getInfo());
         case Qt::DecorationRole:
-            return QPixmap(QString::fromStdString((model->get(static_cast<unsigned int>(adapterIndex.row())))->getPhoto())).scaledToHeight(200);
+            return QPixmap(QString::fromStdString((model->get(static_cast<unsigned int>(adapterIndex.row())))->getPhoto())).scaled(QSize(300, 300));
         case Qt::BackgroundRole:
-            if (adapterIndex.row() % 2)
-                return QBrush(QColor(230, 230, 230));
+            if (!(adapterIndex.row() % 2))
+                return QBrush(QColor(225, 225, 225));
             else
                 return QBrush(QColor(250, 250, 250));
         default:
@@ -66,7 +66,7 @@ void ListModelAdapter::showDisplay(const QModelIndex & adapterIndex) const {
 void ListModelAdapter::showModify(const QModelIndex & adapterIndex) const {
     if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
         Modifies * modifies = new Modifies(model->get(static_cast<unsigned int>(adapterIndex.row())), adapterIndex, adapterIndex);
-        connect(modifies, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)));
+        // connect(modifies, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)));
         modifies->setAttribute(Qt::WA_DeleteOnClose);
         modifies->show();
     }
@@ -74,9 +74,11 @@ void ListModelAdapter::showModify(const QModelIndex & adapterIndex) const {
 
 bool ListModelAdapter::findMatch(unsigned int index, const QRegExp & regularExpression, const QString & filter) const {
     if (filter == "Settore") {
-        bool result;
-        unsigned int sector = regularExpression.pattern().toUInt(&result);
-        return result && model->get(index)->getSector() == sector;
+        unsigned int sector = regularExpression.pattern().toUInt();
+        if (sector)
+            return model->get(index)->getSector() == sector;
+        else
+            return true;
     }
     else if (filter == "Autore")
         return QString::fromStdString(model->get(index)->getAuthor()).contains(regularExpression);

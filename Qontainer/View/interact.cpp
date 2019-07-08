@@ -38,14 +38,14 @@ void Interact::resetAll() const {
     searchEdit->setValidator(nullptr);
     searchEdit->setText("");
 
-    firstDate->setDate(QDate::fromString("01/01/1970", "dd/MM/yyyy"));
+    firstDate->setDate(QDate(100, 1, 1));
     lastDate->setDate(QDate::currentDate());
 
     firstFloat->setText("0.0");
-    lastFloat->setText("0.0");
+    lastFloat->setText("1000000000.0");
 
     firstInteger->setText("0");
-    lastInteger->setText("0");
+    lastInteger->setText("100");
 
     trueRadio->setChecked(true);
     falseRadio->setChecked(false);
@@ -55,26 +55,32 @@ void Interact::setBoolsLabels(const QString & filter) const {
     if (filter == "Proprieta") {
         trueRadio->setText("Privato/a");
         falseRadio->setText("Pubblico/a");
+        falseRadio->setCheckable(true);
     }
     else if (filter == "Stato") {
         trueRadio->setText("Danneggiato/a");
         falseRadio->setText("Integro/a");
+        falseRadio->setCheckable(true);
     }
     else if (filter == "Disponibilita") {
         trueRadio->setText("Disponibile");
         falseRadio->setText("Inservibile");
+        trueRadio->setCheckable(true);
     }
     else if (filter == "Testo") {
         trueRadio->setText("Completo/a");
         falseRadio->setText("Incompleto/a");
+        trueRadio->setCheckable(true);
     }
     else if (filter == "Scrittura") {
         trueRadio->setText("Manoscritto");
         falseRadio->setText("Dattiloscritto");
+        trueRadio->setCheckable(true);
     }
     else if (filter == "Formato") {
         trueRadio->setText("Fotografia");
         falseRadio->setText("Rappresentazione");
+        falseRadio->setCheckable(true);
     }
 }
 
@@ -88,13 +94,13 @@ void Interact::search(const QString & filter) {
 
         emit searchDates(firstDate->date(), lastDate->date());
     }
-    else if (filter == "Restauri" || filter == "Prestiti") {
+    else if (filter == "Valore Base" || filter == "Entrate" || filter == "Uscite") {
         setLabelsVisibility(true);
         setFloatsVisibility(true);
 
         emit searchFloats(firstFloat->text().toFloat(), lastFloat->text().toFloat());
     }
-    else if (filter == "Valore Base" || filter == "Entrate" || filter == "Uscite") {
+    else if (filter == "Restauri" || filter == "Prestiti") {
         setLabelsVisibility(true);
         setIntegersVisibility(true);
 
@@ -217,12 +223,12 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     searchEdit(new QLineEdit("", this)),
     first(new QLabel("Primo:", this)),
     last(new QLabel("Ultimo:", this)),
-    firstDate(new QDateEdit(QDate::fromString("01/01/1970", "dd/MM/yyyy"), this)),
-    lastDate(new QDateEdit(QDate::currentDate(), this)),
+    firstDate(new QDateEdit(QDate(), this)),
+    lastDate(new QDateEdit(QDate(), this)),
     firstFloat(new QLineEdit("0.0", this)),
-    lastFloat(new QLineEdit("0.0", this)),
-    firstInteger(new QLineEdit("0", this)),
-    lastInteger(new QLineEdit("0", this)),
+    lastFloat(new QLineEdit("1000000000.0", this)),
+    firstInteger(new QLineEdit("1", this)),
+    lastInteger(new QLineEdit("100", this)),
     trueRadio(new QRadioButton("", this)),
     falseRadio(new QRadioButton("", this))
 {
@@ -234,13 +240,25 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     firstInteger->setPlaceholderText("Minimo...");
     lastInteger->setPlaceholderText("Massimo...");
 
+    firstDate->setMinimumDate(QDate(100, 1, 1));
+    lastDate->setMinimumDate(QDate(100, 1, 1));
+
+    firstDate->setMaximumDate(QDate::currentDate());
+    lastDate->setMaximumDate(QDate::currentDate());
+
+    firstDate->setDisplayFormat("dd/MM/yyyy");
+    lastDate->setDisplayFormat("dd/MM/yyyy");
+
+    firstDate->setDate(QDate(100, 1, 1));
+    lastDate->setDate(QDate::currentDate());
+
     QButtonGroup * buttonGroup = new QButtonGroup(this);
     buttonGroup->addButton(trueRadio, 1);
     buttonGroup->addButton(falseRadio, 2);
 
     QVBoxLayout * mainForm = new QVBoxLayout(this);
 
-    QHBoxLayout * topForm = new QHBoxLayout();
+    QVBoxLayout * topForm = new QVBoxLayout();
     QHBoxLayout * middleForm = new QHBoxLayout();
 
     QVBoxLayout * listForm = new QVBoxLayout();
@@ -343,8 +361,8 @@ Interact::Interact(List * list, SearchComboBox * searchComboBox, QWidget * paren
     middleForm->addLayout(listForm);
     middleForm->addLayout(buttonsForm);
 
-    topForm->addLayout(searchForm);
     topForm->addLayout(search);
+    topForm->addLayout(searchForm);
 
     mainForm->addLayout(topForm);
     mainForm->addLayout(middleForm);

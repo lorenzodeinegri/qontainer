@@ -69,8 +69,8 @@ std::string Letter::getType() const {
 
 std::string Letter::getInfo() const {
     std::string info("Lettera:");
-    info += ("\nDestinatario: " + addressee);
     info += LiteraryWork::getInfo();
+    info += ("\nDestinatario: " + addressee);
     return info;
 }
 

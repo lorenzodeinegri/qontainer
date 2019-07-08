@@ -31,7 +31,7 @@ public:
                           const std::string & = "Sconosciuto",
                           const std::string & = "Sconosciuto",
                           const std::string & = "Sconosciuto",
-                          const date & = std::string("00/00/0000"),
+                          const date & = std::string("01/01/0100"),
                           const std::string & = ":/Photos/photoNotAvailable.jpeg",
                           unsigned int = 0,
                           unsigned int = 0,

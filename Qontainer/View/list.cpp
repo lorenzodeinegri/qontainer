@@ -5,7 +5,7 @@ List::List(QWidget * parent) : QListView(parent) {
 }
 
 QSize List::sizeHint() const {
-    return QSize(700, 700);
+    return QSize(500, 600);
 }
 
 void List::mousePressEvent(QMouseEvent * event) {

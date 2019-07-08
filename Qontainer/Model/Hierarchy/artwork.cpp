@@ -87,11 +87,11 @@ std::string ArtWork::getMaterialType() const {
 
 std::string ArtWork::getInfo() const {
     std::string info("");
-    info += ("\nSoggetto: " + subject);
+    info += Material::getInfo();
+    info += ("\nMateriale: " + material);
     info += ("\nTecnica: " + technique);
     info += ("\nMovimento artistico: " + art_movement);
-    info += ("\nMateriale: " + material);
-    info += Material::getInfo();
+    info += ("\nSoggetto: " + subject);
     return info;
 }
 

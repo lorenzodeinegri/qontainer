@@ -9,13 +9,13 @@ Details::Details(Material * material, QWidget * parent) : QWidget(parent) {
     QFormLayout * dataForm = new QFormLayout();
 
     QLabel * imageLabel = new QLabel(this);
-    imageLabel->setPixmap(QPixmap(QString::fromStdString(material->getPhoto())));
+    imageLabel->setPixmap(QPixmap(QString::fromStdString(material->getPhoto())).scaled(QSize(300, 300)));
 
     dataForm->addRow(new QLabel("Settore:", this),
                      new QLabel(QString::fromStdString(std::to_string(material->getSector())), this));
 
     dataForm->addRow(new QLabel("Valore base:", this),
-                     new QLabel(QString::fromStdString(std::to_string(material->getBaseValue())), this));
+                     new QLabel(QString::fromStdString(Material::float_to_string(material->getBaseValue())), this));
 
     dataForm->addRow(new QLabel("Privato/a:", this),
                      new QLabel(QString::fromStdString(material->isProprietary() ? "Si" : "No"), this));
@@ -45,10 +45,10 @@ Details::Details(Material * material, QWidget * parent) : QWidget(parent) {
                      new QLabel(QString::fromStdString(std::to_string(material->getLoans())), this));
 
     dataForm->addRow(new QLabel("Entrate:", this),
-                     new QLabel(QString::fromStdString(std::to_string(material->getIncome())), this));
+                     new QLabel(QString::fromStdString(Material::float_to_string(material->getIncome())), this));
 
     dataForm->addRow(new QLabel("Uscite:", this),
-                     new QLabel(QString::fromStdString(std::to_string(material->getExpense())), this));
+                     new QLabel(QString::fromStdString(Material::float_to_string(material->getExpense())), this));
 
     if (material->getMaterialType() == "Opera d'arte") {
         dataForm->addRow(new QLabel("Materiale:", this),
@@ -94,6 +94,8 @@ Details::Details(Material * material, QWidget * parent) : QWidget(parent) {
                              new QLabel(QString::fromStdString((static_cast<Letter *>(material))->getAddressee()), this));
         }
     }
+
+    dataForm->setAlignment(Qt::AlignCenter);
 
     mainForm->addWidget(imageLabel);
     mainForm->addLayout(dataForm);

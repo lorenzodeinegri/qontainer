@@ -1,22 +1,33 @@
 #include "modifies.h"
 
 void Modifies::changeImage() {
-    QString photoPath(QFileDialog::getOpenFileName(this, "Selezionare la nuova foto", ":/Photos", "Images (*.png *.jpg *.jpeg)"));
+    QString applicationDir = QCoreApplication::applicationDirPath();
+    QString photoPath(QFileDialog::getOpenFileName(this, "Selezionare la nuova foto", applicationDir + "/Photos", "Immagini (*.png *.jpg *.jpeg)"));
     if (!photoPath.isNull()) {
-        QString newPath(":/Photos/" + photoPath.section("/", -1, -1));
+        QDir photoDirectory(applicationDir+ "/Photos");
+        if (!photoDirectory.exists()) {
+            photoDirectory.mkdir(applicationDir + "/Photos");
+        }
 
-        QFile photo(photoPath);
-        if (photo.copy(newPath)) {
-            imageLabel->setPixmap(QPixmap(newPath));
+        QString newPath(applicationDir + "/Photos/" + photoPath.section("/", -1, -1));
+        unsigned int number = 1;
+        if (QFile::exists(newPath)) {
+            newPath = applicationDir + "/Photos/" + QString::fromStdString(std::to_string(number)) + photoPath.section("/", -1, -1);
+            ++number;
+        }
+
+        if (QFile::copy(photoPath, newPath)) {
+            imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(300, 300)));
             imagePath = newPath.toStdString();
         }
         else {
             QMessageBox::critical(this,
                                   "Seleziona nuova immagine",
-                                  "Errore durante la modifica dell'immagine!\nVerificare che il file sia chiuso o provare a cambiare nome!",
+                                  "Errore durante la modifica dell'immagine!\nVerificare che il file sia accessibile dal programma!",
                                   QMessageBox::Ok,
                                   QMessageBox::NoButton,
                                   QMessageBox::NoButton);
+
         }
     }
 }
@@ -65,7 +76,7 @@ void Modifies::save() const {
 
 void Modifies::cancel() {
     imagePath = ":/Photos/photoNotAvailable.jpeg";
-    imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)));
+    imageLabel->setPixmap(QPixmap(QString::fromStdString(imagePath)).scaled(QSize(300, 300)));
 
     sectorEdit->setText("0");
     valueEdit->setText("0.0");
@@ -75,7 +86,7 @@ void Modifies::cancel() {
     authorEdit->setText("Sconosciuto");
     titleEdit->setText("Sconosciuto");
     placeEdit->setText("Sconosciuto");
-    dateEdit->setDate(QDate::fromString("00/00/0000", "dd/MM/yyyy"));
+    dateEdit->setDate(QDate(100, 1, 1));
 
     if (material->getMaterialType() == "Opera d'arte") {
         materialEdit->setText("Sconosciuto");
@@ -113,10 +124,11 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     imagePath(material->getPhoto()),
     imageLabel(new QLabel(this)),
     sectorEdit(new QLineEdit(QString::fromStdString(std::to_string(material->getSector())), this)),
-    valueEdit(new QLineEdit(QString::fromStdString(std::to_string(material->getBaseValue())), this)),
+    valueEdit(new QLineEdit(QString::fromStdString(Material::float_to_string(material->getBaseValue())), this)),
     authorEdit(new QLineEdit(QString::fromStdString(material->getAuthor()), this)),
     titleEdit(new QLineEdit(QString::fromStdString(material->getTitle()), this)),
     placeEdit(new QLineEdit(QString::fromStdString(material->getPlace()), this)),
+    dateEdit(new QDateEdit(QDate(), this)),
     materialEdit(nullptr),
     techniqueEdit(nullptr),
     movementEdit(nullptr),
@@ -126,7 +138,6 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     shapeEdit(nullptr),
     objectEdit(nullptr),
     addresseeEdit(nullptr),
-    dateEdit(new QDateEdit(QDate::fromString(QString::fromStdString(material->getDate())), this)),
     proprietaryEdit(new QButtonGroup(this)),
     stateEdit(new QButtonGroup(this)),
     availabilityEdit(new QButtonGroup(this)),
@@ -144,7 +155,7 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
 
     QVBoxLayout * imageForm = new QVBoxLayout();
 
-    imageLabel->setPixmap(QPixmap(QString::fromStdString(material->getPhoto())));
+    imageLabel->setPixmap(QPixmap(QString::fromStdString(material->getPhoto())).scaled(QSize(300, 300)));
     QPushButton * imageButton = new QPushButton("Modifica", this);
 
     imageForm->addWidget(imageLabel);
@@ -155,7 +166,7 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
     sectorEdit->setValidator(new QIntValidator(1, 100, this));
     dataForm->addRow(new QLabel("Settore:", this), sectorEdit);
 
-    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000.0, 2, this));
+    valueEdit->setValidator(new QDoubleValidator(0.0, 1000000000.0, 2, this));
     dataForm->addRow(new QLabel("Valore base:", this), valueEdit);
 
     QRadioButton * trueProprietary = new QRadioButton("Privato/a", this);
@@ -188,6 +199,12 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
 
     dataForm->addRow(new QLabel("Luogo:", this), placeEdit);
 
+    dateEdit->setMinimumDate(QDate(100, 1, 1));
+    dateEdit->setMaximumDate(QDate::currentDate());
+
+    dateEdit->setDisplayFormat("dd/MM/yyyy");
+    dateEdit->setDate(QDate(material->getDate().getYear(), material->getDate().getMonth(), material->getDate().getDay()));
+
     dataForm->addRow(new QLabel("Data:", this), dateEdit);
 
     if (material->getMaterialType() == "Opera d'arte") {
@@ -208,6 +225,7 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
             dataForm->addRow(new QLabel("Forma:", this), shapeEdit);
         }
         else if (material->getType() == "Dipinto") {
+            formatEdit = new QButtonGroup(this);
             QRadioButton * truePhotography = new QRadioButton("Fotografia", this);
             QRadioButton * falsePhotography = new QRadioButton("Rappresentazione", this);
             static_cast<Picture *>(material)->isPhotography() ? truePhotography->setChecked(true) : falsePhotography->setChecked(true);
@@ -218,6 +236,7 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
         }
     }
     else if (material->getMaterialType() == "Opera letteraria") {
+        textEdit = new QButtonGroup(this);
         QRadioButton * trueComplete = new QRadioButton("Completo/a", this);
         QRadioButton * falseComplete = new QRadioButton("Incompleto/a", this);
         static_cast<LiteraryWork *>(material)->isComplete() ? trueComplete->setChecked(true) : falseComplete->setChecked(true);
@@ -226,6 +245,7 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
 
         dataForm->addRow(trueComplete, falseComplete);
 
+        formatEdit = new QButtonGroup(this);
         QRadioButton * trueHandwritten = new QRadioButton("Manoscritto", this);
         QRadioButton * falseHandwritten = new QRadioButton("Dattiloscritto", this);
         static_cast<LiteraryWork *>(material)->isComplete() ? trueHandwritten->setChecked(true) : falseHandwritten->setChecked(true);

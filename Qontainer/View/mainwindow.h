@@ -31,6 +31,7 @@ private:
     Interact * interact;
 
 
+    void setDirectories() const;
     void load();
 
 private slots:
@@ -67,6 +68,7 @@ protected:
 
 public:
     explicit MainWindow(QWidget * = nullptr);
+    virtual ~MainWindow() override = default;
 
     QSize sizeHint() const override;
 };

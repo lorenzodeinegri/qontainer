@@ -4,6 +4,8 @@
 #include "date.h"
 
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 class Material {
 private:
@@ -44,7 +46,7 @@ public:
                       const std::string & = "Sconosciuto",
                       const std::string & = "Sconosciuto",
                       const std::string & = "Sconosciuto",
-                      const date & = std::string("00/00/0000"),
+                      const date & = std::string("01/01/0100"),
                       const std::string & = ":/Photos/photoNotAvailable.jpeg",
                       unsigned int = 0,
                       unsigned int = 0,
@@ -70,7 +72,7 @@ public:
     void setAuthor(const std::string & = "Sconosciuto");
     void setTitle(const std::string & = "Sconosciuto");
     void setPlace(const std::string & = "Sconosciuto");
-    void setDate(const date & = std::string("00/00/0000"));
+    void setDate(const date & = std::string("01/01/0100"));
     void setPhoto(const std::string & = ":/Photos/photoNotAvailable.jpeg");
     void setSector(unsigned int = 0);
     void setProprietary(bool = true);
@@ -91,6 +93,8 @@ public:
     bool restore();
     bool lend();
     float calculateProfit();
+
+    static std::string float_to_string(float);
 };
 
 #endif // MATERIAL_H

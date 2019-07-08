@@ -1,11 +1,26 @@
 #include "mainwindow.h"
 
+void MainWindow::setDirectories() const {
+    QString applicationDir = QCoreApplication::applicationDirPath();
+    QDir photoDirectory(applicationDir + "/Photos");
+    if (!photoDirectory.exists()) {
+        photoDirectory.mkdir(applicationDir + "/Photos");
+    }
+
+    QDir dataDirectory(applicationDir + "/Data");
+    if (!dataDirectory.exists()) {
+        dataDirectory.mkdir(applicationDir + "/Data");
+    }
+}
+
 void MainWindow::load() {
-    QFile file(":/Data/data.xml");
+    QString path = QCoreApplication::applicationDirPath() + "/Data/data.xml";
+    QFile file(path);
     if (file.exists()) {
         try {
-            listModelAdapter->loadFile(":/Data/data.xml");
-            filePath = ":/Data/data.xml";
+            listModelAdapter->loadFile(path.toStdString());
+            filePath = path;
+            setWindowTitle("Museo - " + filePath);
         }
         catch (FileException exception) {
             QMessageBox::critical(this,
@@ -21,13 +36,14 @@ void MainWindow::load() {
 }
 
 void MainWindow::loadFile() {
-    QString file = QFileDialog::getOpenFileName(this, "Selezionare il file da caricare", ":/Data", "XML (*.xml);;All Files (*)");
+    QString file = QFileDialog::getOpenFileName(this, "Selezionare il file da caricare", QCoreApplication::applicationDirPath() + "/Data", "XML (*.xml) ;; Tutti i file (*)");
     if (!file.isEmpty()) {
         if (!file.contains(".xml"))
             file.append(".xml");
         try {
             listModelAdapter->loadFile(file.toStdString());
             filePath = file;
+            setWindowTitle("Museo - " + filePath);
         }
         catch (FileException exception) {
             QMessageBox::critical(this,
@@ -44,6 +60,8 @@ void MainWindow::saveFile() {
     if (!filePath.isEmpty()) {
         try {
             listModelAdapter->saveFile(filePath.toStdString());
+            // Secondo salvataggio per aggiornare la sessione recuperata all'avvio successivo
+            listModelAdapter->saveFile((QCoreApplication::applicationDirPath() + "/Data/data.xml").toStdString());
         } catch (FileException exception) {
             QMessageBox::critical(this,
                                   "Salvataggio file: " + filePath,
@@ -58,13 +76,14 @@ void MainWindow::saveFile() {
 }
 
 void MainWindow::saveFileName() {
-    QString file = QFileDialog::getSaveFileName(this, "Selezionare il file in cui salvare", ":/Data", "XML (*.xml)");
+    QString file = QFileDialog::getSaveFileName(this, "Selezionare il file in cui salvare", QCoreApplication::applicationDirPath() + "/Data", "XML (*.xml) ;; Tutti i file (*)");
     if (!file.isEmpty()) {
         if (!file.contains(".xml"))
             file.append(".xml");
         try {
             listModelAdapter->saveFile(file.toStdString());
             filePath = file;
+            setWindowTitle("Museo - " + filePath);
         }
         catch (FileException exception) {
             QMessageBox::critical(this,
@@ -367,6 +386,7 @@ MainWindow::MainWindow(QWidget * parent) :
     setWindowIcon(QIcon(":/Icons/icon.png"));
     setWindowTitle("Museo");
 
+    setDirectories();
     load();
 
     filterProxyModel->setSourceModel(listModelAdapter);

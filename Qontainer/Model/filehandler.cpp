@@ -70,25 +70,28 @@ Container<DeepPointer<Material>> FileHandler::read() const {
                             if (xmlReader.readNextStartElement() && xmlReader.name() == "forma")
                                 shape = xmlReader.readElementText().toStdString();
 
-                            container.push_back(DeepPointer<Material>(new Sculpture(sector,
-                                                                                    base_value,
-                                                                                    proprietary,
-                                                                                    damaged,
-                                                                                    available,
-                                                                                    shape,
-                                                                                    material,
-                                                                                    technique,
-                                                                                    art_movement,
-                                                                                    subject,
-                                                                                    author,
-                                                                                    title,
-                                                                                    realization_place,
-                                                                                    realization_date,
-                                                                                    photo,
-                                                                                    restorations,
-                                                                                    loans,
-                                                                                    income,
-                                                                                    expense)));
+                            Material * sculpture = new Sculpture(sector,
+                                                                 base_value,
+                                                                 proprietary,
+                                                                 damaged,
+                                                                 available,
+                                                                 shape,
+                                                                 material,
+                                                                 technique,
+                                                                 art_movement,
+                                                                 subject,
+                                                                 author,
+                                                                 title,
+                                                                 realization_place,
+                                                                 realization_date,
+                                                                 photo,
+                                                                 restorations,
+                                                                 loans,
+                                                                 income,
+                                                                 expense);
+
+                            container.push_back(DeepPointer<Material>(sculpture));
+                            delete sculpture;
                         }
                         else if (type == "Dipinto") {
                             bool photography = false;
@@ -96,25 +99,28 @@ Container<DeepPointer<Material>> FileHandler::read() const {
                             if (xmlReader.readNextStartElement() && xmlReader.name() == "fotografia")
                                 photography = xmlReader.readElementText().toStdString() == "Si" ? true : false;
 
-                            container.push_back(DeepPointer<Material>(new Picture(sector,
-                                                                                  base_value,
-                                                                                  proprietary,
-                                                                                  damaged,
-                                                                                  available,
-                                                                                  photography,
-                                                                                  material,
-                                                                                  technique,
-                                                                                  art_movement,
-                                                                                  subject,
-                                                                                  author,
-                                                                                  title,
-                                                                                  realization_place,
-                                                                                  realization_date,
-                                                                                  photo,
-                                                                                  restorations,
-                                                                                  loans,
-                                                                                  income,
-                                                                                  expense)));
+                            Material * picture = new Picture(sector,
+                                                             base_value,
+                                                             proprietary,
+                                                             damaged,
+                                                             available,
+                                                             photography,
+                                                             material,
+                                                             technique,
+                                                             art_movement,
+                                                             subject,
+                                                             author,
+                                                             title,
+                                                             realization_place,
+                                                             realization_date,
+                                                             photo,
+                                                             restorations,
+                                                             loans,
+                                                             income,
+                                                             expense);
+
+                            container.push_back(DeepPointer<Material>(picture));
+                            delete picture;
                         }
                     }
                     else if (material_type == "Opera letteraria") {
@@ -136,25 +142,28 @@ Container<DeepPointer<Material>> FileHandler::read() const {
                             if (xmlReader.readNextStartElement() && xmlReader.name() == "oggetto")
                                 object = xmlReader.readElementText().toStdString();
 
-                            container.push_back(DeepPointer<Material>(new Act(sector,
-                                                                              base_value,
-                                                                              proprietary,
-                                                                              damaged,
-                                                                              available,
-                                                                              object,
-                                                                              complete,
-                                                                              handwritten,
-                                                                              language,
-                                                                              style,
-                                                                              author,
-                                                                              title,
-                                                                              realization_place,
-                                                                              realization_date,
-                                                                              photo,
-                                                                              restorations,
-                                                                              loans,
-                                                                              income,
-                                                                              expense)));
+                            Material * act = new Act(sector,
+                                                     base_value,
+                                                     proprietary,
+                                                     damaged,
+                                                     available,
+                                                     object,
+                                                     complete,
+                                                     handwritten,
+                                                     language,
+                                                     style,
+                                                     author,
+                                                     title,
+                                                     realization_place,
+                                                     realization_date,
+                                                     photo,
+                                                     restorations,
+                                                     loans,
+                                                     income,
+                                                     expense);
+
+                            container.push_back(DeepPointer<Material>(act));
+                            delete act;
                         }
                         else if (type == "Lettera") {
                             std::string addressee = "Sconosciuto";
@@ -162,25 +171,28 @@ Container<DeepPointer<Material>> FileHandler::read() const {
                             if (xmlReader.readNextStartElement() && xmlReader.name() == "destinatario")
                                 addressee = xmlReader.readElementText().toStdString();
 
-                            container.push_back(DeepPointer<Material>(new Letter(sector,
-                                                                                 base_value,
-                                                                                 proprietary,
-                                                                                 damaged,
-                                                                                 available,
-                                                                                 addressee,
-                                                                                 complete,
-                                                                                 handwritten,
-                                                                                 language,
-                                                                                 style,
-                                                                                 author,
-                                                                                 title,
-                                                                                 realization_place,
-                                                                                 realization_date,
-                                                                                 photo,
-                                                                                 restorations,
-                                                                                 loans,
-                                                                                 income,
-                                                                                 expense)));
+                            Material * letter = new Letter(sector,
+                                                           base_value,
+                                                           proprietary,
+                                                           damaged,
+                                                           available,
+                                                           addressee,
+                                                           complete,
+                                                           handwritten,
+                                                           language,
+                                                           style,
+                                                           author,
+                                                           title,
+                                                           realization_place,
+                                                           realization_date,
+                                                           photo,
+                                                           restorations,
+                                                           loans,
+                                                           income,
+                                                           expense);
+
+                            container.push_back(DeepPointer<Material>(letter));
+                            delete letter;
                         }
                     }
                 }
@@ -221,7 +233,7 @@ void FileHandler::write(const Container<DeepPointer<Material>> & container) cons
             xmlWriter.writeCharacters(QString::fromStdString(std::to_string(c_it->operator->()->getSector())));
             xmlWriter.writeEndElement();
             xmlWriter.writeStartElement("valore");
-            xmlWriter.writeCharacters(QString::fromStdString(std::to_string(c_it->operator->()->getBaseValue())));
+            xmlWriter.writeCharacters(QString::fromStdString(Material::float_to_string(c_it->operator->()->getBaseValue())));
             xmlWriter.writeEndElement();
             xmlWriter.writeStartElement("privato");
             xmlWriter.writeCharacters(QString::fromStdString(c_it->operator->()->isProprietary() ? "Si" : "No"));
@@ -254,10 +266,10 @@ void FileHandler::write(const Container<DeepPointer<Material>> & container) cons
             xmlWriter.writeCharacters(QString::fromStdString(std::to_string(c_it->operator->()->getLoans())));
             xmlWriter.writeEndElement();
             xmlWriter.writeStartElement("entrate");
-            xmlWriter.writeCharacters(QString::fromStdString(std::to_string(c_it->operator->()->getIncome())));
+            xmlWriter.writeCharacters(QString::fromStdString(Material::float_to_string(c_it->operator->()->getIncome())));
             xmlWriter.writeEndElement();
             xmlWriter.writeStartElement("uscite");
-            xmlWriter.writeCharacters(QString::fromStdString(std::to_string(c_it->operator->()->getExpense())));
+            xmlWriter.writeCharacters(QString::fromStdString(Material::float_to_string(c_it->operator->()->getExpense())));
             xmlWriter.writeEndElement();
 
             if (c_it->operator*().getMaterialType() == "Opera d'arte") {

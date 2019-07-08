@@ -25,6 +25,7 @@
 #include <QVBoxLayout>
 #include <QMessageBox>
 #include <QFormLayout>
+#include <QCoreApplication>
 
 class Insert : public QWidget {
     Q_OBJECT
@@ -33,6 +34,9 @@ private:
     CategoryComboBox * categoryEdit;
     ArtTypeComboBox * artTypeEdit;
     LiteraryTypeComboBox * literaryTypeEdit;
+
+    QLabel * artTypology;
+    QLabel * literaryTypology;
 
     std::string imagePath;
 
@@ -48,6 +52,8 @@ private:
     QLineEdit * titleEdit;
     QLabel * placeLabel;
     QLineEdit * placeEdit;
+    QLabel * dateLabel;
+    QDateEdit * dateEdit;
     QLabel * materialLabel;
     QLineEdit * materialEdit;
     QLabel * techniqueLabel;
@@ -66,9 +72,6 @@ private:
     QLineEdit * objectEdit;
     QLabel * addresseeLabel;
     QLineEdit * addresseeEdit;
-
-    QLabel * dateLabel;
-    QDateEdit * dateEdit;
 
     QRadioButton * proprietaryTrue;
     QRadioButton * stateTrue;

@@ -69,8 +69,8 @@ std::string Picture::getType() const {
 
 std::string Picture::getInfo() const {
     std::string info("Dipinto:");
-    info += ("\nFotografia: " + std::string(photography ? "Si" : "No"));
     info += ArtWork::getInfo();
+    info += ("\nFotografia: " + std::string(photography ? "Si" : "No"));
     return info;
 }
 

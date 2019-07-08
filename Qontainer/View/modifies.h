@@ -24,6 +24,7 @@
 #include <QModelIndex>
 #include <QMessageBox>
 #include <QFormLayout>
+#include <QCoreApplication>
 
 class Modifies : public QWidget {
     Q_OBJECT
@@ -43,6 +44,7 @@ private:
     QLineEdit * authorEdit;
     QLineEdit * titleEdit;
     QLineEdit * placeEdit;
+    QDateEdit * dateEdit;
     QLineEdit * materialEdit;
     QLineEdit * techniqueEdit;
     QLineEdit * movementEdit;
@@ -52,8 +54,6 @@ private:
     QLineEdit * shapeEdit;
     QLineEdit * objectEdit;
     QLineEdit * addresseeEdit;
-
-    QDateEdit * dateEdit;
 
     QButtonGroup * proprietaryEdit;
     QButtonGroup * stateEdit;

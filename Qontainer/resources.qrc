@@ -2,6 +2,5 @@
     <qresource prefix="/">
         <file>Icons/icon.png</file>
         <file>Photos/photoNotAvailable.jpeg</file>
-        <file>Data/data.xml</file>
     </qresource>
 </RCC>

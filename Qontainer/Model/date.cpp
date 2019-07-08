@@ -1,10 +1,10 @@
 #include "date.h"
 
-date::date() : day(0), month(0), year(0) {}
+date::date() : day(1), month(1), year(100) {}
 
 date::date(unsigned int day, unsigned int month, unsigned int year) : day(day), month(month), year(year) {}
 
-date::date(const std::string & date) : day(1), month(1), year(0) {
+date::date(const std::string & date) : day(1), month(1), year(100) {
     try {
         day = std::stoul(date.substr(0, 2));
         month = std::stoul(date.substr(3, 2));

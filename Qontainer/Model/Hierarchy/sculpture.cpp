@@ -69,8 +69,8 @@ std::string Sculpture::getType() const {
 
 std::string Sculpture::getInfo() const {
     std::string info("Scultura:");
-    info += ("\nForma: " + shape);
     info += ArtWork::getInfo();
+    info += ("\nForma: " + shape);
     return info;
 }
 

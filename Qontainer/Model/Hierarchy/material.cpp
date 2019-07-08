@@ -158,19 +158,19 @@ void Material::setBaseValue(float base_value) {
 
 std::string Material::getInfo() const {
     std::string info("");
-    info += ("\nAutore: " + author);
-    info += ("\nTitolo: " + title);
-    info += ("\nData di realizzazione: " + std::string(realization_date));
-    info += ("\nLuogo di realizzazione: " + realization_place);
     info += ("\nSettore: " + std::to_string(sector));
-    info += ("\nDisponibile:" + std::string(available ? "Si" : "No"));
+    info += ("\nValore di base: " + float_to_string(base_value));
     info += ("\nPrivato: " + std::string(proprietary ? "Si" : "No"));
     info += ("\nDanneggiato: " + std::string(damaged ? "Si" : "No"));
+    info += ("\nDisponibile:" + std::string(available ? "Si" : "No"));
+    info += ("\nAutore: " + author);
+    info += ("\nTitolo: " + title);
+    info += ("\nLuogo di realizzazione: " + realization_place);
+    info += ("\nData di realizzazione: " + std::string(realization_date));
     info += ("\nRestaurazioni: " + std::to_string(restorations));
     info += ("\nPrestiti: " + std::to_string(loans));
-    info += ("\nValore di base: " + std::to_string(base_value));
-    info += ("\nRicavi: " + std::to_string(income));
-    info += ("\nSpese: " + std::to_string(expense));
+    info += ("\nRicavi: " + float_to_string(income));
+    info += ("\nSpese: " + float_to_string(expense));
     return info;
 }
 
@@ -202,4 +202,10 @@ bool Material::lend() {
 
 float Material::calculateProfit() {
     return income - expense;
+}
+
+std::string Material::float_to_string(float value) {
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(2) << value;
+    return stream.str();
 }
