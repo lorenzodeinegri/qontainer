@@ -377,7 +377,7 @@ void MainWindow::closeEvent(QCloseEvent * event) {
 
 MainWindow::MainWindow(QWidget * parent) :
     QWidget(parent),
-    filePath(":/Data/data.xml"),
+    filePath(QCoreApplication::applicationDirPath() + "/Data/data.xml"),
     searchComboBox(new SearchComboBox(this)),
     list(new List(this)),
     listModelAdapter(new ListModelAdapter(this)),

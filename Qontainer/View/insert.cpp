@@ -163,7 +163,7 @@ void Insert::changeImage() {
             }
 
             if (QFile::copy(photoPath, newPath)) {
-                imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(300, 300)));
+                imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(500, 500)));
                 imagePath = newPath.toStdString();
             }
             else {
@@ -177,7 +177,7 @@ void Insert::changeImage() {
             }
         }
         else {
-            imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(300, 300)));
+            imageLabel->setPixmap(QPixmap(newPath).scaled(QSize(500, 500)));
             imagePath = newPath.toStdString();
         }
     }

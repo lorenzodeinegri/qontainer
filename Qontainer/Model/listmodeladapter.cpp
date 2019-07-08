@@ -49,10 +49,9 @@ bool ListModelAdapter::removeRows(int begin, int count, const QModelIndex & pare
 }
 
 void ListModelAdapter::setNextInsert(Material * material) {
-    if (material) {
-        nextInsert = material;
+    nextInsert = material;
+    if (material)
         delete material;
-    }
 }
 
 void ListModelAdapter::showDisplay(const QModelIndex & adapterIndex) const {
@@ -66,7 +65,7 @@ void ListModelAdapter::showDisplay(const QModelIndex & adapterIndex) const {
 void ListModelAdapter::showModify(const QModelIndex & adapterIndex) const {
     if (adapterIndex.isValid() && adapterIndex.row() < rowCount()) {
         Modifies * modifies = new Modifies(model->get(static_cast<unsigned int>(adapterIndex.row())), adapterIndex, adapterIndex);
-        // connect(modifies, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)));
+        connect(modifies, SIGNAL(dataChanged(QModelIndex, QModelIndex)), this, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)));
         modifies->setAttribute(Qt::WA_DeleteOnClose);
         modifies->show();
     }
