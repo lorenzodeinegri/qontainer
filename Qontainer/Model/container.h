@@ -193,7 +193,7 @@ typename Container<T>::iterator Container<T>::iterator::operator -(int positions
 
 template<class T>
 int Container<T>::iterator::operator -(const const_iterator & c_it) const {
-    return pointer - c_it.pointer;
+    return static_cast<int>(pointer - c_it.pointer);
 }
 
 template <class T>
@@ -298,7 +298,7 @@ typename Container<T>::const_iterator Container<T>::const_iterator::operator -(i
 
 template <class T>
 int Container<T>::const_iterator::operator -(const const_iterator & c_it) const {
-    return pointer - c_it.pointer;
+    return static_cast<int>(pointer - c_it.pointer);
 }
 
 template <class T>
@@ -530,7 +530,7 @@ typename Container<T>::iterator Container<T>::erase(iterator first_it, iterator 
         return erase(first_it, end());
     iterator it(nullptr);
     if (vector_size) {
-        unsigned int erased_elements = first_it - last_it;
+        unsigned int erased_elements = static_cast<unsigned int>(last_it - first_it);
         it = first_it;
         while (last_it != end()) {
             *first_it = *last_it;
