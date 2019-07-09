@@ -252,12 +252,12 @@ Modifies::Modifies(Material * material, const QModelIndex & begin, const QModelI
 
         dataForm->addRow(trueComplete, falseComplete);
 
-        formatEdit = new QButtonGroup(this);
+        writingEdit = new QButtonGroup(this);
         QRadioButton * trueHandwritten = new QRadioButton("Manoscritto", this);
         QRadioButton * falseHandwritten = new QRadioButton("Dattiloscritto", this);
         static_cast<LiteraryWork *>(material)->isComplete() ? trueHandwritten->setChecked(true) : falseHandwritten->setChecked(true);
-        formatEdit->addButton(trueHandwritten, 1);
-        formatEdit->addButton(falseHandwritten, 2);
+        writingEdit->addButton(trueHandwritten, 1);
+        writingEdit->addButton(falseHandwritten, 2);
 
         dataForm->addRow(trueHandwritten, falseHandwritten);
 
